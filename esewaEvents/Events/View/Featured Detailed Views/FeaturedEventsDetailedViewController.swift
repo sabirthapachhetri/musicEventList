@@ -1,10 +1,3 @@
-//
-//  FeaturedEventsDetailedViewController.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/26/23.
-//
-
 //import UIKit
 //import Kingfisher
 //
@@ -99,15 +92,22 @@
 import UIKit
 
 class FeaturedEventsDetailedViewController: UIViewController {
-
+    
     let tableView = UITableView()
-
+    var eventData: EmbeddedEvents?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
-
+        tableView.layer.cornerRadius = 20
+        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         // Image View
+//        let coverImageView = UIImageView()
+//        if let url = URL(string: eventData?.images?.first?.url ?? "") {
+//            coverImageView.kf.setImage(with: url)
+//        }
         let coverImageView = UIImageView(image: UIImage(named: "ball"))
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -122,6 +122,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
             coverImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             coverImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coverImageView.heightAnchor.constraint(equalToConstant: 200),
+
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
@@ -134,7 +135,6 @@ class FeaturedEventsDetailedViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.contentInset = UIEdgeInsets(top: 100, left: 0, bottom: 0, right: 0)
 
         tableView.register(HeaderTableViewCell.self, forCellReuseIdentifier: HeaderTableViewCell.reuseIdentifier)
     }
@@ -153,7 +153,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return "kyffkkf"
+            return ""
         default:
             return ""
         }
@@ -163,12 +163,25 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: HeaderTableViewCell.reuseIdentifier, for: indexPath) as! HeaderTableViewCell
-            cell.backgroundColor = UIColor.green
+            
+            if let eventData = eventData {
+                cell.setupViewWithData(model: eventData)
+            }
+            
             return cell
         default:
             let cell = UITableViewCell()
             cell.backgroundColor = UIColor.green
             return cell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 200
+        default:
+            return 44
         }
     }
 }

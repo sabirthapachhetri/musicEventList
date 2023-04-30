@@ -124,11 +124,11 @@ extension SecondPageViewController: UITableViewDataSource {
             if let model = eventsData?.embedded?.events {
                 cell.setupViewWithData(model: model)
             }
-//            cell.itemClicked = { item in
-//                let vc = FeaturedEventsDetailedViewController()
-//                vc.eventData = item
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }
+            cell.itemClicked = { item in
+                let vc = FeaturedEventsDetailedViewController()
+                vc.eventData = item
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             cell.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
             return cell
             

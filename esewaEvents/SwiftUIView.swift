@@ -2,54 +2,16 @@ import SwiftUI
 
 struct SwiftUIView: View {
     var body: some View {
-        VStack(spacing: 15) {
-                Image("ludovico")
-                    .resizable()
-                    .frame(height: 300)
-                Spacer()
-                Text("The Truth About Expo Reality 2079")
-                    .font(.title)
-                    .fontWeight(.bold)
-            
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text("Booking Date")
-                        .fontWeight(.bold)
-                        .font(.title2)
-                        .foregroundColor(Color.gray)
-                    
-                    Text("6 Apr - 20 Apr 2023")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.green)
-                }
-                
-                HStack {
-                    Text("Event - ")
-                        .fontWeight(.bold)
-                        .font(.title2)
-                        .foregroundColor(Color.gray)
-                    
-                    Text("22 Apr 2023")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.black)
-                }
-                
-                HStack {
-                    Text("Location - ")
-                        .fontWeight(.bold)
-                        .font(.title2)
-                        .foregroundColor(Color.gray)
-                    
-                    Text("Kathmandu, Nepal")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.black)
-                }
-            }
-            .padding(.bottom, 300)
-            .padding(.leading)
-        }
-            .edgesIgnoringSafeArea(.top)
-    }
+        ZStack {
+             Circle()
+                 .fill(Color.green)
+                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                 .frame(width: 100, height: 100)
+             Image(systemName: "heart.fill")
+                 .foregroundColor(.white)
+                 .font(.system(size: 50))
+         }
+     }
 }
 
 struct SwiftUIView_Previews: PreviewProvider {
