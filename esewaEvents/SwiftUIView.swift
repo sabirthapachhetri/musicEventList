@@ -3,13 +3,13 @@ import SwiftUI
 struct SwiftUIView: View {
     var body: some View {
         ZStack {
-             Circle()
+             Rectangle()
                  .fill(Color.green)
-                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                 .frame(width: 100, height: 100)
-             Image(systemName: "heart.fill")
+                 .frame(width: 110, height: 50)
+                 .cornerRadius(80)
+             Text("TRADE")
                  .foregroundColor(.white)
-                 .font(.system(size: 50))
+                 .font(.system(size: 20))
          }
      }
 }

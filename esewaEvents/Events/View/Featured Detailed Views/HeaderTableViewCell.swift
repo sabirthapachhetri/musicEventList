@@ -12,8 +12,8 @@ class HeaderTableViewCell: UITableViewCell {
     var bookingDateValueLabel = UILabel()
     var eventLabel = UILabel()
     var locationLabel = UILabel()
-    var circleView = UIView()
-    var heartImageView = UIImageView()
+    var tradeView = UIView()
+    var tradeLabel = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,7 +28,7 @@ class HeaderTableViewCell: UITableViewCell {
 
             // Title Label
             titleLabel = UILabel()
-            titleLabel.text = eventData?.name ?? "West Conf Semis Game 4"
+            titleLabel.text = eventData?.name ?? "West Conf Semis Game 4 "
 //            titleLabel.textColor = .green
             titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
             titleLabel.textAlignment = .left
@@ -59,35 +59,47 @@ class HeaderTableViewCell: UITableViewCell {
             locationLabel.text = "Location - Kathmandu, Nepal"
             locationLabel.font = UIFont.boldSystemFont(ofSize: 10)
             locationLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            circleView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-            circleView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
-            circleView.layer.cornerRadius = 50
-            circleView.layer.borderWidth = 2
-            circleView.layer.borderColor = UIColor.white.cgColor
 
-            heartImageView = UIImageView(frame: CGRect(x: 25, y: 25, width: 50, height: 50))
-            heartImageView.image = UIImage(systemName: "heart.fill")
-            heartImageView.tintColor = .white
-            heartImageView.contentMode = .scaleAspectFit
+            tradeView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+            tradeView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+            tradeView.layer.cornerRadius = 15
+            tradeView.clipsToBounds = true
+            tradeView.translatesAutoresizingMaskIntoConstraints = false
+
+            tradeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
+            tradeLabel.text = "TRADE"
+            tradeLabel.textColor = .white
+            tradeLabel.font = UIFont.systemFont(ofSize: 14)
+            tradeLabel.textAlignment = .center
+
             
             // Add Subviews
+            contentView.addSubview(tradeView)
+            tradeView.addSubview(tradeLabel)
             contentView.addSubview(titleLabel)
             contentView.addSubview(bookingDateLabel)
             contentView.addSubview(bookingDateValueLabel)
             contentView.addSubview(eventLabel)
             contentView.addSubview(locationLabel)
-            contentView.addSubview(circleView)
-            circleView.addSubview(heartImageView)
-
+      
             // Set Constraints
             NSLayoutConstraint.activate([
-
+                
+                // Trade View Constraints
+                tradeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+                tradeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+                tradeView.widthAnchor.constraint(equalToConstant: 80),
+                tradeView.heightAnchor.constraint(equalToConstant: 30),
+                    
+                // Trade Label Constraints
+                tradeLabel.centerXAnchor.constraint(equalTo: tradeView.centerXAnchor),
+                tradeLabel.centerYAnchor.constraint(equalTo: tradeView.centerYAnchor),
+                    
                 // Title Label Constraints
-                titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+                titleLabel.topAnchor.constraint(equalTo: tradeView.bottomAnchor, constant: 10),
                 titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 70),
-
+                titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
+                
                 // Booking Date Label Constraints
                 bookingDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
                 bookingDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
@@ -102,19 +114,7 @@ class HeaderTableViewCell: UITableViewCell {
 
                 // Location Label Constraints
                 locationLabel.topAnchor.constraint(equalTo: eventLabel.bottomAnchor, constant: 10),
-                locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-                
-                // Circle View Constraints
-                circleView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-                circleView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-                circleView.widthAnchor.constraint(equalToConstant: 100),
-                circleView.heightAnchor.constraint(equalToConstant: 100),
-
-                // Heart Image View Constraints
-                heartImageView.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
-                heartImageView.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
-                heartImageView.widthAnchor.constraint(equalToConstant: 50),
-                heartImageView.heightAnchor.constraint(equalToConstant: 50)
+                locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
             ])
         }
     

@@ -111,11 +111,25 @@ class FeaturedEventsDetailedViewController: UIViewController {
         let coverImageView = UIImageView(image: UIImage(named: "ball"))
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let circleView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        circleView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        circleView.layer.cornerRadius = 25
+        circleView.layer.borderWidth = 1
+        circleView.layer.borderColor = UIColor.white.cgColor
+        circleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let heartImageView = UIImageView(frame: CGRect(x: 12.5, y: 12.5, width: 25, height: 25))
+        heartImageView.image = UIImage(systemName: "heart.fill")
+        heartImageView.tintColor = .white
+        heartImageView.contentMode = .scaleAspectFit
 
         // Add Subviews
         view.addSubview(coverImageView)
         view.addSubview(tableView)
-
+        view.addSubview(circleView)
+        circleView.addSubview(heartImageView)
+        
         // Set Constraints
         NSLayoutConstraint.activate([
             coverImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
@@ -126,7 +140,12 @@ class FeaturedEventsDetailedViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            
+            circleView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -8),
+            circleView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 4),
+            circleView.widthAnchor.constraint(equalToConstant: 50),
+            circleView.heightAnchor.constraint(equalToConstant: 50),
         ])
 
         // Set table view properties
