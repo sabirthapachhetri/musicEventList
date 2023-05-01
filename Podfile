@@ -9,4 +9,5 @@ use_frameworks!
 pod 'Alamofire', '~> 5.0'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher', '~> 7.0'
+pod 'MBCircularProgressBar', '~> 0.3'
 end

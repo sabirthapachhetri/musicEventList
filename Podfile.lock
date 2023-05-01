@@ -1,24 +1,28 @@
 PODS:
   - Alamofire (5.6.4)
   - Kingfisher (7.6.2)
+  - MBCircularProgressBar (0.3.5)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
   - Kingfisher (~> 7.0)
+  - MBCircularProgressBar (~> 0.3)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Kingfisher
+    - MBCircularProgressBar
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 5da6a857ffb33d8adfecf120075b2f0cff9864f3
+PODFILE CHECKSUM: 64cd9790f1fb2c0a45e6bd7522657df1fb0c2151
 
 COCOAPODS: 1.12.1

@@ -1,4 +1,5 @@
 import UIKit
+import MBCircularProgressBar
 
 class HeaderTableViewCell: UITableViewCell {
     
@@ -117,7 +118,6 @@ class HeaderTableViewCell: UITableViewCell {
                 locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
             ])
         }
-    
     // create the setup func
     func setupViewWithData(model: EmbeddedEvents) {
         
@@ -126,4 +126,4 @@ class HeaderTableViewCell: UITableViewCell {
 //        locationLabel.text = model.embedded?.venues?.first?.name
 //        priceLabel.text = String("$\(model.priceRanges?.first?.min ?? 0.0)")
     }
-    }
+}
