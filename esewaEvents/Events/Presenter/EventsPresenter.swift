@@ -49,4 +49,15 @@ class EventsPresenter {
             }
         }
     }
+    
+//    
+//    func login(password: String, onSuccess: @escaping (String)->(), onError: @escaping (String)->()) {
+//        switch password {
+//        case "1234":
+//            onSuccess("Login SucessFul")
+//        default:
+//            onError("Login failed!")
+//        }
+//    }
+    
 }

@@ -18,7 +18,11 @@ class SecondPageViewController: UIViewController, EventViewDelegate, UpcomingEve
         addSearchBar()
         presenter = EventsPresenter(delegate: self)
         presenter?.fetch()
-        
+//        presenter?.login(password: "1234", onSuccess: { succesMessage in
+//            print(succesMessage)
+//        }, onError: { errorMessage in
+//            print(errorMessage)
+//        })
         // Initialize presenter with model and view
         upcomingEventsPresenter = UpcomingEventsPresenter(view: self, delegate: self)
         upcomingEventsPresenter?.updateView()
@@ -144,8 +148,8 @@ extension SecondPageViewController: UITableViewDataSource {
     }
 }
     
-    extension SecondPageViewController: UITableViewDelegate {
-        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        }
+extension SecondPageViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
+}

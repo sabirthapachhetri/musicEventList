@@ -102,7 +102,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         tableView.layer.cornerRadius = 20
         tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
+
         // Image View
 //        let coverImageView = UIImageView()
 //        if let url = URL(string: eventData?.images?.first?.url ?? "") {
@@ -187,6 +187,11 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
                 cell.setupViewWithData(model: eventData)
             }
             
+            // Add a divider to the bottom of the cell
+            let separator = UIView(frame: CGRect(x: 16, y: cell.contentView.frame.size.height - 1, width: cell.contentView.frame.size.width - 40, height: 0.2))
+            separator.backgroundColor = UIColor.systemGray
+            cell.contentView.addSubview(separator)
+
             return cell
         default:
             let cell = UITableViewCell()
@@ -198,7 +203,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 200
+            return 310
         default:
             return 44
         }

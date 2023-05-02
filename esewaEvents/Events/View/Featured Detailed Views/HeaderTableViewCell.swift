@@ -7,7 +7,6 @@ class HeaderTableViewCell: UITableViewCell {
     static let reuseIdentifier = "HeaderTableViewCell"
     
     var eventData: EmbeddedEvents?
-
     var titleLabel = UILabel()
     var bookingDateLabel = UILabel()
     var bookingDateValueLabel = UILabel()
@@ -15,7 +14,16 @@ class HeaderTableViewCell: UITableViewCell {
     var locationLabel = UILabel()
     var tradeView = UIView()
     var tradeLabel = UILabel()
-
+    
+    // Create a container view for the progress bars
+    var progressBarContainer = UIView()
+    var bookingClosesLabel = UILabel()
+    
+    var daysCircularProgressBar = CircularProgressBarView(maxValue: 7, value: 2, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Days")
+    var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 10, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Hrs")
+    var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 43, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Min")
+    var secondCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 55, progressColor: UIColor(.red), unitString: " Sec")
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -26,7 +34,7 @@ class HeaderTableViewCell: UITableViewCell {
     }
 
         private func setupViews() {
-
+            self.selectionStyle = .none
             // Title Label
             titleLabel = UILabel()
             titleLabel.text = eventData?.name ?? "West Conf Semis Game 4 "
@@ -72,7 +80,32 @@ class HeaderTableViewCell: UITableViewCell {
             tradeLabel.textColor = .white
             tradeLabel.font = UIFont.systemFont(ofSize: 14)
             tradeLabel.textAlignment = .center
-
+            
+            progressBarContainer.translatesAutoresizingMaskIntoConstraints = false
+            
+            daysCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
+            hoursCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
+            minutesCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
+            secondCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
+            
+            // Add the progress bars to the container view
+            progressBarContainer.addSubview(daysCircularProgressBar)
+            progressBarContainer.addSubview(hoursCircularProgressBar)
+            progressBarContainer.addSubview(minutesCircularProgressBar)
+            progressBarContainer.addSubview(secondCircularProgressBar)
+            
+            // Add a border to the container view
+            progressBarContainer.layer.borderWidth = 0.1
+            progressBarContainer.layer.borderColor = UIColor.systemGray.cgColor
+            progressBarContainer.layer.cornerRadius = 15
+            
+            bookingClosesLabel = UILabel()
+            bookingClosesLabel.text = "Booking closes in"
+            bookingClosesLabel.textAlignment = .center
+            bookingClosesLabel.font = UIFont.systemFont(ofSize: 12)
+            bookingClosesLabel.textColor = .systemGray
+            bookingClosesLabel.translatesAutoresizingMaskIntoConstraints = false
+            progressBarContainer.addSubview(bookingClosesLabel)
             
             // Add Subviews
             contentView.addSubview(tradeView)
@@ -82,7 +115,8 @@ class HeaderTableViewCell: UITableViewCell {
             contentView.addSubview(bookingDateValueLabel)
             contentView.addSubview(eventLabel)
             contentView.addSubview(locationLabel)
-      
+            contentView.addSubview(progressBarContainer)
+            
             // Set Constraints
             NSLayoutConstraint.activate([
                 
@@ -115,9 +149,41 @@ class HeaderTableViewCell: UITableViewCell {
 
                 // Location Label Constraints
                 locationLabel.topAnchor.constraint(equalTo: eventLabel.bottomAnchor, constant: 10),
-                locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15)
+                locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+                
+                progressBarContainer.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
+                progressBarContainer.leadingAnchor.constraint(equalTo: locationLabel.leadingAnchor),
+                progressBarContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+                progressBarContainer.heightAnchor.constraint(equalToConstant: 100),
+                progressBarContainer.widthAnchor.constraint(equalToConstant: 240),
+                
+                bookingClosesLabel.topAnchor.constraint(equalTo: progressBarContainer.topAnchor, constant: 10),
+                bookingClosesLabel.leadingAnchor.constraint(equalTo: progressBarContainer.leadingAnchor),
+                bookingClosesLabel.trailingAnchor.constraint(equalTo: progressBarContainer.trailingAnchor),
+
+                daysCircularProgressBar.widthAnchor.constraint(equalToConstant: 60),
+                daysCircularProgressBar.heightAnchor.constraint(equalToConstant: 60),
+                daysCircularProgressBar.leadingAnchor.constraint(equalTo: bookingClosesLabel.leadingAnchor, constant: 20),
+                daysCircularProgressBar.centerYAnchor.constraint(equalTo: progressBarContainer.centerYAnchor, constant: 10),
+
+                hoursCircularProgressBar.widthAnchor.constraint(equalToConstant: 60),
+                hoursCircularProgressBar.heightAnchor.constraint(equalToConstant: 60),
+                hoursCircularProgressBar.leadingAnchor.constraint(equalTo: daysCircularProgressBar.trailingAnchor, constant: 20),
+                hoursCircularProgressBar.centerYAnchor.constraint(equalTo: progressBarContainer.centerYAnchor, constant: 10),
+
+                minutesCircularProgressBar.widthAnchor.constraint(equalToConstant: 60),
+                minutesCircularProgressBar.heightAnchor.constraint(equalToConstant: 60),
+                minutesCircularProgressBar.leadingAnchor.constraint(equalTo: hoursCircularProgressBar.trailingAnchor, constant: 20),
+                minutesCircularProgressBar.centerYAnchor.constraint(equalTo: progressBarContainer.centerYAnchor, constant: 10),
+
+                secondCircularProgressBar.widthAnchor.constraint(equalToConstant: 60),
+                secondCircularProgressBar.heightAnchor.constraint(equalToConstant: 60),
+                secondCircularProgressBar.leadingAnchor.constraint(equalTo: minutesCircularProgressBar.trailingAnchor, constant: 20),
+                secondCircularProgressBar.centerYAnchor.constraint(equalTo: progressBarContainer.centerYAnchor, constant: 10)
+
             ])
         }
+    
     // create the setup func
     func setupViewWithData(model: EmbeddedEvents) {
         
