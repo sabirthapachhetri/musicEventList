@@ -7,18 +7,18 @@
 
 import UIKit
 
-class TicketSelectView: UITableViewCell {
+class TicketSelectTableViewCell: UITableViewCell {
+     
+    private let cellReuseIdentifier = "TicketSelectTableViewCell"
+    static let reuseIdentifier = "TicketSelectTableViewCell"
     
-    private let cellReuseIdentifier = "TicketSelectView"
-    static let reuseIdentifier = "TicketSelectView"
-    
-    private let nameLabel: UILabel = {
+     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         return label
     }()
     
-    private let priceLabel: UILabel = {
+     let priceLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
@@ -63,6 +63,10 @@ class TicketSelectView: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
+        
+//        contentView.layer.borderWidth = 1
+//        contentView.layer.borderColor = CGColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         decrementButton.translatesAutoresizingMaskIntoConstraints = false
@@ -75,34 +79,31 @@ class TicketSelectView: UITableViewCell {
         contentView.addSubview(decrementButton)
         contentView.addSubview(quantityLabel)
         contentView.addSubview(incrementButton)
-
+        
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            
-            priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -15),
-            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 50),
-            
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            nameLabel.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: 0),
+
+            priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
+            priceLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+
             decrementButton.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 16),
             decrementButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
+
             quantityLabel.leadingAnchor.constraint(equalTo: decrementButton.trailingAnchor, constant: 16),
             quantityLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
+
             incrementButton.leadingAnchor.constraint(equalTo: quantityLabel.trailingAnchor, constant: 16),
             incrementButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             incrementButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
+
             decrementButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             decrementButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-//            quantityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-//            quantityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+
             quantityLabel.widthAnchor.constraint(equalToConstant: 50),
             quantityLabel.heightAnchor.constraint(equalToConstant: 40)
         ])
-
 
         decrementButton.addTarget(self, action: #selector(decrementButtonTapped), for: .touchUpInside)
         incrementButton.addTarget(self, action: #selector(incrementButtonTapped), for: .touchUpInside)

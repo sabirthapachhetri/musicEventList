@@ -1,70 +1,36 @@
 import SwiftUI
 
 struct SwiftUIView: View {
-    
-    @State var quantity = 0
-    
+    @State private var contactName = ""
+    @State private var contactNumber = ""
+    @State private var emailAddress = ""
+    @State var isAttendee = false
+
     var body: some View {
-        VStack {
-                    // Title cell
-                    HStack {
-                        Text("Phase Fest")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                        Text("(Rs. 999 - Rs. 8,999)")
-                            .font(.headline)
-                            .foregroundColor(.green)
-                        Spacer()
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 16)
-                    .background(Color.gray)
-                    
-                    // Item cell
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Silver")
-                                .font(.headline)
-                            Text("Rs. 999")
-                                .foregroundColor(.green)
-                                .font(.headline)
-                        }
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            if quantity > 0 {
-                                quantity -= 1
-                            }
-                        }) {
-                            Text("-")
-                                .foregroundColor(.green)
-                        }
-                        
-                        Text("\(quantity)")
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
-                            .background(Color.gray)
-                        
-                        Button(action: {
-                            quantity += 1
-                        }) {
-                            Text("+")
-                                .foregroundColor(.green)
-                        }
-                    }
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 16)
-                    .background(Color.white)
+        Form {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Contact Details")
+                .font(.title)
+            Text("Event team will contact you at this mobile number in case of any changes.")
+                .foregroundColor(.gray)
+                .font(.subheadline)
+            Toggle("I am the attendee in an event.", isOn: $isAttendee)
+
+                Section(header: Text("Contact Name *")) {
+                    TextField("Enter Contact Name", text: $contactName)
+                        .foregroundColor(.gray)
                 }
-                .background(Color.gray.opacity(0.1))
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .padding()
-     }
+                Section(header: Text("Contact Number *")) {
+                    TextField("Enter Contact No", text: $contactNumber)
+                        .foregroundColor(.gray)
+                }
+                Section(header: Text("Email Address")) {
+                    TextField("Enter Email Address", text: $emailAddress)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+    }
 }
 
 struct SwiftUIView_Previews: PreviewProvider {

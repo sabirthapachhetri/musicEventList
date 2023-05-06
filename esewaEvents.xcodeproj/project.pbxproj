@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C07101B2A00F3D6007AB89E /* TicketSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07101A2A00F3D6007AB89E /* TicketSelectView.swift */; };
-		5C07101D2A010E12007AB89E /* TicketSelectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07101C2A010E12007AB89E /* TicketSelectTableViewController.swift */; };
+		5C07101B2A00F3D6007AB89E /* TicketSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C07101A2A00F3D6007AB89E /* TicketSelectTableViewCell.swift */; };
 		5C078D1A29EBD987006F04EE /* EventsBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C078D1929EBD987006F04EE /* EventsBG.swift */; };
 		5C082CDF29FE27C400830310 /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C082CDE29FE27C400830310 /* HeaderTableViewCell.swift */; };
 		5C1928DD29FFD8B80081877F /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1928DC29FFD8B80081877F /* CircularProgressBarView.swift */; };
@@ -16,6 +15,9 @@
 		5C32135A29ED4BEE00413604 /* AdBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C32135929ED4BEE00413604 /* AdBannerTableViewCell.swift */; };
 		5C3A19D729F9112600341F12 /* FeaturedEventsDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3A19D629F9112600341F12 /* FeaturedEventsDetailedViewController.swift */; };
 		5C6095E929EFB037000CA4ED /* FeaturedEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6095E829EFB037000CA4ED /* FeaturedEventsTableViewCell.swift */; };
+		5C6500B02A03A12800779062 /* TicketSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6500AF2A03A12800779062 /* TicketSectionHeaderView.swift */; };
+		5C6500B22A03B68000779062 /* AddCartItelListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6500B12A03B68000779062 /* AddCartItelListVC.swift */; };
+		5C6500B42A06058200779062 /* ContactDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6500B32A06058200779062 /* ContactDetailsView.swift */; };
 		5C6C290E29E524B700441705 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C290D29E524B700441705 /* AppDelegate.swift */; };
 		5C6C291029E524B700441705 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C290F29E524B700441705 /* SceneDelegate.swift */; };
 		5C6C291229E524B700441705 /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C291129E524B700441705 /* FirstScreen.swift */; };
@@ -45,8 +47,7 @@
 
 /* Begin PBXFileReference section */
 		1A420D11FCB5DECE83F4812E /* Pods-esewaEvents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-esewaEvents.debug.xcconfig"; path = "Target Support Files/Pods-esewaEvents/Pods-esewaEvents.debug.xcconfig"; sourceTree = "<group>"; };
-		5C07101A2A00F3D6007AB89E /* TicketSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSelectView.swift; sourceTree = "<group>"; };
-		5C07101C2A010E12007AB89E /* TicketSelectTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSelectTableViewController.swift; sourceTree = "<group>"; };
+		5C07101A2A00F3D6007AB89E /* TicketSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSelectTableViewCell.swift; sourceTree = "<group>"; };
 		5C078D1929EBD987006F04EE /* EventsBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBG.swift; sourceTree = "<group>"; };
 		5C082CDE29FE27C400830310 /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
 		5C1928DC29FFD8B80081877F /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
@@ -54,6 +55,9 @@
 		5C32135929ED4BEE00413604 /* AdBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerTableViewCell.swift; sourceTree = "<group>"; };
 		5C3A19D629F9112600341F12 /* FeaturedEventsDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventsDetailedViewController.swift; sourceTree = "<group>"; };
 		5C6095E829EFB037000CA4ED /* FeaturedEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventsTableViewCell.swift; sourceTree = "<group>"; };
+		5C6500AF2A03A12800779062 /* TicketSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSectionHeaderView.swift; sourceTree = "<group>"; };
+		5C6500B12A03B68000779062 /* AddCartItelListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCartItelListVC.swift; sourceTree = "<group>"; };
+		5C6500B32A06058200779062 /* ContactDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsView.swift; sourceTree = "<group>"; };
 		5C6C290A29E524B700441705 /* esewaEvents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = esewaEvents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C6C290D29E524B700441705 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C6C290F29E524B700441705 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				5C32135929ED4BEE00413604 /* AdBannerTableViewCell.swift */,
 				5CC6B6EF29F0F10500FEA28C /* NewEventsTableViewCell.swift */,
 				5CC6B6F129F1319400FEA28C /* ArtistsTableViewCell.swift */,
+				5C6500B12A03B68000779062 /* AddCartItelListVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -152,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				5C3A19D629F9112600341F12 /* FeaturedEventsDetailedViewController.swift */,
+				5C6500AF2A03A12800779062 /* TicketSectionHeaderView.swift */,
 				5C082CDE29FE27C400830310 /* HeaderTableViewCell.swift */,
 			);
 			path = "Featured Detailed Views";
@@ -161,7 +167,8 @@
 			isa = PBXGroup;
 			children = (
 				5C1928DC29FFD8B80081877F /* CircularProgressBarView.swift */,
-				5C07101A2A00F3D6007AB89E /* TicketSelectView.swift */,
+				5C07101A2A00F3D6007AB89E /* TicketSelectTableViewCell.swift */,
+				5C6500B32A06058200779062 /* ContactDetailsView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -196,7 +203,6 @@
 				5C6C291629E524B900441705 /* Assets.xcassets */,
 				5C6C291829E524B900441705 /* LaunchScreen.storyboard */,
 				5C6C291B29E524B900441705 /* Info.plist */,
-				5C07101C2A010E12007AB89E /* TicketSelectTableViewController.swift */,
 			);
 			path = esewaEvents;
 			sourceTree = "<group>";
@@ -366,7 +372,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C07101D2A010E12007AB89E /* TicketSelectTableViewController.swift in Sources */,
 				5C6C291229E524B700441705 /* FirstScreen.swift in Sources */,
 				5C6C292D29E5595600441705 /* EventView.swift in Sources */,
 				5CC9A24A29E7FBF4007F3AB4 /* EventsModel.swift in Sources */,
@@ -375,6 +380,7 @@
 				5C32135A29ED4BEE00413604 /* AdBannerTableViewCell.swift in Sources */,
 				5CD0495629F7B31900FD3173 /* UpcomingEventsPresenter.swift in Sources */,
 				5C6C293329E575B400441705 /* SubmitView.swift in Sources */,
+				5C6500B22A03B68000779062 /* AddCartItelListVC.swift in Sources */,
 				5C1928DD29FFD8B80081877F /* CircularProgressBarView.swift in Sources */,
 				5C6C292F29E5598200441705 /* SwiftUIView.swift in Sources */,
 				5C3A19D729F9112600341F12 /* FeaturedEventsDetailedViewController.swift in Sources */,
@@ -383,10 +389,12 @@
 				5CC6B6F029F0F10500FEA28C /* NewEventsTableViewCell.swift in Sources */,
 				5CCA7EE229E66F590049C143 /* TicketSummaryModel.swift in Sources */,
 				5C6095E929EFB037000CA4ED /* FeaturedEventsTableViewCell.swift in Sources */,
-				5C07101B2A00F3D6007AB89E /* TicketSelectView.swift in Sources */,
+				5C07101B2A00F3D6007AB89E /* TicketSelectTableViewCell.swift in Sources */,
 				5C6C293129E5739F00441705 /* ContactView.swift in Sources */,
 				5C6C292B29E5539100441705 /* BG.swift in Sources */,
 				5C7E74D929EE62690085B610 /* UpcomingEventsTableViewCell.swift in Sources */,
+				5C6500B02A03A12800779062 /* TicketSectionHeaderView.swift in Sources */,
+				5C6500B42A06058200779062 /* ContactDetailsView.swift in Sources */,
 				5C6C291029E524B700441705 /* SceneDelegate.swift in Sources */,
 				5CC9A24C29E7FCCD007F3AB4 /* EventsBookingPresenter.swift in Sources */,
 				5CC6B6F229F1319400FEA28C /* ArtistsTableViewCell.swift in Sources */,

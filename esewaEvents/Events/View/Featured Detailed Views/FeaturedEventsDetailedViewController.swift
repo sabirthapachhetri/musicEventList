@@ -89,20 +89,23 @@
 //        ])
 //    }
 //}
+
 import UIKit
 
 class FeaturedEventsDetailedViewController: UIViewController {
     
-    let tableView = UITableView()
-    var eventData: EmbeddedEvents?
+    let products = [("Silver", 999), ("Gold", 1999), ("Platinum", 2999)]
     
+    var tableView = UITableView()
+    var eventData: EmbeddedEvents?
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         tableView.layer.cornerRadius = 20
         tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
+        
         // Image View
 //        let coverImageView = UIImageView()
 //        if let url = URL(string: eventData?.images?.first?.url ?? "") {
@@ -140,7 +143,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
             
             circleView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -8),
             circleView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 4),
@@ -156,25 +159,60 @@ class FeaturedEventsDetailedViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         tableView.register(HeaderTableViewCell.self, forCellReuseIdentifier: HeaderTableViewCell.reuseIdentifier)
+        tableView.register(TicketSelectTableViewCell.self, forCellReuseIdentifier: TicketSelectTableViewCell.reuseIdentifier)
+        tableView.register(ContactDetailsViewTableViewCell.self, forCellReuseIdentifier: ContactDetailsViewTableViewCell.reuseIdentifier)
+
     }
 }
 
 extension FeaturedEventsDetailedViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return products.count
+        default:
+            return 1
+        }
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return ""
+        case 1:
+            return ""
         default:
             return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case 0:
+            return nil
+        case 1:
+            let headerView = TicketSectionHeaderView()
+            return headerView
+        default:
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return CGFloat.leastNonzeroMagnitude// Return a value close to zero to remove any space for section 0
+        case 1:
+            return 60
+        default:
+            return CGFloat.leastNonzeroMagnitude
         }
     }
 
@@ -193,10 +231,58 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             cell.contentView.addSubview(separator)
 
             return cell
-        default:
-            let cell = UITableViewCell()
-            cell.backgroundColor = UIColor.green
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: TicketSelectTableViewCell.reuseIdentifier, for: indexPath) as! TicketSelectTableViewCell
+            
+            let product = products[indexPath.row]
+            cell.configure(withName: product.0, price: product.1)
+            
+            // Create views for the left, right, and bottom lines
+            let leftLineView = UIView()
+            let rightLineView = UIView()
+            let bottomLineView = UIView()
+
+            // Set the background color of the line views to the desired color
+            leftLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            rightLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            bottomLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            
+            leftLineView.layer.borderWidth = 0.1
+            rightLineView.layer.borderWidth = 0.1
+            bottomLineView.layer.borderWidth = 0.1
+
+            // Add the line views as subviews of the cell's content view
+            cell.contentView.addSubview(leftLineView)
+            cell.contentView.addSubview(rightLineView)
+            cell.contentView.addSubview(bottomLineView)
+
+            // Set the autoresizing mask for the line views to ensure they stay aligned with the cell's content view
+            leftLineView.autoresizingMask = [.flexibleHeight, .flexibleRightMargin]
+            rightLineView.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin]
+            bottomLineView.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+
+            // Set the frame of the left line view
+            leftLineView.frame = CGRect(x: 16, y: 0, width: 1, height: cell.contentView.frame.height)
+
+            // Set the frame of the right line view
+            rightLineView.frame = CGRect(x: cell.contentView.frame.width - 17, y: 0, width: 1, height: cell.contentView.frame.height)
+
+            // Set the frame of the bottom line view
+            bottomLineView.frame = CGRect(x: 16, y: cell.contentView.frame.height - 1, width: 287, height: 1)
+
             return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: ContactDetailsViewTableViewCell.reuseIdentifier, for: indexPath) as! ContactDetailsViewTableViewCell
+            
+            // Add a divider to the bottom of the cell
+            let separator = UIView(frame: CGRect(x: 15, y: cell.contentView.frame.size.height - 50, width: cell.contentView.frame.size.width + 20, height: 0.2))
+            separator.backgroundColor = UIColor.systemGray
+            cell.contentView.addSubview(separator)
+            
+            return cell
+            
         }
     }
 
@@ -205,7 +291,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
         case 0:
             return 310
         default:
-            return 44
+            return UITableView.automaticDimension
         }
     }
 }

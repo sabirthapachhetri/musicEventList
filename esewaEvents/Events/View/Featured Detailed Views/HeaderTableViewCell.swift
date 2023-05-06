@@ -18,7 +18,7 @@ class HeaderTableViewCell: UITableViewCell {
     // Create a container view for the progress bars
     var progressBarContainer = UIView()
     var bookingClosesLabel = UILabel()
-    
+
     var daysCircularProgressBar = CircularProgressBarView(maxValue: 7, value: 2, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Days")
     var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 10, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Hrs")
     var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 43, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Min")
@@ -88,13 +88,11 @@ class HeaderTableViewCell: UITableViewCell {
             minutesCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
             secondCircularProgressBar.translatesAutoresizingMaskIntoConstraints = false
             
-            // Add the progress bars to the container view
             progressBarContainer.addSubview(daysCircularProgressBar)
             progressBarContainer.addSubview(hoursCircularProgressBar)
             progressBarContainer.addSubview(minutesCircularProgressBar)
             progressBarContainer.addSubview(secondCircularProgressBar)
             
-            // Add a border to the container view
             progressBarContainer.layer.borderWidth = 0.1
             progressBarContainer.layer.borderColor = UIColor.systemGray.cgColor
             progressBarContainer.layer.cornerRadius = 15
@@ -106,7 +104,7 @@ class HeaderTableViewCell: UITableViewCell {
             bookingClosesLabel.textColor = .systemGray
             bookingClosesLabel.translatesAutoresizingMaskIntoConstraints = false
             progressBarContainer.addSubview(bookingClosesLabel)
-            
+
             // Add Subviews
             contentView.addSubview(tradeView)
             tradeView.addSubview(tradeLabel)
@@ -180,7 +178,6 @@ class HeaderTableViewCell: UITableViewCell {
                 secondCircularProgressBar.heightAnchor.constraint(equalToConstant: 60),
                 secondCircularProgressBar.leadingAnchor.constraint(equalTo: minutesCircularProgressBar.trailingAnchor, constant: 20),
                 secondCircularProgressBar.centerYAnchor.constraint(equalTo: progressBarContainer.centerYAnchor, constant: 10)
-
             ])
         }
     
