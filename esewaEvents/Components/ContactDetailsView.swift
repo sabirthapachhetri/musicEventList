@@ -4,98 +4,89 @@ class ContactDetailsView: UIView {
     var contactNameTextField = UITextField()
     var contactNumberTextField = UITextField()
     var emailAddressTextField = UITextField()
-    var titleLabel = UILabel()
-    var subtitleLabel = UILabel()
-    var toggleSwitch = UISwitch()
-    var toggleLabel = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupView()
-    }
-    
-     func setupView() {
-        backgroundColor = .white
-        
-        // Title Label
-        titleLabel.text = "Contact Details"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Subtitle Label
-        subtitleLabel.text = "Event team will contact you at this mobile number in case of any changes."
-        subtitleLabel.font = UIFont.systemFont(ofSize: 14)
-        subtitleLabel.textColor = .gray
-        addSubview(subtitleLabel)
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Toggle Switch
-        toggleSwitch.isOn = false
-        addSubview(toggleSwitch)
-        toggleSwitch.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Toggle Label
-        toggleLabel.text = "I am the attendee in an event."
-        addSubview(toggleLabel)
-        toggleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Contact Name TextField
-        contactNameTextField.placeholder = "Enter Contact Name"
-        contactNameTextField.textColor = .gray
-        addSubview(contactNameTextField)
-        contactNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Contact Number TextField
-        contactNumberTextField.placeholder = "Enter Contact No"
-        contactNumberTextField.textColor = .gray
-        addSubview(contactNumberTextField)
-        contactNumberTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Email Address TextField
-        emailAddressTextField.placeholder = "Enter Email Address"
-        emailAddressTextField.textColor = .gray
-        addSubview(emailAddressTextField)
-        emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            // Title Label Constraints
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+    var isAttendeeSwitch = UISwitch()
+    var contactDetailsLabel = UILabel()
+    var contactNumberInfoLabel = UILabel()
+    var contactNameLabel = UILabel()
+    var contactNumberLabel = UILabel()
+    var emailAddressLabel = UILabel()
+    var isAttendeeLabel = UILabel()
+
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupviews()
+        }
+
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        func setupviews() {
+            contactDetailsLabel.text = "Contact Details"
+            contactDetailsLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            contactDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactDetailsLabel)
+
+            contactNumberInfoLabel.text = "Event team will contact you at this mobile number in case of any changes."
+            contactNumberInfoLabel.numberOfLines = 2
+            contactNumberInfoLabel.font = UIFont.boldSystemFont(ofSize: 12)
+            contactNumberInfoLabel.textColor = .gray
+            contactNumberInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactNumberInfoLabel)
             
-            // Subtitle Label Constraints
-            subtitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            
-            // Toggle Switch Constraints
-            toggleSwitch.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            toggleSwitch.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 16),
-            
-            // Toggle Label Constraints
-            toggleLabel.leadingAnchor.constraint(equalTo: toggleSwitch.trailingAnchor, constant: 8),
-            toggleLabel.centerYAnchor.constraint(equalTo: toggleSwitch.centerYAnchor),
-            
-            // Contact Name TextField Constraints
-            contactNameTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            contactNameTextField.topAnchor.constraint(equalTo: toggleSwitch.bottomAnchor, constant: 16),
-            
-            // Contact Number TextField Constraints
-            contactNumberTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            contactNumberTextField.topAnchor.constraint(equalTo: contactNameTextField.bottomAnchor, constant: 16),
-            
-            // Email Address TextField Constraints
-            emailAddressTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            emailAddressTextField.topAnchor.constraint(equalTo: contactNumberTextField.bottomAnchor, constant: 16),
-            
-            // Trailing and Bottom Constraints
-            emailAddressTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            emailAddressTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
-        ])
+            isAttendeeLabel.text = "  I am the attendee in an event."
+            isAttendeeLabel.font = UIFont.boldSystemFont(ofSize: 16)
+            isAttendeeLabel.textColor = .gray
+            isAttendeeLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(isAttendeeLabel)
+
+            isAttendeeSwitch.isOn = false
+            isAttendeeSwitch.frame = CGRect(x: 0, y: 0, width: 20, height: 15)
+            isAttendeeSwitch.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(isAttendeeSwitch)
+
+            contactNameLabel.text = "Contact Name *"
+            contactNameLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            contactNameLabel.textColor = .gray
+            contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactNameLabel)
+
+            contactNameTextField = UITextField()
+            contactNameTextField.placeholder = "    Enter Contact Name"
+            contactNameTextField.textColor = .gray
+            contactNameTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            contactNameTextField.font = UIFont.systemFont(ofSize: 16)
+            contactNameTextField.textAlignment = .left
+            contactNameTextField.layer.cornerRadius = 20
+            contactNameTextField.layer.masksToBounds = true
+            contactNameTextField.layer.borderWidth = 0
+
+            contactNameTextField.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactNameTextField)
+
+            contactNumberLabel.text = "Contact Number *"
+            contactNumberLabel.font = UIFont.systemFont(ofSize: 16)
+            contactNumberLabel.textColor = .gray
+            contactNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactNumberLabel)
+
+            contactNumberTextField.placeholder = "    Enter Contact No"
+            contactNumberTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            contactNumberTextField.layer.cornerRadius = 20
+            contactNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(contactNumberTextField)
+
+            emailAddressLabel.text = "Email Address"
+            emailAddressLabel.font = UIFont.systemFont(ofSize: 16)
+            emailAddressLabel.textColor = .gray
+            emailAddressLabel.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(emailAddressLabel)
+
+            emailAddressTextField.placeholder = "    Enter Email Address"
+            emailAddressTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            emailAddressTextField.layer.cornerRadius = 20
+            emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(emailAddressTextField)
     }
 }
 
@@ -104,18 +95,63 @@ class ContactDetailsViewTableViewCell: UITableViewCell {
     let cellReuseIdentifier = "ContactDetailsViewTableViewCell"
     static let reuseIdentifier = "ContactDetailsViewTableViewCell"
     
-    let customView = ContactDetailsView()
+    var customView = ContactDetailsView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         contentView.addSubview(customView)
         customView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             customView.topAnchor.constraint(equalTo: contentView.topAnchor),
             customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            customView.heightAnchor.constraint(equalToConstant: 300)
+            customView.heightAnchor.constraint(equalToConstant: 400),
+
+            // Contact Details Label
+            customView.contactDetailsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            customView.contactDetailsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            customView.contactDetailsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+
+            customView.contactNumberInfoLabel.topAnchor.constraint(equalTo: customView.contactDetailsLabel.bottomAnchor, constant: 8),
+            customView.contactNumberInfoLabel.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.contactNumberInfoLabel.trailingAnchor.constraint(equalTo: customView.trailingAnchor, constant: 0),
+
+            customView.isAttendeeSwitch.topAnchor.constraint(equalTo: customView.contactNumberInfoLabel.bottomAnchor, constant: 16),
+            customView.isAttendeeSwitch.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+
+            customView.isAttendeeLabel.leadingAnchor.constraint(equalTo: customView.isAttendeeSwitch.trailingAnchor, constant: 8),
+            customView.isAttendeeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            customView.isAttendeeLabel.centerYAnchor.constraint(equalTo: customView.isAttendeeSwitch.centerYAnchor),
+
+            customView.contactNameLabel.topAnchor.constraint(equalTo: customView.isAttendeeSwitch.bottomAnchor, constant: 16),
+            customView.contactNameLabel.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.contactNameLabel.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+
+            customView.contactNameTextField.topAnchor.constraint(equalTo: customView.contactNameLabel.bottomAnchor, constant: 8),
+            customView.contactNameTextField.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.contactNameTextField.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+            customView.contactNameTextField.heightAnchor.constraint(equalToConstant: 50),
+
+            customView.contactNumberLabel.topAnchor.constraint(equalTo: customView.contactNameTextField.bottomAnchor, constant: 16),
+            customView.contactNumberLabel.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.contactNumberLabel.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+
+            customView.contactNumberTextField.topAnchor.constraint(equalTo: customView.contactNumberLabel.bottomAnchor, constant: 8),
+            customView.contactNumberTextField.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.contactNumberTextField.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+            customView.contactNumberTextField.heightAnchor.constraint(equalToConstant: 50),
+
+            customView.emailAddressLabel.topAnchor.constraint(equalTo: customView.contactNumberTextField.bottomAnchor, constant: 16),
+            customView.emailAddressLabel.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.emailAddressLabel.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+
+            customView.emailAddressTextField.topAnchor.constraint(equalTo: customView.emailAddressLabel.bottomAnchor, constant: 8),
+            customView.emailAddressTextField.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
+            customView.emailAddressTextField.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
+            customView.emailAddressTextField.heightAnchor.constraint(equalToConstant: 50),
+
         ])
     }
     
@@ -123,4 +159,3 @@ class ContactDetailsViewTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

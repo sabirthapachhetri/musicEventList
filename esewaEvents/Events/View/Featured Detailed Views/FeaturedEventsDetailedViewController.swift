@@ -181,17 +181,6 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             return 1
         }
     }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return ""
-        case 1:
-            return ""
-        default:
-            return ""
-        }
-    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
@@ -199,9 +188,16 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             return nil
         case 1:
             let headerView = TicketSectionHeaderView()
+//            headerView.sc
             return headerView
         default:
             return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if section == 1 {
+            view.layer.zPosition = -1 // Move the header view behind the table view cells
         }
     }
 
@@ -277,7 +273,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactDetailsViewTableViewCell.reuseIdentifier, for: indexPath) as! ContactDetailsViewTableViewCell
             
             // Add a divider to the bottom of the cell
-            let separator = UIView(frame: CGRect(x: 15, y: cell.contentView.frame.size.height - 50, width: cell.contentView.frame.size.width + 20, height: 0.2))
+            let separator = UIView(frame: CGRect(x: 16, y: cell.contentView.frame.size.height - 405, width: cell.contentView.frame.size.width - 40, height: 0.2))
             separator.backgroundColor = UIColor.systemGray
             cell.contentView.addSubview(separator)
             
@@ -290,8 +286,10 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             return 310
-        default:
+        case 1:
             return UITableView.automaticDimension
+        default:
+            return 400
         }
     }
 }
