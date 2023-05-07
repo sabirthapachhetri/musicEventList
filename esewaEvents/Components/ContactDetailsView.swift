@@ -1,6 +1,7 @@
 import UIKit
+import IQKeyboardManagerSwift
 
-class ContactDetailsView: UIView {
+class ContactDetailsView: UIView, UITextFieldDelegate {
     var contactNameTextField = UITextField()
     var contactNumberTextField = UITextField()
     var emailAddressTextField = UITextField()
@@ -14,7 +15,10 @@ class ContactDetailsView: UIView {
 
         override init(frame: CGRect) {
             super.init(frame: frame)
+            IQKeyboardManager.shared.enable = true
+            IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
             setupviews()
+
         }
 
         required init?(coder: NSCoder) {
@@ -51,42 +55,64 @@ class ContactDetailsView: UIView {
             contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contactNameLabel)
 
-            contactNameTextField = UITextField()
-            contactNameTextField.placeholder = "    Enter Contact Name"
+            contactNameTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+            contactNameTextField.placeholder = "Enter Contact Name"
             contactNameTextField.textColor = .gray
             contactNameTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
             contactNameTextField.font = UIFont.systemFont(ofSize: 16)
-            contactNameTextField.textAlignment = .left
             contactNameTextField.layer.cornerRadius = 20
             contactNameTextField.layer.masksToBounds = true
-            contactNameTextField.layer.borderWidth = 0
-
             contactNameTextField.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contactNameTextField)
 
             contactNumberLabel.text = "Contact Number *"
-            contactNumberLabel.font = UIFont.systemFont(ofSize: 16)
+            contactNumberLabel.font = UIFont.boldSystemFont(ofSize: 14)
             contactNumberLabel.textColor = .gray
             contactNumberLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contactNumberLabel)
 
-            contactNumberTextField.placeholder = "    Enter Contact No"
+            contactNumberTextField.placeholder = "Enter Contact No"
             contactNumberTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
             contactNumberTextField.layer.cornerRadius = 20
             contactNumberTextField.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contactNumberTextField)
 
             emailAddressLabel.text = "Email Address"
-            emailAddressLabel.font = UIFont.systemFont(ofSize: 16)
+            emailAddressLabel.font = UIFont.boldSystemFont(ofSize: 14)
             emailAddressLabel.textColor = .gray
             emailAddressLabel.translatesAutoresizingMaskIntoConstraints = false
             addSubview(emailAddressLabel)
 
-            emailAddressTextField.placeholder = "    Enter Email Address"
+            emailAddressTextField.placeholder = "Enter Email Address"
             emailAddressTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
             emailAddressTextField.layer.cornerRadius = 20
             emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
             addSubview(emailAddressTextField)
+            
+            // Set the delegate property of each textfield to self
+            contactNameTextField.delegate = self
+            contactNumberTextField.delegate = self
+            emailAddressTextField.delegate = self
+            
+            // create paddingview to add left padding to textfields
+            let contactNamePaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
+            contactNameTextField.leftView = contactNamePaddingView
+            contactNameTextField.leftViewMode = .always
+
+            let contactNumberPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
+            contactNumberTextField.leftView = contactNumberPaddingView
+            contactNumberTextField.leftViewMode = .always
+
+            let emailAddressPaddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: 30))
+            emailAddressTextField.leftView = emailAddressPaddingView
+            emailAddressTextField.leftViewMode = .always
+
+    }
+    
+    // dismiss the keyboard when "return" key is tapped
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

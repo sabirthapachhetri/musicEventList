@@ -37,8 +37,7 @@ class HeaderTableViewCell: UITableViewCell {
             self.selectionStyle = .none
             // Title Label
             titleLabel = UILabel()
-            titleLabel.text = eventData?.name ?? "West Conf Semis Game 4 "
-//            titleLabel.textColor = .green
+//            titleLabel.text = eventData?.name ?? "W"
             titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
             titleLabel.textAlignment = .left
             titleLabel.numberOfLines = 2
@@ -52,20 +51,20 @@ class HeaderTableViewCell: UITableViewCell {
             bookingDateLabel.translatesAutoresizingMaskIntoConstraints = false
             
             bookingDateValueLabel = UILabel()
-            bookingDateValueLabel.text = "6 Apr - 20 Apr 2023"
+//            bookingDateValueLabel.text = "6 Apr - 20 Apr 2023"
             bookingDateValueLabel.font = UIFont.boldSystemFont(ofSize: 10)
             bookingDateValueLabel.textColor = .green
             bookingDateValueLabel.translatesAutoresizingMaskIntoConstraints = false
             
             // Event Date Label
             eventLabel = UILabel()
-            eventLabel.text = "Event - 22 Apr 2023"
+//            eventLabel.text = "Event - 22 Apr 2023"
             eventLabel.font = UIFont.boldSystemFont(ofSize: 10)
             eventLabel.translatesAutoresizingMaskIntoConstraints = false
         
             // Location Label
             locationLabel = UILabel()
-            locationLabel.text = "Location - Kathmandu, Nepal"
+//            locationLabel.text = "Location - Kathmandu, Nepal"
             locationLabel.font = UIFont.boldSystemFont(ofSize: 10)
             locationLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -184,9 +183,37 @@ class HeaderTableViewCell: UITableViewCell {
     // create the setup func
     func setupViewWithData(model: EmbeddedEvents) {
         
-//        titleLabel.text = model.name
-//        dateLabel.text = model.dates?.start?.localDate
-//        locationLabel.text = model.embedded?.venues?.first?.name
+        titleLabel.text = model.name
+        
+        // format the start and end dates as "yyyy-MM-dd"
+        if let startDateTimeString = model.sales?.publicSale?.startDateTime,
+           let startTIndex = startDateTimeString.firstIndex(of: "T") {
+            
+            let startDateString = String(startDateTimeString[..<startTIndex])
+            
+            if let endDateTimeString = model.sales?.publicSale?.endDateTime,
+               let endTIndex = endDateTimeString.firstIndex(of: "T") {
+                
+                let endDateString = String(endDateTimeString[..<endTIndex])
+                
+                bookingDateValueLabel.text = "\(startDateString) - \(endDateString)"
+            } else {
+                bookingDateValueLabel.text = "N/A"
+            }
+        } else {
+            bookingDateValueLabel.text = "N/A"
+        }
+
+        if let eventDate = model.dates?.start?.localDate {
+            eventLabel.text = "Event - \(eventDate)"
+        } else {
+            eventLabel.text = "Event - Unknown Date"
+        }
+        if let venue = model.embedded?.venues?.first?.name {
+            locationLabel.text = "Location - \(venue)"
+        } else {
+            locationLabel.text = "Location - Unknown"
+        }
 //        priceLabel.text = String("$\(model.priceRanges?.first?.min ?? 0.0)")
     }
 }

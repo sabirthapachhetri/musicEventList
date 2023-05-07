@@ -107,11 +107,11 @@ class FeaturedEventsDetailedViewController: UIViewController {
         tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         // Image View
-//        let coverImageView = UIImageView()
-//        if let url = URL(string: eventData?.images?.first?.url ?? "") {
-//            coverImageView.kf.setImage(with: url)
-//        }
-        let coverImageView = UIImageView(image: UIImage(named: "ball"))
+        let coverImageView = UIImageView()
+        if let url = URL(string: eventData?.images?.first?.url ?? "") {
+            coverImageView.kf.setImage(with: url)
+        }
+//        let coverImageView = UIImageView(image: UIImage(named: "ball"))
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         

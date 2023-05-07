@@ -7,7 +7,8 @@
 //
 //import Foundation
 //import UIKit
-//class AddCartIteListVC: UIViewController, AddItemToCartProtocol {
+//
+//class AddCartItemVC: UIViewController, AddItemToCartProtocol {
 //    
 //    
 //    var presenter: AddCarItemPresenter?
@@ -19,6 +20,19 @@
 //        tableView.dataSource = self
 //        self.presenter = AddCarItemPresenter(delegate: self)
 //        presenter?.populateTableView()
+//        
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(tableView)
+//
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+//        ])
+//
+//        tableView.register(AddCartItemCell.self, forCellReuseIdentifier: "AddCartItemCell")
+//
 //    }
 //    
 //    func displayItemList(model: [AddCartItemModel]) {
@@ -27,7 +41,7 @@
 //    }
 //}
 //
-//extension AddCartIteListVC: UITableViewDataSource, UITableViewDelegate {
+//extension AddCartItemVC: UITableViewDataSource, UITableViewDelegate {
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 1
 //    }
@@ -37,10 +51,11 @@
 //    }
 //
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let item = model[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "AddCartItemCell", for: indexPath) as! AddCartItemCell
 //        
+//        let item = model[indexPath.row]
+//        cell.configure(with: item)
+//        
+//        return cell
 //    }
-//    
-//    
-//
 //}

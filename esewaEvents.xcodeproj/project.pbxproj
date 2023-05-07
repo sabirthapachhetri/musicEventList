@@ -30,6 +30,10 @@
 		5C6C293129E5739F00441705 /* ContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C293029E5739F00441705 /* ContactView.swift */; };
 		5C6C293329E575B400441705 /* SubmitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C293229E575B400441705 /* SubmitView.swift */; };
 		5C7E74D929EE62690085B610 /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E74D829EE62690085B610 /* UpcomingEventsTableViewCell.swift */; };
+		5C879CA32A079BCA004AD286 /* AddCartItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C879CA22A079BC9004AD286 /* AddCartItemCell.swift */; };
+		5C879CA62A079EB6004AD286 /* VIEW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C879CA52A079EB6004AD286 /* VIEW.swift */; };
+		5C879CA82A079F17004AD286 /* MODEL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C879CA72A079F17004AD286 /* MODEL.swift */; };
+		5C879CAA2A079F45004AD286 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C879CA92A079F45004AD286 /* Presenter.swift */; };
 		5C94782929F8178F003C214C /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94782829F8178F003C214C /* BottomSheetViewController.swift */; };
 		5CC0766129E664D900B7E7AD /* TicketSummaryVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0766029E664D900B7E7AD /* TicketSummaryVIew.swift */; };
 		5CC6B6F029F0F10500FEA28C /* NewEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC6B6EF29F0F10500FEA28C /* NewEventsTableViewCell.swift */; };
@@ -72,6 +76,10 @@
 		5C6C293029E5739F00441705 /* ContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		5C6C293229E575B400441705 /* SubmitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitView.swift; sourceTree = "<group>"; };
 		5C7E74D829EE62690085B610 /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
+		5C879CA22A079BC9004AD286 /* AddCartItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCartItemCell.swift; sourceTree = "<group>"; };
+		5C879CA52A079EB6004AD286 /* VIEW.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VIEW.swift; sourceTree = "<group>"; };
+		5C879CA72A079F17004AD286 /* MODEL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MODEL.swift; sourceTree = "<group>"; };
+		5C879CA92A079F45004AD286 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		5C94782829F8178F003C214C /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		5CC0766029E664D900B7E7AD /* TicketSummaryVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketSummaryVIew.swift; sourceTree = "<group>"; };
 		5CC6B6EF29F0F10500FEA28C /* NewEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventsTableViewCell.swift; sourceTree = "<group>"; };
@@ -194,6 +202,7 @@
 		5C6C290C29E524B700441705 /* esewaEvents */ = {
 			isa = PBXGroup;
 			children = (
+				5C879CA42A079E74004AD286 /* KIRAN TUITION */,
 				5C1928DE2A0009640081877F /* Components */,
 				5CC9A24D29E8263C007F3AB4 /* EventBooking */,
 				5C078D1529EBAB44006F04EE /* Events */,
@@ -219,6 +228,17 @@
 				5C6C293229E575B400441705 /* SubmitView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5C879CA42A079E74004AD286 /* KIRAN TUITION */ = {
+			isa = PBXGroup;
+			children = (
+				5C879CA72A079F17004AD286 /* MODEL.swift */,
+				5C879CA52A079EB6004AD286 /* VIEW.swift */,
+				5C879CA92A079F45004AD286 /* Presenter.swift */,
+				5C879CA22A079BC9004AD286 /* AddCartItemCell.swift */,
+			);
+			path = "KIRAN TUITION";
 			sourceTree = "<group>";
 		};
 		5CC9A24629E7B7F6007F3AB4 /* Presenter */ = {
@@ -374,10 +394,12 @@
 			files = (
 				5C6C291229E524B700441705 /* FirstScreen.swift in Sources */,
 				5C6C292D29E5595600441705 /* EventView.swift in Sources */,
+				5C879CA32A079BCA004AD286 /* AddCartItemCell.swift in Sources */,
 				5CC9A24A29E7FBF4007F3AB4 /* EventsModel.swift in Sources */,
 				5C32135829ED49FA00413604 /* SecondPageViewController.swift in Sources */,
 				5CD0495429F7B2AC00FD3173 /* UpcomingEventsModel.swift in Sources */,
 				5C32135A29ED4BEE00413604 /* AdBannerTableViewCell.swift in Sources */,
+				5C879CA82A079F17004AD286 /* MODEL.swift in Sources */,
 				5CD0495629F7B31900FD3173 /* UpcomingEventsPresenter.swift in Sources */,
 				5C6C293329E575B400441705 /* SubmitView.swift in Sources */,
 				5C6500B22A03B68000779062 /* AddCartItelListVC.swift in Sources */,
@@ -395,6 +417,7 @@
 				5C7E74D929EE62690085B610 /* UpcomingEventsTableViewCell.swift in Sources */,
 				5C6500B02A03A12800779062 /* TicketSectionHeaderView.swift in Sources */,
 				5C6500B42A06058200779062 /* ContactDetailsView.swift in Sources */,
+				5C879CA62A079EB6004AD286 /* VIEW.swift in Sources */,
 				5C6C291029E524B700441705 /* SceneDelegate.swift in Sources */,
 				5CC9A24C29E7FCCD007F3AB4 /* EventsBookingPresenter.swift in Sources */,
 				5CC6B6F229F1319400FEA28C /* ArtistsTableViewCell.swift in Sources */,
@@ -405,6 +428,7 @@
 				5CCE8B0329F5126600B33E42 /* EventsPresenter.swift in Sources */,
 				5C6C292929E54F4100441705 /* TotalBalance.swift in Sources */,
 				5C94782929F8178F003C214C /* BottomSheetViewController.swift in Sources */,
+				5C879CAA2A079F45004AD286 /* Presenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
