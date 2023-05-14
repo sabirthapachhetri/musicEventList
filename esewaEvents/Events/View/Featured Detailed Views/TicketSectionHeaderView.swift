@@ -11,11 +11,11 @@ class TicketSectionHeaderView: UIView {
 
     let headerContainerView = UIView()
     
+    var eventData: EmbeddedEvents?
     
-    let products = [("Silver", 999), ("Gold", 1999), ("Platinum", 2999), ("Platinum", 2999), ("Platinum", 2999), ("Platinum", 2999)]
-    
-    override init(frame: CGRect) {
+    init(frame: CGRect, eventData: EmbeddedEvents?) {
         super.init(frame: frame)
+        self.eventData = eventData
         setupViews()
     }
 
@@ -24,7 +24,7 @@ class TicketSectionHeaderView: UIView {
     }
     
     private func setupViews() {
-
+        
         // Add the headerContainerView to the TicketSectionHeaderView
         self.addSubview(headerContainerView)
         
@@ -34,45 +34,44 @@ class TicketSectionHeaderView: UIView {
         headerContainerView.layer.cornerRadius = 15
         headerContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         headerContainerView.layer.masksToBounds = true
-
-        // Create the titleLabel and add it to the headerContainerView
-        let titleLabel = UILabel(frame: CGRect(x: 16, y: 0, width: headerContainerView.frame.width - 32, height: headerContainerView.frame.height))
+        
+        
+        // create the titleLabel and add it to the headerContainerView
+        let titleLabel = UILabel()
+        titleLabel.text = "Phase Fest"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerContainerView.addSubview(titleLabel)
         
-        
-        // Set the attributed text and font for the titleLabel
-        let titleText = "Phase Fest "
-        let priceAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor:  UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
-        ]
-        
-        let minPrice = products.min { $0.1 < $1.1 }?.1 ?? 0
-        let maxPrice = products.max { $0.1 < $1.1 }?.1 ?? 0
-        
-        let priceRangeText = NSMutableAttributedString(string: "(Rs.\(minPrice) - Rs.\(maxPrice))", attributes: priceAttributes)
-
-        let attributedText = NSMutableAttributedString(string: titleText)
-        attributedText.append(priceRangeText)
-        
-        titleLabel.attributedText = attributedText
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        
+        let priceRangeLabel = UILabel()
+//        priceRangeLabel.text = "($61.95 - $246.95)"
+        let minPrice = eventData?.priceRanges?.first?.min ?? 0
+        let maxPrice = eventData?.priceRanges?.first?.max ?? 0
+        priceRangeLabel.text = "($\(String(format: "%.2f", minPrice)) - $\(String(format: "%.2f", maxPrice)))"
+        priceRangeLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        priceRangeLabel.translatesAutoresizingMaskIntoConstraints = false
+        priceRangeLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        headerContainerView.addSubview(priceRangeLabel)
+                
         NSLayoutConstraint.activate([
-            // Constraints for headerContainerView
             headerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             headerContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             headerContainerView.topAnchor.constraint(equalTo: self.topAnchor),
             headerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            headerContainerView.heightAnchor.constraint(equalToConstant: 60),
             
-            // Constraints for titleLabel
             titleLabel.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor, constant: -16),
             titleLabel.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: headerContainerView.bottomAnchor)
+            titleLabel.bottomAnchor.constraint(equalTo: headerContainerView.bottomAnchor),
+            
+            priceRangeLabel.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor, constant: 105),
+            priceRangeLabel.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor, constant: 16),
+            priceRangeLabel.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
+            priceRangeLabel.bottomAnchor.constraint(equalTo: headerContainerView.bottomAnchor),
+//            priceRangeLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
-
     }
-
-    
 }
+
+

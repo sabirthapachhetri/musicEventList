@@ -21,7 +21,6 @@ class BG: UIViewController {
             greenView.topAnchor.constraint(equalTo: view.topAnchor, constant: -300),
             greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-//            greenView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
             greenView.heightAnchor.constraint(equalToConstant: 358)
         ])
         
@@ -31,19 +30,11 @@ class BG: UIViewController {
         // make the bottom corners of the green view rounded
         greenView.layer.cornerRadius = 60
         
-        // title to navigation bar
-        navigationItem.title = "Event Booking"
-        
-        // add back button
-        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonTapped))
-        backButton.setTitlePositionAdjustment(UIOffset(horizontal: -128, vertical: 0), for: .default) // Adjust the title position
-        navigationItem.leftBarButtonItem = backButton
-
     }
         
     @objc private func backButtonTapped() {
         // navigate to another screen/view
-        let secondPage = SecondPageViewController()
+        let secondPage = HomePageViewController()
         navigationController?.pushViewController(secondPage, animated: true)
     }
 }

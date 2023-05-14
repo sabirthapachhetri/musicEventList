@@ -39,6 +39,7 @@ class CircularProgressBarView: MBCircularProgressBarView {
         self.unitFontSize = 8
         self.fontColor = UIColor.black
         self.backgroundColor = UIColor.white
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

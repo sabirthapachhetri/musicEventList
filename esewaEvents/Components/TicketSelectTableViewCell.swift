@@ -1,18 +1,12 @@
-//
-//  TicketSelectView.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 5/2/23.
-//
-
 import UIKit
 
 class TicketSelectTableViewCell: UITableViewCell {
      
-    private let cellReuseIdentifier = "TicketSelectTableViewCell"
     static let reuseIdentifier = "TicketSelectTableViewCell"
     
-     let nameLabel: UILabel = {
+    var priceUpdated: ((Double) -> ())?
+        
+     var nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         return label
@@ -25,7 +19,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let decrementButton: UIButton = {
+    let decrementButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("-", for: .normal)
         button.setTitleColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), for: .normal)
@@ -33,7 +27,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         return button
     }()
     
-    private let quantityLabel: UILabel = {
+    let quantityLabel: UILabel = {
         let label = UILabel()
         label.text = "0"
         label.font = .systemFont(ofSize: 17)
@@ -45,7 +39,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let incrementButton: UIButton = {
+    let incrementButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("+", for: .normal)
         button.setTitleColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), for: .normal)
@@ -53,7 +47,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         return button
     }()
     
-    private var quantity: Int = 0 {
+    var quantity: Int = 0 {
         didSet {
             quantityLabel.text = "\(quantity)"
             decrementButton.isEnabled = (quantity > 0)
@@ -63,10 +57,7 @@ class TicketSelectTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        
-//        contentView.layer.borderWidth = 1
-//        contentView.layer.borderColor = CGColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
-        
+                
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         decrementButton.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +86,7 @@ class TicketSelectTableViewCell: UITableViewCell {
             quantityLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             incrementButton.leadingAnchor.constraint(equalTo: quantityLabel.trailingAnchor, constant: 16),
-            incrementButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
+            incrementButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -25),
             incrementButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             decrementButton.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -112,19 +103,25 @@ class TicketSelectTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configure(withName name: String, price: Int) {
-        nameLabel.text = name
-        priceLabel.text = "Rs. \(price)"
-    }
-    
-    @objc private func decrementButtonTapped() {
+        
+    @objc func decrementButtonTapped() {
         if quantity > 0 {
             quantity -= 1
+            let price = Double(priceLabel.text!.replacingOccurrences(of: "$", with: "")) ?? 0.0
+            let updatedPrice = price * Double(quantity)
+                
+            // Call the priceUpdated closure with the updated price
+            priceUpdated?(updatedPrice)
         }
     }
     
-    @objc private func incrementButtonTapped() {
-        quantity += 1
+    @objc func incrementButtonTapped() {
+        if quantity >= 0 {
+            quantity += 1
+            let price = Double(priceLabel.text!.replacingOccurrences(of: "$", with: "")) ?? 0.0
+            let updatedPrice = price * Double(quantity)
+                
+            priceUpdated?(updatedPrice)
+        }
     }
 }

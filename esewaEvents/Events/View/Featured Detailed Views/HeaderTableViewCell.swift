@@ -1,9 +1,9 @@
+import Foundation
 import UIKit
 import MBCircularProgressBar
 
 class HeaderTableViewCell: UITableViewCell {
     
-    private let cellReuseIdentifier = "HeaderTableViewCell"
     static let reuseIdentifier = "HeaderTableViewCell"
     
     var eventData: EmbeddedEvents?
@@ -19,10 +19,11 @@ class HeaderTableViewCell: UITableViewCell {
     var progressBarContainer = UIView()
     var bookingClosesLabel = UILabel()
 
-    var daysCircularProgressBar = CircularProgressBarView(maxValue: 7, value: 2, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Days")
-    var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 10, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Hrs")
-    var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 43, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Min")
-    var secondCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 55, progressColor: UIColor(.red), unitString: " Sec")
+    var daysCircularProgressBar = CircularProgressBarView(maxValue: 365, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Days")
+    var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Hrs")
+    var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Min")
+    var secondCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 0, progressColor: UIColor(.red), unitString: " Sec")
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -181,7 +182,7 @@ class HeaderTableViewCell: UITableViewCell {
         }
     
     // create the setup func
-    func setupViewWithData(model: EmbeddedEvents) {
+    func configure(model: EmbeddedEvents) {
         
         titleLabel.text = model.name
         
@@ -213,6 +214,28 @@ class HeaderTableViewCell: UITableViewCell {
             locationLabel.text = "Location - \(venue)"
         } else {
             locationLabel.text = "Location - Unknown"
+        }
+        
+        if let endDatetimeString = model.sales?.publicSale?.endDateTime {
+            let dateFormatter = ISO8601DateFormatter()
+            if let endDatetime = dateFormatter.date(from: endDatetimeString) {
+                let timeRemaining = Int(endDatetime.timeIntervalSinceNow)
+                let daysRemaining = timeRemaining / (24 * 3600)
+                let hoursRemaining = (timeRemaining % (24 * 3600)) / 3600
+                let minutesRemaining = (timeRemaining % 3600) / 60
+                let secondsRemaining = timeRemaining % 60
+
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.7) {
+                        self.secondCircularProgressBar.value = CGFloat(secondsRemaining)
+                        self.minutesCircularProgressBar.value = CGFloat(minutesRemaining)
+                        self.hoursCircularProgressBar.value = CGFloat(hoursRemaining)
+                        self.daysCircularProgressBar.value = CGFloat(daysRemaining)
+                    }
+                }
+            } else {
+                print("Error: failed to parse endDatetimeString '\(endDatetimeString)'")
+            }
         }
 //        priceLabel.text = String("$\(model.priceRanges?.first?.min ?? 0.0)")
     }

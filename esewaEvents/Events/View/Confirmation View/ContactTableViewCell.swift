@@ -1,32 +1,35 @@
-//
-//  ContactView.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/11/23.
-//
-
 import UIKit
 
-class ContactView: UIViewController, EventsViewDelegate {
+class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
     
-    let contactNameLabel = UILabel()
-    let nameLabel = UILabel()
-    let phoneLabel = UILabel()
+    static let reuseIdentifier = "ContactTableViewCell"
+    
+    var contactNameLabel = UILabel()
+    var nameLabel = UILabel()
+    var phoneLabel = UILabel()
     
     var presenter = EventsBookingPresenter()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+                
         // Initialize presenter with model and view
         presenter.addDelegate(self)
         presenter.updateView()
         
-        let containerView = UIView()
-        containerView.backgroundColor = .white
-        containerView.layer.cornerRadius = 20
-        containerView.layer.masksToBounds = true
-        containerView.translatesAutoresizingMaskIntoConstraints = false
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupViews() {
+        
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
+        self.backgroundColor = .white
+        contentView.translatesAutoresizingMaskIntoConstraints = false
 
         let phoneIcon = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
         phoneIcon.contentMode = .scaleAspectFit
@@ -48,21 +51,24 @@ class ContactView: UIViewController, EventsViewDelegate {
         phoneLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        containerView.addSubview(phoneIcon)
-        containerView.addSubview(contactNameLabel)
-        containerView.addSubview(nameLabel)
-        containerView.addSubview(phoneLabel)
+        contentView.addSubview(phoneIcon)
+        contentView.addSubview(contactNameLabel)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(phoneLabel)
 
         NSLayoutConstraint.activate([
-            containerView.widthAnchor.constraint(equalToConstant: 370),
-            containerView.heightAnchor.constraint(equalToConstant: 70),
             
-            phoneIcon.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            phoneIcon.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            self.widthAnchor.constraint(equalToConstant: 370),
+//            contentView.heightAnchor.constraint(equalToConstant: 70),
+//            contentView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+//            contentView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 40),
+            
+            phoneIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            phoneIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 30),
             phoneIcon.widthAnchor.constraint(equalToConstant: 30),
             phoneIcon.heightAnchor.constraint(equalToConstant: 30),
             
-            contactNameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            contactNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             contactNameLabel.leadingAnchor.constraint(equalTo: phoneIcon.trailingAnchor, constant: 10),
             
             nameLabel.topAnchor.constraint(equalTo: contactNameLabel.bottomAnchor),
@@ -71,13 +77,6 @@ class ContactView: UIViewController, EventsViewDelegate {
             phoneLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
             phoneLabel.leadingAnchor.constraint(equalTo: phoneIcon.trailingAnchor, constant: 10),
         ])
-        
-        view.addSubview(containerView)
-        
-        NSLayoutConstraint.activate([
-            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-        ])
     }
     
     func updateEvents(name: String, venue: String, dateTime: String, contact: Contact) {
@@ -85,3 +84,4 @@ class ContactView: UIViewController, EventsViewDelegate {
         phoneLabel.text = String(contact.number)
     }
 }
+    

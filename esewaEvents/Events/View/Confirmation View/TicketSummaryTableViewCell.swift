@@ -1,15 +1,13 @@
-//
-//  TicketSummaryVIew.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/12/23.
-//
 import UIKit
 
-class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
+class TicketSummaryTableViewCell: UITableViewCell, TicketSummaryViewDelegate {
+    
+    static let reuseIdentifier = "TicketSummaryTableViewCell"
     
     var presenter: TicketSummaryPresenter?
     
+    var container = UIView()
+
     var ticketsSummaryLabel = UILabel()
     var silverTicketLabel = UILabel()
     var silverTicketPriceLabel = UILabel()
@@ -24,12 +22,27 @@ class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
     var grandTotalLabel = UILabel()
     var grandTotalPriceLabel = UILabel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // Initialize presenter with model and view
-        let presenter = TicketSummaryPresenter(view: self, delegate: self)
+        let presenter = TicketSummaryPresenter(view: ConfirmationPageViewController(), delegate: self)
         presenter.updateView()
+        
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews(){
+        
+        self.backgroundColor = .white
+        self.layer.cornerRadius = 20
+        self.layer.masksToBounds = true
+        container.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(container)
         
         ticketsSummaryLabel.textColor = .black
         ticketsSummaryLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
@@ -55,7 +68,7 @@ class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
         goldTicketPriceLabel.textColor = UIColor.gray
         goldTicketPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         
-//                diamondTicketLabel.text = "Diamond Ticket X 1"
+                  diamondTicketLabel.text = "Diamond Ticket X 1"
         diamondTicketLabel.textColor = .black
         diamondTicketLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         diamondTicketLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -90,52 +103,27 @@ class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
         grandTotalLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         grandTotalLabel.translatesAutoresizingMaskIntoConstraints = false
         
-//                grandTotalPriceLabel.text = "NPR. 14878"
+//        grandTotalPriceLabel.text = "NPR. 14878"
         grandTotalPriceLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         grandTotalPriceLabel.textColor = UIColor.black
         grandTotalPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Create a new container view
-        let containerView = UIView()
-        containerView.backgroundColor = .white
-        containerView.layer.cornerRadius = 20
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        // Add the container view to the view hierarchy
-        view.addSubview(containerView)
-        
         let innerHstackView1 = UIStackView()
-        innerHstackView1.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView1.axis = .horizontal
         
         let innerHstackView2 = UIStackView()
-        innerHstackView2.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView2.axis = .horizontal
         innerHstackView2.spacing = 140
         
         let innerHstackView3 = UIStackView()
-        innerHstackView3.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView3.axis = .horizontal
         innerHstackView3.spacing = 145
         
-        let innerHstackView4 = UIStackView()
-        innerHstackView4.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView4.axis = .horizontal
-        innerHstackView4.spacing = 116
-        
         let innerHstackView5 = UIStackView()
-        innerHstackView5.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView5.axis = .horizontal
         innerHstackView5.spacing = 182
         
         
         let innerHstackView6 = UIStackView()
-        innerHstackView6.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView6.axis = .horizontal
         innerHstackView6.spacing = 178
         
         let innerHstackView7 = UIStackView()
-        innerHstackView7.translatesAutoresizingMaskIntoConstraints = false
-        innerHstackView7.axis = .horizontal
         innerHstackView7.spacing = 166
         
         // stack
@@ -147,9 +135,6 @@ class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
         innerHstackView3.addArrangedSubview(goldTicketLabel)
         innerHstackView3.addArrangedSubview(goldTicketPriceLabel)
         
-        innerHstackView4.addArrangedSubview(diamondTicketLabel)
-        innerHstackView4.addArrangedSubview(diamondTicketPriceLabel)
-        
         innerHstackView5.addArrangedSubview(subtotalLabel)
         innerHstackView5.addArrangedSubview(subtotalPriceLabel)
         
@@ -159,58 +144,51 @@ class TicketSummaryView: UIViewController, TicketSummaryViewDelegate {
         innerHstackView7.addArrangedSubview(grandTotalLabel)
         innerHstackView7.addArrangedSubview(grandTotalPriceLabel)
         
-        // Add the stack view to the container view
-        containerView.addSubview(innerHstackView1)
-        containerView.addSubview(innerHstackView2)
-        containerView.addSubview(innerHstackView3)
-        containerView.addSubview(innerHstackView4)
-        containerView.addSubview(innerHstackView5)
-        containerView.addSubview(innerHstackView6)
-        containerView.addSubview(innerHstackView7)
+        let stackViews = [innerHstackView1, innerHstackView2, innerHstackView3, innerHstackView5, innerHstackView6, innerHstackView7]
+
+        for stackView in stackViews {
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .horizontal
+            container.addSubview(stackView)
+        }
         
         
         // Add constraints to position the container view
         NSLayoutConstraint.activate([
             
-            containerView.widthAnchor.constraint(equalToConstant: 370),
-            containerView.heightAnchor.constraint(equalToConstant: 230),
-            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.widthAnchor.constraint(equalToConstant: 370),
+//            container.heightAnchor.constraint(equalToConstant: 220),
+//            container.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+//            self.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -10),
             
-            innerHstackView1.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            innerHstackView1.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView2.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 50),
-            innerHstackView2.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView3.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 80),
-            innerHstackView3.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView4.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 110),
-            innerHstackView4.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView5.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 140),
-            innerHstackView5.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView6.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 170),
-            innerHstackView6.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20),
-            
-            innerHstackView7.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 200),
-            innerHstackView7.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 20)
+            innerHstackView1.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
+            innerHstackView1.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20),
+        
+            innerHstackView2.topAnchor.constraint(equalTo: container.topAnchor, constant: 50),
+            innerHstackView2.leftAnchor.constraint(equalTo:container.leftAnchor, constant: 20),
+        
+            innerHstackView3.topAnchor.constraint(equalTo: container.topAnchor, constant: 80),
+            innerHstackView3.leftAnchor.constraint(equalTo:container.leftAnchor, constant: 20),
+        
+            innerHstackView5.topAnchor.constraint(equalTo: container.topAnchor, constant: 120),
+            innerHstackView5.leftAnchor.constraint(equalTo:container.leftAnchor, constant: 20),
+        
+            innerHstackView6.topAnchor.constraint(equalTo: container.topAnchor, constant: 150),
+            innerHstackView6.leftAnchor.constraint(equalTo:container.leftAnchor, constant: 20),
+        
+            innerHstackView7.topAnchor.constraint(equalTo: container.topAnchor, constant: 180),
+            innerHstackView7.leftAnchor.constraint(equalTo:container.leftAnchor, constant: 20)
         ])
     }
     
-    func updateTicketSummary(silverTickets: Int, goldTickets: Int, diamondTickets: Int, cashback: Double, subtotal: Double, grandTotal: Double) {
-        ticketsSummaryLabel.text = "Tickets Summary (\(silverTickets + goldTickets + diamondTickets))"
+    func updateTicketSummary(silverTickets: Int, goldTickets: Int, cashback: Double, subtotal: Double, grandTotal: Double) {
+        ticketsSummaryLabel.text = "Tickets Summary (\(silverTickets + goldTickets))"
         
         silverTicketLabel.text = "Silver Ticket X \(silverTickets)"
         silverTicketPriceLabel.text = "NPR. \(888 * silverTickets)"
         
         goldTicketLabel.text = "Gold Ticket X \(goldTickets)"
         goldTicketPriceLabel.text = "NPR. \(3999 * goldTickets)"
-        
-        diamondTicketLabel.text = "Diamond Ticket X \(diamondTickets)"
-        diamondTicketPriceLabel.text = "NPR. \(9999 * diamondTickets)"
         
         subtotalPriceLabel.text = "NPR. \(subtotal)"
         cashbackPriceLabel.text = "NPR. \(cashback)"

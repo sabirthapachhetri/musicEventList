@@ -1,6 +1,6 @@
 import UIKit
 
-class SecondPageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate {
+class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate {
     
     let tableView = UITableView()
     let searchController = UISearchController(searchResultsController: nil)
@@ -9,20 +9,14 @@ class SecondPageViewController: UIViewController, EventViewDelegate, UpcomingEve
     
     var upcomingEventsPresenter: UpcomingEventsPresenter?
     var upcomingEventsData: [UpcomingEventsDataModel]?
-    
-    var detailEvents: [EmbeddedEvents]?
-    
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         addSearchBar()
         presenter = EventsPresenter(delegate: self)
         presenter?.fetch()
-//        presenter?.login(password: "1234", onSuccess: { succesMessage in
-//            print(succesMessage)
-//        }, onError: { errorMessage in
-//            print(errorMessage)
-//        })
+
         // Initialize presenter with model and view
         upcomingEventsPresenter = UpcomingEventsPresenter(view: self, delegate: self)
         upcomingEventsPresenter?.updateView()
@@ -75,7 +69,7 @@ class SecondPageViewController: UIViewController, EventViewDelegate, UpcomingEve
     }
 }
 
-extension SecondPageViewController: UITableViewDataSource {
+extension HomePageViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
@@ -148,8 +142,8 @@ extension SecondPageViewController: UITableViewDataSource {
     }
 }
     
-extension SecondPageViewController: UITableViewDelegate {
+extension HomePageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
     }
 }

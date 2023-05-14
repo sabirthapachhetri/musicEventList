@@ -1,103 +1,14 @@
-//import UIKit
-//import Kingfisher
-//
-//class FeaturedEventsDetailedViewController: UITableViewController {
-//
-//    var eventData: EmbeddedEvents?
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Image View
-//        let imageView = UIImageView()
-//        if let url = URL(string: eventData?.images?.first?.url ?? "") {
-//            imageView.kf.setImage(with: url)
-//        }
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        // Title Label
-//        let titleLabel = UILabel()
-//        titleLabel.text = eventData?.name ?? ""
-////        titleLabel.textColor = .green
-//        titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
-//        titleLabel.textAlignment = .left
-//        titleLabel.numberOfLines = 0
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        // Booking Date Label
-//        let bookingDateLabel = UILabel()
-//        bookingDateLabel.text = "Booking Date -"
-//        bookingDateLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//        bookingDateLabel.textColor = .black
-//        bookingDateLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let bookingDateValueLabel = UILabel()
-//        bookingDateValueLabel.text = "6 Apr - 20 Apr 2023"
-//        bookingDateValueLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//        bookingDateValueLabel.textColor = .green
-//        bookingDateValueLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        // Event Date Label
-//        let eventLabel = UILabel()
-//        eventLabel.text = "Event - 22 Apr 2023"
-//        eventLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//        eventLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        // Location Label
-//        let locationLabel = UILabel()
-//        locationLabel.text = "Location - Kathmandu, Nepal"
-//        locationLabel.font = UIFont.boldSystemFont(ofSize: 20)
-//        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        // Add Subviews
-//        view.addSubview(imageView)
-//        view.addSubview(titleLabel)
-//        view.addSubview(bookingDateLabel)
-//        view.addSubview(bookingDateValueLabel)
-//        view.addSubview(eventLabel)
-//        view.addSubview(locationLabel)
-//
-//        // Set Constraints
-//        NSLayoutConstraint.activate([
-//            // Image View Constraints
-//            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: -10),
-//            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            imageView.heightAnchor.constraint(equalToConstant: 300),
-//
-//            // Title Label Constraints
-//            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 65),
-//            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-//            titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
-//
-//            // Booking Date Label Constraints
-//            bookingDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-//            bookingDateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-//
-//            // Booking Date Value Label Constraints
-//            bookingDateValueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-//            bookingDateValueLabel.leadingAnchor.constraint(equalTo: bookingDateLabel.trailingAnchor, constant: 5),
-//
-//            // Event Label Constraints
-//            eventLabel.topAnchor.constraint(equalTo: bookingDateLabel.bottomAnchor, constant: 10),
-//            eventLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-//
-//            // Location Label Constraints
-//            locationLabel.topAnchor.constraint(equalTo: eventLabel.bottomAnchor, constant: 10),
-//            locationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15)
-//        ])
-//    }
-//}
-
 import UIKit
+import Kingfisher
 
 class FeaturedEventsDetailedViewController: UIViewController {
     
-    let products = [("Silver", 999), ("Gold", 1999), ("Platinum", 2999)]
-    
     var tableView = UITableView()
+    var buyticketsView = BuyTicketsView()
     var eventData: EmbeddedEvents?
+    
+    var silverPrice: Double = 0.0
+    var goldPrice: Double = 0.0
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,6 +16,11 @@ class FeaturedEventsDetailedViewController: UIViewController {
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         tableView.layer.cornerRadius = 20
         tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         // Image View
         let coverImageView = UIImageView()
@@ -130,10 +46,12 @@ class FeaturedEventsDetailedViewController: UIViewController {
         // Add Subviews
         view.addSubview(coverImageView)
         view.addSubview(tableView)
+        view.addSubview(buyticketsView)
         view.addSubview(circleView)
         circleView.addSubview(heartImageView)
         
-        // Set Constraints
+        buyticketsView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             coverImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
             coverImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -143,25 +61,29 @@ class FeaturedEventsDetailedViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -2),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             
             circleView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -8),
             circleView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 4),
             circleView.widthAnchor.constraint(equalToConstant: 50),
             circleView.heightAnchor.constraint(equalToConstant: 50),
-        ])
 
-        // Set table view properties
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+            buyticketsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buyticketsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            buyticketsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            buyticketsView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
 
         tableView.register(HeaderTableViewCell.self, forCellReuseIdentifier: HeaderTableViewCell.reuseIdentifier)
         tableView.register(TicketSelectTableViewCell.self, forCellReuseIdentifier: TicketSelectTableViewCell.reuseIdentifier)
         tableView.register(ContactDetailsViewTableViewCell.self, forCellReuseIdentifier: ContactDetailsViewTableViewCell.reuseIdentifier)
-
+        
+        buyticketsView.buttonClicked = {
+            let confirmationVC = ConfirmationPageViewController()
+            confirmationVC.eventData = self.eventData
+            self.navigationController?.pushViewController(confirmationVC, animated: true)
+        }
     }
 }
 
@@ -176,7 +98,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return products.count
+            return 2
         default:
             return 1
         }
@@ -187,8 +109,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
         case 0:
             return nil
         case 1:
-            let headerView = TicketSectionHeaderView()
-//            headerView.sc
+            let headerView = TicketSectionHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 60), eventData: eventData)
             return headerView
         default:
             return nil
@@ -218,7 +139,7 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: HeaderTableViewCell.reuseIdentifier, for: indexPath) as! HeaderTableViewCell
             
             if let eventData = eventData {
-                cell.setupViewWithData(model: eventData)
+                cell.configure(model: eventData)
             }
             
             // Add a divider to the bottom of the cell
@@ -230,9 +151,29 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: TicketSelectTableViewCell.reuseIdentifier, for: indexPath) as! TicketSelectTableViewCell
-            
-            let product = products[indexPath.row]
-            cell.configure(withName: product.0, price: product.1)
+
+            if indexPath.row == 0 {
+                if let minPrice = eventData?.priceRanges?.first?.min {
+                    cell.nameLabel.text = "Silver"
+                    cell.priceLabel.text = String(format: "$%.2f", minPrice)
+                    cell.priceUpdated = { price in
+                        self.silverPrice = price
+                        let totalPrice = self.silverPrice + self.goldPrice
+                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", totalPrice)
+                    }
+                }
+            } else if indexPath.row == 1 {
+                if let maxPrice = eventData?.priceRanges?.first?.max {
+                    cell.nameLabel.text = "Gold"
+                    cell.priceLabel.text = String(format: "$%.2f", maxPrice)
+                    cell.priceUpdated = { price in
+                        self.goldPrice = price
+                        let totalPrice = self.silverPrice + self.goldPrice
+                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", totalPrice)
+                    }
+                }
+            }
+
             
             // Create views for the left, right, and bottom lines
             let leftLineView = UIView()

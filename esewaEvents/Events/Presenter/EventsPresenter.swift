@@ -15,8 +15,9 @@ protocol EventViewDelegate: AnyObject {
 }
 
 class EventsPresenter {
-    let baseURL = "https://app.ticketmaster.com/discovery/v2/"
-    let apiKey = "S3IURwLm6MuL50gi0FrOrCAcGvFaADoK"
+   
+    
+    
     weak var delegate: EventViewDelegate?
 
     init(delegate: EventViewDelegate? = nil) {
@@ -24,7 +25,7 @@ class EventsPresenter {
     }
     
     func fetch() {
-        fetchEvents { [weak self] result in
+        fetchEvents() { [weak self] result in
             switch result {
             case .success(let model):
                 print(model)
@@ -35,9 +36,9 @@ class EventsPresenter {
         }
     }
     
-     func fetchEvents(completion: @escaping (Result<[EventsDataModel], Error>) -> Void) {
-        let endpoint = "events.json"
-        let url = URL(string: "\(baseURL)\(endpoint)?apikey=\(apiKey)")!
+    func fetchEvents(completion: @escaping (Result<[EventsDataModel], Error>) -> Void) {
+        
+        let url = URL(string: "\(fetchEvent)?apikey=\(apiKey)")!
         AF.request(url).responseJSON { response in
             switch response.result {
             case .success(let value):
@@ -49,15 +50,4 @@ class EventsPresenter {
             }
         }
     }
-    
-//    
-//    func login(password: String, onSuccess: @escaping (String)->(), onError: @escaping (String)->()) {
-//        switch password {
-//        case "1234":
-//            onSuccess("Login SucessFul")
-//        default:
-//            onError("Login failed!")
-//        }
-//    }
-    
 }

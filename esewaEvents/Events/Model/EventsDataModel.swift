@@ -39,7 +39,7 @@ struct EmbeddedEvents {
 
         self.dates = Dates(json: json["dates"])  // for json
 
-        self.priceRanges = json["priceRanges"].arrayValue.map { // for array
+        self.priceRanges = json["priceRanges"].arrayValue.map {
             PriceRanges(json: $0)
         }
         

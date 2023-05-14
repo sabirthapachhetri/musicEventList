@@ -12,9 +12,9 @@ class UpcomingEventsPresenter {
     
     let delegate: UpcomingEventsViewDelegate?
 
-    weak var view: SecondPageViewController?
+    weak var view: HomePageViewController?
     
-    init(view: SecondPageViewController, delegate: UpcomingEventsViewDelegate) {
+    init(view: HomePageViewController, delegate: UpcomingEventsViewDelegate) {
         self.view = view
         self.delegate = delegate
     }

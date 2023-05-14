@@ -2,8 +2,11 @@ import UIKit
 import Kingfisher
 
 class FeaturedEventsTableViewCell: UITableViewCell {
-
+    
+    // Reuse identifier for the cell
+    static let reuseIdentifier = "FeaturedEventsTableViewCell"
     private let cellReuseIdentifier = "FeaturedEventsTableViewCell"
+    
     var events: [EmbeddedEvents]?
     var itemClicked: ((EmbeddedEvents)->())?
     
@@ -19,8 +22,6 @@ class FeaturedEventsTableViewCell: UITableViewCell {
 
     }()
     
-    // Reuse identifier for the cell
-    static let reuseIdentifier = "FeaturedEventsTableViewCell"
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
