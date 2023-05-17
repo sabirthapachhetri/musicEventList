@@ -5,11 +5,22 @@ class FeaturedEventsDetailedViewController: UIViewController {
     
     var tableView = UITableView()
     var buyticketsView = BuyTicketsView()
+    var ticketselect = TicketSelectTableViewCell()
     var eventData: EmbeddedEvents?
+    var confirmationVC = ConfirmationPageViewController()
+    
+    var quantity: Int = 0
     
     var silverPrice: Double = 0.0
     var goldPrice: Double = 0.0
-            
+    
+    var silverQuantity: Int = 0
+    var goldQuantity: Int = 0
+    var subTotal: Double = 0
+        
+    var cashBack: Double = 5.0
+    var grandTotal: Double = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +93,14 @@ class FeaturedEventsDetailedViewController: UIViewController {
         buyticketsView.buttonClicked = {
             let confirmationVC = ConfirmationPageViewController()
             confirmationVC.eventData = self.eventData
+            confirmationVC.totalQuantity = self.quantity + self.silverQuantity + self.goldQuantity
+            confirmationVC.silverQuantity = self.silverQuantity
+            confirmationVC.goldQuantity = self.goldQuantity
+            confirmationVC.silverPrice = self.silverPrice
+            confirmationVC.goldPrice = self.goldPrice
+            confirmationVC.subtotal = self.silverPrice + self.goldPrice
+            confirmationVC.cashBack = self.cashBack
+            confirmationVC.grandTotal = self.silverPrice + self.goldPrice - self.cashBack
             self.navigationController?.pushViewController(confirmationVC, animated: true)
         }
     }
@@ -158,8 +177,11 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
                     cell.priceLabel.text = String(format: "$%.2f", minPrice)
                     cell.priceUpdated = { price in
                         self.silverPrice = price
-                        let totalPrice = self.silverPrice + self.goldPrice
-                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", totalPrice)
+                        let subtotal = self.silverPrice + self.goldPrice
+                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", subtotal)
+                    }
+                    cell.totalQuantity = { quantity in
+                        self.silverQuantity = quantity
                     }
                 }
             } else if indexPath.row == 1 {
@@ -168,13 +190,15 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
                     cell.priceLabel.text = String(format: "$%.2f", maxPrice)
                     cell.priceUpdated = { price in
                         self.goldPrice = price
-                        let totalPrice = self.silverPrice + self.goldPrice
-                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", totalPrice)
+                        let subtotal = self.silverPrice + self.goldPrice
+                        self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", subtotal)
                     }
+                    cell.totalQuantity = { quantity in
+                         self.goldQuantity = quantity
+                     }
                 }
             }
 
-            
             // Create views for the left, right, and bottom lines
             let leftLineView = UIView()
             let rightLineView = UIView()

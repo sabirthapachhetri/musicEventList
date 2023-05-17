@@ -8,13 +8,13 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
     var nameLabel = UILabel()
     var phoneLabel = UILabel()
     
-    var presenter = EventsBookingPresenter()
+    var presenter: EventsBookingPresenter?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
                 
         // Initialize presenter with model and view
-        presenter.addDelegate(self)
+        let presenter = EventsBookingPresenter(view: ConfirmationPageViewController(), delegate: self)
         presenter.updateView()
         
         setupViews()
@@ -29,6 +29,7 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
         self.backgroundColor = .white
+        self.selectionStyle = .none
         contentView.translatesAutoresizingMaskIntoConstraints = false
 
         let phoneIcon = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
@@ -59,10 +60,7 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         NSLayoutConstraint.activate([
             
             self.widthAnchor.constraint(equalToConstant: 370),
-//            contentView.heightAnchor.constraint(equalToConstant: 70),
-//            contentView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-//            contentView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 40),
-            
+
             phoneIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             phoneIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 30),
             phoneIcon.widthAnchor.constraint(equalToConstant: 30),
@@ -79,7 +77,7 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         ])
     }
     
-    func updateEvents(name: String, venue: String, dateTime: String, contact: Contact) {
+    func didFetchModel(name: String, venue: String, dateTime: String, contact: Contact) {
         nameLabel.text = contact.personName
         phoneLabel.text = String(contact.number)
     }

@@ -14,7 +14,3 @@ struct SwiftUIView_Previews: PreviewProvider {
         SwiftUIView()
     }
 }
-
-
-//ticketsSummaryLabel.textColor = .black
-//ticketsSummaryLabel.font = UIFont.systemFont(ofSize: 16, weight: .heavy)

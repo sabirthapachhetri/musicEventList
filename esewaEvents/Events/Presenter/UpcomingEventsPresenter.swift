@@ -1,7 +1,7 @@
 import Foundation
 
 protocol UpcomingEventsViewDelegate: AnyObject {
-    func updateUpcomingEvents(with eventList: [UpcomingEventsDataModel]?)
+    func didFetchModel(with eventList: [UpcomingEventsDataModel])
 }
 
 class UpcomingEventsPresenter {
@@ -20,6 +20,6 @@ class UpcomingEventsPresenter {
     }
     
     func updateView() {
-        self.delegate?.updateUpcomingEvents(with: upcomingEvents)
+        self.delegate?.didFetchModel(with: upcomingEvents)
     }
 }

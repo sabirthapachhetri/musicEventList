@@ -3,14 +3,24 @@ import UIKit
 class ConfirmationPageViewController: UIViewController {
 
     var eventData: EmbeddedEvents?
-
+    
     var greenView = UIView()
     var totalBalanceView = TotalBalanceView()
     var tableView = UITableView()
-
+    
+    var totalQuantity: Int = 0
+    var silverQuantity: Int = 0
+    var goldQuantity: Int = 0
+    
+    var silverPrice: Double = 0
+    var goldPrice: Double = 0
+    var subtotal: Double = 0
+    
+    var cashBack: Double = 0
+    var grandTotal: Double = 0
+            
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupViews()
         
     }
@@ -32,11 +42,8 @@ class ConfirmationPageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-
-//        navigationItem.title = "Events"
 
         view.addSubview(greenView)
         view.addSubview(totalBalanceView)
@@ -75,16 +82,7 @@ extension ConfirmationPageViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 1
-        default:
-            return 1
-        }
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,6 +96,9 @@ extension ConfirmationPageViewController: UITableViewDataSource {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: TicketSummaryTableViewCell.reuseIdentifier, for: indexPath) as! TicketSummaryTableViewCell
+
+            cell.configure(totalQuantity: totalQuantity, silverQuantity: silverQuantity, goldQuantity: goldQuantity, silverPrice: silverPrice, goldPrice: goldPrice, subtotal: subtotal, cashback: cashBack, grandTotal: grandTotal)
+
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.reuseIdentifier, for: indexPath) as! ContactTableViewCell
@@ -111,9 +112,9 @@ extension ConfirmationPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 175
+            return 150
         case 1:
-            return 220
+            return 260
         case 2:
             return 70
         default:

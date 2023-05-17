@@ -20,7 +20,7 @@ class AdBannerTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1) 
         // Add the collectionView to the contentView
         contentView.addSubview(collectionView)
         setupCollectionView()
@@ -73,8 +73,6 @@ extension AdBannerTableViewCell: UICollectionViewDelegateFlowLayout {
 }
 
 class EventCell: UICollectionViewCell {
-
-//    private let imageNames = ["Image2", "Image3", "Image4"]
     
     private lazy var bannerImageView: UIImageView = {
         let imgView = UIImageView()

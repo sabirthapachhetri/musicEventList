@@ -5,8 +5,8 @@ class BuyTicketsView: UIView {
     var eventData: EmbeddedEvents?
     
     var buttonClicked: (() -> ())?
-
-        
+    
+    
     var containerView = UIView()
     var totalPayingAmountLabel = UILabel()
     var totalPayingAmountValueLabel = UILabel()
@@ -14,7 +14,7 @@ class BuyTicketsView: UIView {
     var buyTicketsButton = UIButton()
     
     var ticketSelectTableViewCell = TicketSelectTableViewCell()
-            
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         containerView.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 245/255, alpha: 1.0)
@@ -88,7 +88,16 @@ class BuyTicketsView: UIView {
     }
     
     @objc func didTapBuyTicketsButton() {
-        self.buttonClicked?()
+        if totalPayingAmountValueLabel.text == "$0.00" {
+            let alertController = UIAlertController(title: nil, message: "Please select a ticket.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            if let keyWindow = UIApplication.shared.keyWindow,
+               let rootViewController = keyWindow.rootViewController {
+                rootViewController.present(alertController, animated: true, completion: nil)
+            }
+        } else {
+            self.buttonClicked?()
+        }
     }
 }
-

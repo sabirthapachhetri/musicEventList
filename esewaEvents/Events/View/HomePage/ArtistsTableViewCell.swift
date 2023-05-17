@@ -14,7 +14,6 @@ class ArtistsTableViewCell: UITableViewCell {
         let collectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-    //        layout.minimumInteritemSpacing = 10
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             collectionView.showsHorizontalScrollIndicator = false
@@ -22,13 +21,13 @@ class ArtistsTableViewCell: UITableViewCell {
 
         }()
         
-    //    var collectionView: UICollectionView!
-
         // Reuse identifier for the cell
         static let reuseIdentifier = "ArtistsTableViewCell"
 
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+            contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
 
             contentView.addSubview(collectionView)
             setupCollectionView()

@@ -1,109 +1,62 @@
-//
-//  BottomSheetViewController.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/25/23.
-//
-
 import UIKit
 
 class BottomSheetViewController: UIViewController {
 
     var events: UpcomingEventsDataModel?
+    
+    var bottomSheetView = UIView()
+    var titleLabel = UILabel()
+    var subTitleLabel = UILabel()
+    var cancelButton = UIButton()
+    var cancelImage = UIImageView()
+    var confirmButton = UIButton()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
 
-    private let bottomSheetView:UIView = {
-        let sheetView = UIView ()
-        sheetView.translatesAutoresizingMaskIntoConstraints = false
-        sheetView.layer.cornerRadius = 16
-        return sheetView
-    }()
-
-    private let titleLabel: UILabel = {
-        let titleLabel = UILabel()
+    func setupView() {
+        
+        view.backgroundColor = .clear
+        
+        bottomSheetView.translatesAutoresizingMaskIntoConstraints = false
+        bottomSheetView.layer.cornerRadius = 16
+        
         titleLabel.text = "Attend Event"
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textAlignment = .center
         titleLabel.font = .systemFont(ofSize: 16, weight: .bold)
         titleLabel.textColor = .black
-        return titleLabel
-    }()
-
-    private let subTitleLabel: UILabel = {
-        let subTitleLabel = UILabel()
-
+        
+        subTitleLabel.text = "Are you sure you want to attend this event on \(events?.date ?? "")?"
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.textAlignment = .center
         subTitleLabel.font = .systemFont(ofSize: 12, weight: .bold)
         subTitleLabel.textColor = .gray
-        return subTitleLabel
-    }()
-
-    private let cancelButton: UIButton = {
-        let cancelbtn = UIButton()
-        cancelbtn.translatesAutoresizingMaskIntoConstraints = false
-
-        cancelbtn.setTitle("CANCEL", for: .normal)
-        cancelbtn.setTitleColor(.white, for: .normal)
-        cancelbtn.backgroundColor = .darkGray
-        cancelbtn.layer.cornerRadius = 14
-        cancelbtn.clipsToBounds = true
-        return cancelbtn
-
-    }()
-    // add cancel icon
-    private let cancelImage: UIImageView = {
-        let cancelImg = UIImageView()
-        cancelImg.image = UIImage(systemName: "xmark")
-        cancelImg.tintColor = .black
-        cancelImg.translatesAutoresizingMaskIntoConstraints = false
-        cancelImg.isUserInteractionEnabled = true
-        return cancelImg
-    }()
-
-
-    private let confirmButton: UIButton = {
-        let confirmbtn = UIButton()
-        confirmbtn.setTitle("Confirm", for: .normal)
-        confirmbtn.translatesAutoresizingMaskIntoConstraints = false
-        confirmbtn.setTitleColor(.white, for: .normal)
-        confirmbtn.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
-        confirmbtn.layer.cornerRadius = 14
-        confirmbtn.clipsToBounds = true
-        return confirmbtn
-
-    }()
-
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupView()
-        setupConstraints()
-        subTitleLabel.text = "Are you sure you want to attend this event on \(events?.date ?? "")?"
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCancelImageTap))
-        cancelImage.addGestureRecognizer(tapGesture)
+        
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.setTitle("CANCEL", for: .normal)
+        cancelButton.setTitleColor(.white, for: .normal)
+        cancelButton.backgroundColor = .darkGray
+        cancelButton.layer.cornerRadius = 14
+        cancelButton.clipsToBounds = true
         cancelButton.addTarget(self, action: #selector(handleCancelImageTap), for: .touchUpInside)
+        
+        cancelImage.image = UIImage(systemName: "xmark")
+        cancelImage.tintColor = .black
+        cancelImage.translatesAutoresizingMaskIntoConstraints = false
+        cancelImage.isUserInteractionEnabled = true
+        cancelImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCancelImageTap)))
+        
+        confirmButton.setTitle("Confirm", for: .normal)
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
+        confirmButton.setTitleColor(.white, for: .normal)
+        confirmButton.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        confirmButton.layer.cornerRadius = 14
+        confirmButton.clipsToBounds = true
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-    }
-
-    func setupView() {
-        view.backgroundColor = .clear
-
-    }
-
-    @objc func handleCancelImageTap(_ sender: UITapGestureRecognizer) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    @objc func confirmButtonTapped() {
-        let alert = UIAlertController(title: "Attendance Confirmed", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-
-    func setupConstraints() {
+        
         view.addSubview(bottomSheetView)
         bottomSheetView.backgroundColor = .white
         bottomSheetView.addSubview(titleLabel)
@@ -111,8 +64,7 @@ class BottomSheetViewController: UIViewController {
         bottomSheetView.addSubview(cancelButton)
         bottomSheetView.addSubview(confirmButton)
         bottomSheetView.addSubview(cancelImage)
-
-
+        
         NSLayoutConstraint.activate([
 
             bottomSheetView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -143,15 +95,18 @@ class BottomSheetViewController: UIViewController {
             cancelImage.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -10),
             cancelImage.heightAnchor.constraint(equalToConstant: 24),
             cancelImage.widthAnchor.constraint(equalToConstant: 24)
-
         ])
     }
 
-//    func setupBottomViewWithData(model: [UpcomingEventsDataModel]) {
-//        guard let event = model.first else { return }
-//        subTitleLabel.text = "Are you sure you want to attend this event on \(event.date)?"
-//    }
-}
+    @objc func handleCancelImageTap(_ sender: UITapGestureRecognizer) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
+    @objc func confirmButtonTapped() {
+        let alert = UIAlertController(title: "Attendance Confirmed", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
 
 

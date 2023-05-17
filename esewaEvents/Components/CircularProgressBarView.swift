@@ -1,10 +1,3 @@
-//
-//  Test.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 5/1/23.
-//
-
 import UIKit
 import MBCircularProgressBar
 

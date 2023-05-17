@@ -7,6 +7,7 @@ class AddCartItemVC: UIViewController, AddItemToCartProtocol {
     var presenter: AddCartItempresenter?
     var tableView = UITableView()
     var model = [AddCartItemModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self

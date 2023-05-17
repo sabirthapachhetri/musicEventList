@@ -2,7 +2,7 @@ import UIKit
 import Kingfisher
 
 class FeaturedEventsTableViewCell: UITableViewCell {
-    
+        
     // Reuse identifier for the cell
     static let reuseIdentifier = "FeaturedEventsTableViewCell"
     private let cellReuseIdentifier = "FeaturedEventsTableViewCell"
@@ -14,17 +14,19 @@ class FeaturedEventsTableViewCell: UITableViewCell {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = 10
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
-
     }()
     
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.selectionStyle = .none
+
+        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
 
         // Add the collectionView to the contentView
         contentView.addSubview(collectionView)
@@ -41,7 +43,6 @@ class FeaturedEventsTableViewCell: UITableViewCell {
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 250),
-//            collectionView.widthAnchor.constraint(equalToConstant: 350)
         ])
 
         // Register cell
@@ -73,7 +74,7 @@ extension FeaturedEventsTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! FeaturedEventCell
         if let item = events?[indexPath.row] {
              // call func to setup the collection view cell data
-             cell.setupViewWithData(model: item)
+             cell.configure(model: item)
         }
         return cell
     }
@@ -109,7 +110,6 @@ class FeaturedEventCell: UICollectionViewCell {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 40
 
-//        eventImageView.image = UIImage(named: "appleEvent")
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 40
         eventImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -117,7 +117,6 @@ class FeaturedEventCell: UICollectionViewCell {
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(eventImageView)
 
-//        titleLabel.text = "WWDC 2023"
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         titleLabel.textColor = .black
         titleLabel.numberOfLines = 2
@@ -125,19 +124,16 @@ class FeaturedEventCell: UICollectionViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
 
-//        dateLabel.text = "FRI, 24 - SUN, 26 MAR 2023"
         dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         dateLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dateLabel)
 
-//        locationLabel.text = "Apple Park, California"
         locationLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         locationLabel.textColor = .gray
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(locationLabel)
 
-//        priceLabel.text = "Rs. 800"
         priceLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         priceLabel.textColor = .gray
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -199,7 +195,7 @@ class FeaturedEventCell: UICollectionViewCell {
     }
     
     // create the setup func
-    func setupViewWithData(model: EmbeddedEvents) {
+    func configure(model: EmbeddedEvents) {
         
         if let url = URL(string: model.images?.first?.url ?? "") {
             eventImageView.kf.setImage(with: url)

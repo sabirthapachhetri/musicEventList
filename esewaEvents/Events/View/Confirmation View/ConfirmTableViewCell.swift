@@ -17,6 +17,7 @@ class ConfirmTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupViews()
+        confirmButton.addTarget(self, action: #selector(confirmButtonAction), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,4 +43,49 @@ class ConfirmTableViewCell: UITableViewCell {
             confirmButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
+    
+    @objc func confirmButtonAction() {
+        let confirmationAlert = UIAlertController(title: "Confirmation", message: "Are you sure you want to proceed with the purchase?", preferredStyle: .alert)
+        
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] (_) in
+            self?.showSuccessAlert()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        confirmationAlert.addAction(confirmAction)
+        confirmationAlert.addAction(cancelAction)
+        
+        guard let currentWindow = UIApplication.shared.windows.first else {
+            return
+        }
+        
+        currentWindow.rootViewController?.present(confirmationAlert, animated: true, completion: nil)
+    }
+
+    func showSuccessAlert() {
+        let successAlert = UIAlertController(title: "Success", message: "Purchase successful!", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            guard let currentWindow = UIApplication.shared.windows.first,
+                  let rootViewController = currentWindow.rootViewController else {
+                return
+            }
+            
+            if let navigationController = rootViewController as? UINavigationController {
+                navigationController.popToRootViewController(animated: true)
+            } else {
+                rootViewController.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        successAlert.addAction(okAction)
+        
+        guard let currentWindow = UIApplication.shared.windows.first else {
+            return
+        }
+        
+        currentWindow.rootViewController?.present(successAlert, animated: true, completion: nil)
+    }
+
 }

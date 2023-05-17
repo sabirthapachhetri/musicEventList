@@ -7,6 +7,7 @@ class HeaderTableViewCell: UITableViewCell {
     static let reuseIdentifier = "HeaderTableViewCell"
     
     var eventData: EmbeddedEvents?
+    
     var titleLabel = UILabel()
     var bookingDateLabel = UILabel()
     var bookingDateValueLabel = UILabel()
@@ -54,7 +55,7 @@ class HeaderTableViewCell: UITableViewCell {
             bookingDateValueLabel = UILabel()
 //            bookingDateValueLabel.text = "6 Apr - 20 Apr 2023"
             bookingDateValueLabel.font = UIFont.boldSystemFont(ofSize: 10)
-            bookingDateValueLabel.textColor = .green
+            bookingDateValueLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
             bookingDateValueLabel.translatesAutoresizingMaskIntoConstraints = false
             
             // Event Date Label
@@ -237,6 +238,5 @@ class HeaderTableViewCell: UITableViewCell {
                 print("Error: failed to parse endDatetimeString '\(endDatetimeString)'")
             }
         }
-//        priceLabel.text = String("$\(model.priceRanges?.first?.min ?? 0.0)")
     }
 }

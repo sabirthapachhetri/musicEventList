@@ -1,16 +1,16 @@
 import UIKit
 
 class UpcomingEventsTableViewCell: UITableViewCell {
+    
+    private let cellReuseIdentifier = "UpcomingEventsTableViewCell" // identifier for dequeuing collectionview cell and table view cells
+    static let reuseIdentifier = "UpcomingEventsTableViewCell"      // identifier for registering and dequeuing table view cell
 
-    private let cellReuseIdentifier = "UpcomingEventsTableViewCell"
-    static let reuseIdentifier = "UpcomingEventsTableViewCell"
-
-    var events: [UpcomingEventsDataModel]?
-    var itemClicked: ((UpcomingEventsDataModel)->())?
+    var events: [UpcomingEventsDataModel]?            // data model of upcoming events
+    var itemClicked: ((UpcomingEventsDataModel)->())? // closure definition for handling item click event
 
     // Initialize collectionView
     let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+    let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 10
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -18,32 +18,18 @@ class UpcomingEventsTableViewCell: UITableViewCell {
         collectionView.backgroundColor = .yellow
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
-
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        // Add the collectionView to the contentView
+        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        
+        // add the collectionView to the contentView
         contentView.addSubview(collectionView)
+        
+        // function call
         setupCollectionView()
-
-        // Set the dataSource and delegate of the collectionView
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-//         Activate constraints
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 80),
-//            collectionView.widthAnchor.constraint(equalToConstant: 100)
-        ])
-
-        // Register cell
-        collectionView.register(UpcomingEventCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +38,21 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 
     private func setupCollectionView() {
         collectionView.backgroundColor = .clear
+        
+        collectionView.delegate = self     // current object handles events like item selection
+        collectionView.dataSource = self   // current object provides data to populate the collection view and configure its cells
+
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 80),
+        ])
+        
+        // Register the custom cell class UpcomingEventCell to be used in the collection view
+        collectionView.register(UpcomingEventCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+
     }
 
     func setupViewWithData(model: [UpcomingEventsDataModel]?) {
@@ -71,30 +72,28 @@ extension UpcomingEventsTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UpcomingEventCell
 
-        guard let events = events else {
-            return cell
-        }
-
-        if indexPath.row < events.count {
-            let item = events[indexPath.row]
-            cell.setupViewWithData(model: item)
+        if let events = events {
+            if indexPath.row < events.count {
+                let item = events[indexPath.row]
+                cell.configure(model: item)
+            }
         }
 
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 170, height: 80)
+    }
+}
+
+extension UpcomingEventsTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = events?[indexPath.row]
         if let item = item {
             self.itemClicked?(item)
         }
-    }
-}
-
-extension UpcomingEventsTableViewCell: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 170, height: 80)
     }
 }
 
@@ -141,7 +140,7 @@ class UpcomingEventCell: UICollectionViewCell {
     }
 
     // create the setup func
-    func setupViewWithData(model: UpcomingEventsDataModel) {
+    func configure(model: UpcomingEventsDataModel) {
         
         todayLabel.text = model.day
         let attributedString = NSMutableAttributedString(string: model.date)

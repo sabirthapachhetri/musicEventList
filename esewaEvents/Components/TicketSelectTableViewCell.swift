@@ -6,6 +6,8 @@ class TicketSelectTableViewCell: UITableViewCell {
     
     var priceUpdated: ((Double) -> ())?
         
+    var totalQuantity: ((Int) -> ())?
+        
      var nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
@@ -51,6 +53,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         didSet {
             quantityLabel.text = "\(quantity)"
             decrementButton.isEnabled = (quantity > 0)
+            totalQuantity?(quantity)
         }
     }
     
@@ -110,7 +113,6 @@ class TicketSelectTableViewCell: UITableViewCell {
             let price = Double(priceLabel.text!.replacingOccurrences(of: "$", with: "")) ?? 0.0
             let updatedPrice = price * Double(quantity)
                 
-            // Call the priceUpdated closure with the updated price
             priceUpdated?(updatedPrice)
         }
     }
