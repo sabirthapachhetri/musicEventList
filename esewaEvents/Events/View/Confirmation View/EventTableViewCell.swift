@@ -29,7 +29,6 @@ class EventTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
-//        titleLabel.text = eventsData?.name
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         titleLabel.numberOfLines = 3

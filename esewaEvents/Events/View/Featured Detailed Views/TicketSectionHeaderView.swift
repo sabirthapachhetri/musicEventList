@@ -69,7 +69,6 @@ class TicketSectionHeaderView: UIView {
             priceRangeLabel.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor, constant: 16),
             priceRangeLabel.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
             priceRangeLabel.bottomAnchor.constraint(equalTo: headerContainerView.bottomAnchor),
-//            priceRangeLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

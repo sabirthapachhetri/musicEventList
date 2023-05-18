@@ -16,7 +16,7 @@ class BottomSheetViewController: UIViewController {
         setupView()
     }
 
-    func setupView() {
+    private func setupView() {
         
         view.backgroundColor = .clear
         
@@ -104,7 +104,9 @@ class BottomSheetViewController: UIViewController {
 
     @objc func confirmButtonTapped() {
         let alert = UIAlertController(title: "Attendance Confirmed", message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.dismiss(animated: true, completion: nil)
+        }))
         present(alert, animated: true, completion: nil)
     }
 }

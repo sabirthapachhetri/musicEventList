@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EventsViewDelegate: AnyObject {
-    func didFetchModel(name: String, venue: String, dateTime:  String, contact: Contact)
+    func didFetchModel(with model: Events?)
 }
 
 class EventsBookingPresenter {
@@ -17,7 +17,7 @@ class EventsBookingPresenter {
                         venue: "Durbarmarg, Ktm",
                         dateTime: "13th Apr, 2023, 06:00 PM",
                         contact: Contact(personName: "Mr. John Doe",
-                                          number: 9892319484))
+                                          number: "9892319484"))
     
     let delegate: EventsViewDelegate?
 
@@ -27,8 +27,9 @@ class EventsBookingPresenter {
         self.view = view
         self.delegate = delegate
     }
+    
     func updateView() {
-        delegate?.didFetchModel(name: events.name, venue: events.venue, dateTime: events.dateTime, contact: events.contact)
+        delegate?.didFetchModel(with: events)
     }
 }
 

@@ -11,4 +11,5 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher', '~> 7.0'
 pod 'MBCircularProgressBar', '~> 0.3'
 pod 'IQKeyboardManagerSwift'
+pod 'SkeletonView'
 end

@@ -6,7 +6,6 @@ class BuyTicketsView: UIView {
     
     var buttonClicked: (() -> ())?
     
-    
     var containerView = UIView()
     var totalPayingAmountLabel = UILabel()
     var totalPayingAmountValueLabel = UILabel()
@@ -19,14 +18,14 @@ class BuyTicketsView: UIView {
         super.init(frame: frame)
         containerView.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 245/255, alpha: 1.0)
         
-        setupSubviews()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupSubviews() {
+    func setupViews() {
         totalPayingAmountLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         totalPayingAmountLabel.textColor = .gray
         totalPayingAmountLabel.text = "Total Paying Amount"

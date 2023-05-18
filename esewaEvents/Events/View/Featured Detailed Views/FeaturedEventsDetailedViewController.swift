@@ -38,7 +38,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
         if let url = URL(string: eventData?.images?.first?.url ?? "") {
             coverImageView.kf.setImage(with: url)
         }
-//        let coverImageView = UIImageView(image: UIImage(named: "ball"))
+        
         coverImageView.contentMode = .scaleAspectFill
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         

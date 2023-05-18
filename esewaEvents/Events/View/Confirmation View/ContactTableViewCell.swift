@@ -1,7 +1,7 @@
 import UIKit
 
 class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
-    
+        
     static let reuseIdentifier = "ContactTableViewCell"
     
     var contactNameLabel = UILabel()
@@ -77,9 +77,9 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         ])
     }
     
-    func didFetchModel(name: String, venue: String, dateTime: String, contact: Contact) {
-        nameLabel.text = contact.personName
-        phoneLabel.text = String(contact.number)
+    func didFetchModel(with model: Events?) {
+        nameLabel.text = model?.contact.personName
+        phoneLabel.text = model?.contact.number
     }
 }
     

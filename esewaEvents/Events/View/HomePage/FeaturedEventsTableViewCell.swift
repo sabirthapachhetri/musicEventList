@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class FeaturedEventsTableViewCell: UITableViewCell {
         
@@ -72,9 +73,9 @@ extension FeaturedEventsTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! FeaturedEventCell
+        
         if let item = events?[indexPath.row] {
-             // call func to setup the collection view cell data
-             cell.configure(model: item)
+            cell.configure(model: item)    // call func to setup the collection view cell data
         }
         return cell
     }

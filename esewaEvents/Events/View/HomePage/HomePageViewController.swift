@@ -1,4 +1,5 @@
 import UIKit
+import SkeletonView
 
 class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate {
     
@@ -15,18 +16,18 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
             
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // functions call
         setupViews()
         addSearchBar()
         
         // create instance of EventsPresenter class and call fetch()
-        presenter = EventsPresenter(delegate: self)
+        presenter = EventsPresenter(delegate: self) // create communication between presenter and HomeViewController
         presenter?.fetch()
 
         // create instance and initialize upcomingEventsPresenter with model and view and then call updateView()
         upcomingEventsPresenter = UpcomingEventsPresenter(view: self, delegate: self)
-        upcomingEventsPresenter?.updateView()
+        upcomingEventsPresenter?.updateView()        
     }
     
     private func setupViews() {
@@ -152,7 +153,7 @@ extension HomePageViewController: UITableViewDataSource {
                 cell.setupViewWithData(model: model)
             }
             
-            // call itemClicked closure when item is clicked in the cell
+            // closure implementation when the item is clicked in UpcomingEventsTableViewCell
             cell.itemClicked = { item in
                 
                 // create instance of BottomSheetViewController, assign clicked item to events property
@@ -192,6 +193,7 @@ extension HomePageViewController: UITableViewDataSource {
             // dequeue a reusable cell and assign it as instance of NewEventsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: NewEventsTableViewCell.reuseIdentifier, for: indexPath) as! NewEventsTableViewCell
             return cell
+            
         default:
             // dequeue a reusable cell and assign it as instance of ArtistsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: ArtistsTableViewCell.reuseIdentifier, for: indexPath) as! ArtistsTableViewCell

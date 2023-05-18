@@ -16,5 +16,5 @@ struct Events {
 
 struct Contact {
     let personName: String
-    let number: Int
+    let number: String
 }

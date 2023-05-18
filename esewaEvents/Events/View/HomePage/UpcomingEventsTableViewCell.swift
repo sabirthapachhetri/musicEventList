@@ -55,10 +55,11 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 
     }
 
+    
     func setupViewWithData(model: [UpcomingEventsDataModel]?) {
         if let model = model {
-            self.events = model
-            collectionView.reloadData()
+            self.events = model         // assign the fetched model to events property
+            collectionView.reloadData() // reload the collection view to reflect the updated data
         }
     }
 }
@@ -73,10 +74,8 @@ extension UpcomingEventsTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! UpcomingEventCell
 
         if let events = events {
-            if indexPath.row < events.count {
-                let item = events[indexPath.row]
-                cell.configure(model: item)
-            }
+            let item = events[indexPath.row]
+            cell.configure(model: item)  // invoke configure() function by passing item
         }
 
         return cell
@@ -90,9 +89,10 @@ extension UpcomingEventsTableViewCell: UICollectionViewDataSource {
 extension UpcomingEventsTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = events?[indexPath.row]
-        if let item = item {
-            self.itemClicked?(item)
+        
+        if let events = events {
+            let item = events[indexPath.row]  // retrieve the selected item from the 'events' array
+            self.itemClicked?(item)  // invoke the itemClicked closure passing the selected item as an argument
         }
     }
 }
@@ -108,45 +108,44 @@ class UpcomingEventCell: UICollectionViewCell {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 20
 
-//        todayLabel.text = "Today"
         todayLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
         todayLabel.font = UIFont.boldSystemFont(ofSize: 18)
         todayLabel.textAlignment = .left
         todayLabel.adjustsFontSizeToFitWidth = true
         todayLabel.minimumScaleFactor = 0.5
         todayLabel.numberOfLines = 1
-        contentView.addSubview(todayLabel)
+        todayLabel.translatesAutoresizingMaskIntoConstraints = false
 
         dateLabel.textColor = .black
         dateLabel.font = UIFont.systemFont(ofSize: 16)
         dateLabel.adjustsFontSizeToFitWidth = true
         dateLabel.minimumScaleFactor = 0.5
         dateLabel.numberOfLines = 1
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        contentView.addSubview(todayLabel)
         contentView.addSubview(dateLabel)
 
-        todayLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             todayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             todayLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            todayLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
-        ])
+            todayLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -18),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -56)
         ])
     }
 
-    // create the setup func
+    // function to configure UpcomingEventsTableViewCell
     func configure(model: UpcomingEventsDataModel) {
         
         todayLabel.text = model.day
+        
+        // for interspace bwetween string characters
         let attributedString = NSMutableAttributedString(string: model.date)
         attributedString.addAttribute(NSAttributedString.Key.kern, value: 1.9, range: NSRange(location: 0, length: attributedString.length))
         dateLabel.attributedText = attributedString
-
     }
 
     required init?(coder: NSCoder) {
