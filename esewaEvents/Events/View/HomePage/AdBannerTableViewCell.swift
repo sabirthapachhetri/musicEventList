@@ -3,31 +3,35 @@ import UIKit
 class AdBannerTableViewCell: UITableViewCell {
 
     private let cellReuseIdentifier = "AdBannerTableViewCell"
-
-    // Initialize collectionView
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-
-    // Reuse identifier for the cell
     static let reuseIdentifier = "AdBannerTableViewCell"
+
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var layout = UICollectionViewFlowLayout()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1) 
-        // Add the collectionView to the contentView
-        contentView.addSubview(collectionView)
+        
         setupCollectionView()
+    }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupCollectionView() {
+                
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 10
+        
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        contentView.addSubview(collectionView)
 
         // Activate constraints
         NSLayoutConstraint.activate([
@@ -41,15 +45,8 @@ class AdBannerTableViewCell: UITableViewCell {
         // Register cell
         collectionView.register(EventCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .clear
-    }
 }
+
 
 extension AdBannerTableViewCell: UICollectionViewDataSource {
 
@@ -59,6 +56,7 @@ extension AdBannerTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! EventCell
+        
         // setup collection cell with image(String) "image\(indexPath.row + 1)"
         cell.setupCollectionCell(with: "Image\(indexPath.row + 1)")
         return cell

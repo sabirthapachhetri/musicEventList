@@ -2,6 +2,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class ContactDetailsView: UIView, UITextFieldDelegate {
+    
     var contactNameTextField = UITextField()
     var contactNumberTextField = UITextField()
     var emailAddressTextField = UITextField()
@@ -17,7 +18,7 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             super.init(frame: frame)
             IQKeyboardManager.shared.enable = true
             IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
-            setupviews()
+            setupViews()
 
         }
 
@@ -25,7 +26,7 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             fatalError("init(coder:) has not been implemented")
         }
 
-        func setupviews() {
+        func setupViews() {
             contactDetailsLabel.text = "Contact Details"
             contactDetailsLabel.font = UIFont.boldSystemFont(ofSize: 16)
             contactDetailsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +136,6 @@ class ContactDetailsViewTableViewCell: UITableViewCell {
             customView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             customView.heightAnchor.constraint(equalToConstant: 400),
 
-            // Contact Details Label
             customView.contactDetailsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             customView.contactDetailsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             customView.contactDetailsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

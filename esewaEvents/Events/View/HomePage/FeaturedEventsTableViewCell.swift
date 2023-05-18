@@ -11,39 +11,38 @@ class FeaturedEventsTableViewCell: UITableViewCell {
     var events: [EmbeddedEvents]?
     var itemClicked: ((EmbeddedEvents)->())?
     
-    // Initialize collectionView
-    let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
-    }()
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var layout = UICollectionViewFlowLayout()
     
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.selectionStyle = .none
-
+        setupViews()
+    }
+    
+    private func setupViews(){
         contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
-
-        // Add the collectionView to the contentView
-        contentView.addSubview(collectionView)
-        setupCollectionView()
+        self.selectionStyle = .none
+        
+        layout.scrollDirection = .horizontal
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        // Add the collectionView to the contentView
+        contentView.addSubview(collectionView)
 
-        // Activate constraints
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 250),
+            
         ])
 
         // Register cell
@@ -52,10 +51,6 @@ class FeaturedEventsTableViewCell: UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .clear
     }
     
     func setupViewWithData(model: [EmbeddedEvents]?) {
@@ -107,7 +102,10 @@ class FeaturedEventCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        setupViews()
+    }
+    
+    private func setupViews() {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 40
 
@@ -154,48 +152,40 @@ class FeaturedEventCell: UICollectionViewCell {
             eventImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             eventImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             eventImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            eventImageView.heightAnchor.constraint(equalToConstant: 120)
-        ])
+            eventImageView.heightAnchor.constraint(equalToConstant: 120),
 
-        NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: eventImageView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            titleLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0)
-        ])
-
-        NSLayoutConstraint.activate([
+            titleLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0),
+            
             dateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             dateLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
             locationLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 5),
             locationLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
+            locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
             priceLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
-            priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
-        ])
-
-        NSLayoutConstraint.activate([
+            priceLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            
             shareButton.topAnchor.constraint(equalTo: priceLabel.topAnchor),
             shareButton.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 20),
             shareButton.widthAnchor.constraint(equalToConstant: 100),
-            shareButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
-
-        NSLayoutConstraint.activate([
+            shareButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
             favoriteButton.topAnchor.constraint(equalTo: shareButton.topAnchor),
             favoriteButton.leadingAnchor.constraint(equalTo: shareButton.trailingAnchor, constant: -20),
             favoriteButton.bottomAnchor.constraint(equalTo: shareButton.bottomAnchor)
         ])
+
     }
     
-    // create the setup func
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func configure(model: EmbeddedEvents) {
         
         if let url = URL(string: model.images?.first?.url ?? "") {
@@ -206,11 +196,6 @@ class FeaturedEventCell: UICollectionViewCell {
         dateLabel.text = model.dates?.start?.localDate
         locationLabel.text = model.embedded?.venues?.first?.name
         priceLabel.text = String("$\(model.priceRanges?.first?.min ?? 0.0)")
-    }
-
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 

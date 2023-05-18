@@ -4,7 +4,8 @@ class NewEventsTableViewCell: UITableViewCell {
 
     private let cellReuseIdentifier = "NewEventsTableViewCell"
 
-    var collectionView: UICollectionView!
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var layout = UICollectionViewFlowLayout()
 
     // Reuse identifier for the cell
     static let reuseIdentifier = "NewEventsTableViewCell"
@@ -12,24 +13,25 @@ class NewEventsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        setupView()
+        
+    }
+
+    private func setupView(){
+        
         contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
 
-        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: self.frame.width/2 - 10 , height: self.frame.width/2 - 10)
         layout.minimumInteritemSpacing = 10
-
-        let collectionViews = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionViews.translatesAutoresizingMaskIntoConstraints = false
-
-        // Add the collectionView to the contentView
-        self.collectionView = collectionViews
-        contentView.addSubview(collectionView)
-        setupCollectionView()
+        collectionView.backgroundColor = .clear
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        contentView.addSubview(collectionView)
 
         // Activate constraints
         NSLayoutConstraint.activate([
@@ -38,19 +40,14 @@ class NewEventsTableViewCell: UITableViewCell {
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 410),
-//            collectionView.widthAnchor.constraint(equalToConstant: 350)
         ])
 
         // Register cell
         collectionView.register(NewEventsCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-    }
 
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupCollectionView() {
-        collectionView.backgroundColor = .clear
     }
 }
 
@@ -82,7 +79,11 @@ class NewEventsCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
+        setupViews()
+    }
+    
+    private func setupViews(){
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 40
 

@@ -110,5 +110,3 @@ class BottomSheetViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
-
-

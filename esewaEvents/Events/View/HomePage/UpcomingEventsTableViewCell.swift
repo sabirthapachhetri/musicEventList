@@ -104,7 +104,11 @@ class UpcomingEventCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        setupViews()
+    }
+    
+    private func setupViews(){
+        
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 20
 

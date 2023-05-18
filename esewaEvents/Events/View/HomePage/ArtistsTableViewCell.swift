@@ -1,61 +1,49 @@
-//
-//  ArtistsTableViewCell.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/20/23.
-//
-
 import UIKit
 
 class ArtistsTableViewCell: UITableViewCell {
-        private let cellReuseIdentifier = "ArtistsTableViewCell"
+    
+    static let reuseIdentifier = "ArtistsTableViewCell"
+    private let cellReuseIdentifier = "ArtistsTableViewCell"
+    
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var layout = UICollectionViewFlowLayout()
 
-        // Initialize collectionView
-        let collectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .horizontal
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            collectionView.translatesAutoresizingMaskIntoConstraints = false
-            collectionView.showsHorizontalScrollIndicator = false
-            return collectionView
-
-        }()
         
-        // Reuse identifier for the cell
-        static let reuseIdentifier = "ArtistsTableViewCell"
-
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-            contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
-
-            contentView.addSubview(collectionView)
-            setupCollectionView()
-
-            // Set the dataSource and delegate of the collectionView
-            collectionView.dataSource = self
-            collectionView.delegate = self
-
-            // Activate constraints
-            NSLayoutConstraint.activate([
-                collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-                collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-                collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                collectionView.heightAnchor.constraint(equalToConstant: 150),
-    //            collectionView.widthAnchor.constraint(equalToConstant: 350)
-            ])
-
-            // Register cell
-            collectionView.register(ArtistCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+            setupViews()
         }
+    
+    private func setupViews(){
+        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        
+        layout.scrollDirection = .horizontal
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        
+        // Set the dataSource and delegate of the collectionView
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        contentView.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 150),
+        ])
+
+        // Register cell
+        collectionView.register(ArtistCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+    }
 
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
-        }
-
-        private func setupCollectionView() {
-            collectionView.backgroundColor = .clear
         }
     }
 
