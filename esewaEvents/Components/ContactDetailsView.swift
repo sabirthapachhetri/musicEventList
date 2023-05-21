@@ -19,7 +19,6 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             IQKeyboardManager.shared.enable = true
             IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
             setupViews()
-
         }
 
         required init?(coder: NSCoder) {

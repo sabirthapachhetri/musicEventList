@@ -19,12 +19,9 @@ class EventsBookingPresenter {
                         contact: Contact(personName: "Mr. John Doe",
                                           number: "9892319484"))
     
-    let delegate: EventsViewDelegate?
-
-    weak var view: ConfirmationPageViewController?
+    var delegate: EventsViewDelegate?
     
-    init(view: ConfirmationPageViewController, delegate: EventsViewDelegate) {
-        self.view = view
+    init(delegate: EventsViewDelegate) {
         self.delegate = delegate
     }
     

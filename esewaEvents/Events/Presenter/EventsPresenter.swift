@@ -11,7 +11,7 @@ protocol EventViewDelegate: AnyObject {
 
 class EventsPresenter {
  
-    weak var delegate: EventViewDelegate?
+    var delegate: EventViewDelegate?
 
     // initializer assigns the passed delegate value to the delegate property of the EventsPresenter class instance
     init(delegate: EventViewDelegate?) {

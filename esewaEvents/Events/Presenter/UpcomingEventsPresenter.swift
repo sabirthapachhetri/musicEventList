@@ -5,17 +5,14 @@ protocol UpcomingEventsViewDelegate: AnyObject {
 }
 
 class UpcomingEventsPresenter {
-    var upcomingEvents: [UpcomingEventsDataModel] = [UpcomingEventsDataModel(day: "Today", date: "25 Apr, Tue"),
-                                                     UpcomingEventsDataModel(day: "Tomorrow", date: "26 Apr, Wed"),
-                                                     UpcomingEventsDataModel(day: "This Weekend", date: "28 Apr, Fri")]
+    var upcomingEvents: [UpcomingEventsDataModel] = [UpcomingEventsDataModel(day: "Today", date: "1 June, Tue"),
+                                                     UpcomingEventsDataModel(day: "Tomorrow", date: "2 June, Wed"),
+                                                     UpcomingEventsDataModel(day: "This Weekend", date: "10 June, Fri")]
     
     
-    let delegate: UpcomingEventsViewDelegate?
-
-    weak var view: HomePageViewController?
+    var delegate: UpcomingEventsViewDelegate?
     
-    init(view: HomePageViewController, delegate: UpcomingEventsViewDelegate) {
-        self.view = view
+    init(delegate: UpcomingEventsViewDelegate) {
         self.delegate = delegate
     }
     

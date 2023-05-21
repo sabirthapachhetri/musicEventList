@@ -15,7 +15,7 @@ class ArtistsTableViewCell: UITableViewCell {
             setupViews()
         }
     
-    private func setupViews(){
+    private func setupViews() {
         contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         
         layout.scrollDirection = .horizontal

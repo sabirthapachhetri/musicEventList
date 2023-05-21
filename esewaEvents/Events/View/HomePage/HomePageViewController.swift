@@ -26,7 +26,7 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
         presenter?.fetch()
 
         // create instance and initialize upcomingEventsPresenter with model and view and then call updateView()
-        upcomingEventsPresenter = UpcomingEventsPresenter(view: self, delegate: self)
+        upcomingEventsPresenter = UpcomingEventsPresenter(delegate: self)
         upcomingEventsPresenter?.updateView()        
     }
     

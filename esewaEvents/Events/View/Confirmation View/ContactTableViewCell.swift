@@ -14,8 +14,8 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
                 
         // Initialize presenter with model and view
-        let presenter = EventsBookingPresenter(view: ConfirmationPageViewController(), delegate: self)
-        presenter.updateView()
+        presenter = EventsBookingPresenter(delegate: self)
+        presenter?.updateView()
         
         setupViews()
     }

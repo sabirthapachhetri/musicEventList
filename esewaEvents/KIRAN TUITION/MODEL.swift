@@ -4,5 +4,3 @@ struct AddCartItemModel {
     var itemCount: Int?
     var itemPrice: Double?
 }
-
-    
