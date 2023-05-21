@@ -1,7 +1,7 @@
 import UIKit
 
-class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate, VenueViewDelegate {
-    
+class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate, VenueViewDelegate, PerformerViewDelegate {
+        
     // creating required instances
     var greenView = UIView()
     let tableView = UITableView()
@@ -15,6 +15,9 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
     
     var venuePresenter: VenuesPresenter?   // presenter for handling venues
     var venuesData: VenuesModel?           // data model for venues
+    
+    var performersPresenter: PerformersPresenter?   // presenter for handling performers
+    var performersData: PerformersModel?           // data model for performers
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +34,13 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
         upcomingEventsPresenter = UpcomingEventsPresenter(delegate: self)
         upcomingEventsPresenter?.updateView()
         
-        // create instance of EventsPresenter class and call fetch()
-        venuePresenter = VenuesPresenter(delegate: self) // create communication between presenter and HomeViewController
+        // create instance of VenuesPresenter class and call fetch()
+        venuePresenter = VenuesPresenter(delegate: self)
         venuePresenter?.fetch()
+        
+        // create instance of VenuesPresenter class and call fetch()
+        performersPresenter = PerformersPresenter(delegate: self)
+        performersPresenter?.fetch()
     }
     
     private func setupViews() {
@@ -85,7 +92,7 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
         tableView.register(UpcomingEventsTableViewCell.self, forCellReuseIdentifier: UpcomingEventsTableViewCell.reuseIdentifier)
         tableView.register(FeaturedEventsTableViewCell.self, forCellReuseIdentifier: FeaturedEventsTableViewCell.reuseIdentifier)
         tableView.register(VenuesTableViewCell.self, forCellReuseIdentifier: VenuesTableViewCell.reuseIdentifier)
-        tableView.register(ArtistsTableViewCell.self, forCellReuseIdentifier: ArtistsTableViewCell.reuseIdentifier)
+        tableView.register(PerformerListingTableViewCell.self, forCellReuseIdentifier: PerformerListingTableViewCell.reuseIdentifier)
     }
     
     // function to add a search bar in navigation bar
@@ -108,6 +115,11 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
     
     func didFetchModel(with model: VenuesModel?) {
         venuesData = model
+        tableView.reloadData()
+    }
+    
+    func didFetchModel(with model: PerformersModel?) {
+        performersData = model
         tableView.reloadData()
     }
 }
@@ -138,7 +150,7 @@ extension HomePageViewController: UITableViewDataSource {
         case 3:
             return "📍 Explore Venues"
         case 4:
-            return "🎙️ Artists"
+            return "🎙️ Performers"
         default:
             return nil
         }
@@ -204,10 +216,7 @@ extension HomePageViewController: UITableViewDataSource {
             // dequeue a reusable cell and assign it as instance of NewEventsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: VenuesTableViewCell.reuseIdentifier, for: indexPath) as! VenuesTableViewCell
             
-            // check of eventsData is not nil and access the events property
             if let model = venuesData?.embeddedVenues?.venues {
-                
-                // pass model to setupViewWithData() defined on the FeaturedEventsTableViewCell
                 cell.setupViewWithData(model: model)
             }
             
@@ -215,7 +224,10 @@ extension HomePageViewController: UITableViewDataSource {
             
         default:
             // dequeue a reusable cell and assign it as instance of ArtistsTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: ArtistsTableViewCell.reuseIdentifier, for: indexPath) as! ArtistsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: PerformerListingTableViewCell.reuseIdentifier, for: indexPath) as! PerformerListingTableViewCell
+            if let model = performersData?.embeddedPerformers?.attractions {
+                cell.setupViewWithData(model: model)
+            }
             return cell
         }
     }

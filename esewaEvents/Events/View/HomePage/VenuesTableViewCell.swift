@@ -97,7 +97,6 @@ class VenuesCell: UICollectionViewCell {
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 40
 
-        venueImageView.image = UIImage(named: "ball")
         venueImageView.layer.cornerRadius = 40
         venueImageView.clipsToBounds = true
         venueImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -117,7 +116,6 @@ class VenuesCell: UICollectionViewCell {
         venueLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(venueLocationLabel)
         
-        upcomingEventsLabel.text = "155"
         upcomingEventsLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         upcomingEventsLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
         upcomingEventsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -152,6 +150,9 @@ class VenuesCell: UICollectionViewCell {
         
         if let url = URL(string: model.images?.first?.url ?? "") {
             venueImageView.kf.setImage(with: url)
+        } else {
+            let defaultImage = UIImage(named: "appleEvent")
+            venueImageView.image = defaultImage
         }
         
         venueNameLabel.text = model.name

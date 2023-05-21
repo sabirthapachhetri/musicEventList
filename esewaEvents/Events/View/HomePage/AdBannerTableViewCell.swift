@@ -72,17 +72,18 @@ extension AdBannerTableViewCell: UICollectionViewDelegateFlowLayout {
 
 class EventCell: UICollectionViewCell {
     
-    private lazy var bannerImageView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFill
-        imgView.clipsToBounds = true
-        imgView.layer.cornerRadius = 30
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        return imgView
-    }()
+    var bannerImageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupViews()
+    }
+    
+    private func setupViews(){
+        bannerImageView.contentMode = .scaleAspectFill
+        bannerImageView.clipsToBounds = true
+        bannerImageView.layer.cornerRadius = 30
+        bannerImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(bannerImageView)
 
         NSLayoutConstraint.activate([
