@@ -47,7 +47,7 @@ class EventsPresenter {
                 // create an instance of EventsDataModel using the JSON object
                 let events = EventsDataModel(json: json)
                 
-                // notify the delegate (VC that conforms to EventsPresenter) about the fetched events
+                // notify the delegate (VC that conforms to protocol) about the fetched events
                 self.delegate?.didFetchModel(with: events)
                 
             case .failure(let error):

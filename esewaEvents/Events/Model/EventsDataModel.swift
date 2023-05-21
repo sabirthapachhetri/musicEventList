@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 import SwiftyJSON
 
 struct EventsDataModel {
@@ -61,8 +60,6 @@ struct EventsImages {
         self.url = json["url"].string
         self.width = json["width"].int
         self.height = json["height"].int
-        
-
     }
 }
 

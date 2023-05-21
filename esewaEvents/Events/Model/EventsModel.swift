@@ -1,10 +1,3 @@
-//
-//  EventsModel.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/13/23.
-//
-
 import Foundation
 
 struct Events {

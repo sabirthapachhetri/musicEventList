@@ -7,6 +7,7 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
     var contactNameLabel = UILabel()
     var nameLabel = UILabel()
     var phoneLabel = UILabel()
+    var phoneIcon = UIImageView()
     
     var presenter: EventsBookingPresenter?
 
@@ -32,7 +33,7 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         self.selectionStyle = .none
         contentView.translatesAutoresizingMaskIntoConstraints = false
 
-        let phoneIcon = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
+        phoneIcon = UIImageView(image: UIImage(systemName: "phone.circle.fill"))
         phoneIcon.contentMode = .scaleAspectFit
         phoneIcon.tintColor = .black
         phoneIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -42,12 +43,10 @@ class ContactTableViewCell: UITableViewCell, EventsViewDelegate {
         contactNameLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         contactNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-//        nameLabel.text = "Mr. John Doe"
         nameLabel.textColor = UIColor.black
         nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-//        phoneLabel.text = "9811234567"
         phoneLabel.textColor = UIColor.gray
         phoneLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         phoneLabel.translatesAutoresizingMaskIntoConstraints = false

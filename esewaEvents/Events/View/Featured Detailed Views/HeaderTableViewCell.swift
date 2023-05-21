@@ -37,15 +37,13 @@ class HeaderTableViewCell: UITableViewCell {
 
         private func setupViews() {
             self.selectionStyle = .none
-            // Title Label
+
             titleLabel = UILabel()
-//            titleLabel.text = eventData?.name ?? "W"
             titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
             titleLabel.textAlignment = .left
             titleLabel.numberOfLines = 2
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             
-            // Booking Date Label
             bookingDateLabel = UILabel()
             bookingDateLabel.text = "Booking Date -"
             bookingDateLabel.font = UIFont.boldSystemFont(ofSize: 10)
@@ -53,20 +51,15 @@ class HeaderTableViewCell: UITableViewCell {
             bookingDateLabel.translatesAutoresizingMaskIntoConstraints = false
             
             bookingDateValueLabel = UILabel()
-//            bookingDateValueLabel.text = "6 Apr - 20 Apr 2023"
             bookingDateValueLabel.font = UIFont.boldSystemFont(ofSize: 10)
             bookingDateValueLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
             bookingDateValueLabel.translatesAutoresizingMaskIntoConstraints = false
             
-            // Event Date Label
             eventLabel = UILabel()
-//            eventLabel.text = "Event - 22 Apr 2023"
             eventLabel.font = UIFont.boldSystemFont(ofSize: 10)
             eventLabel.translatesAutoresizingMaskIntoConstraints = false
         
-            // Location Label
             locationLabel = UILabel()
-//            locationLabel.text = "Location - Kathmandu, Nepal"
             locationLabel.font = UIFont.boldSystemFont(ofSize: 10)
             locationLabel.translatesAutoresizingMaskIntoConstraints = false
 
@@ -116,37 +109,29 @@ class HeaderTableViewCell: UITableViewCell {
             contentView.addSubview(locationLabel)
             contentView.addSubview(progressBarContainer)
             
-            // Set Constraints
             NSLayoutConstraint.activate([
                 
-                // Trade View Constraints
                 tradeView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
                 tradeView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
                 tradeView.widthAnchor.constraint(equalToConstant: 80),
                 tradeView.heightAnchor.constraint(equalToConstant: 30),
                     
-                // Trade Label Constraints
                 tradeLabel.centerXAnchor.constraint(equalTo: tradeView.centerXAnchor),
                 tradeLabel.centerYAnchor.constraint(equalTo: tradeView.centerYAnchor),
                     
-                // Title Label Constraints
                 titleLabel.topAnchor.constraint(equalTo: tradeView.bottomAnchor, constant: 10),
                 titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
                 titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
                 
-                // Booking Date Label Constraints
                 bookingDateLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
                 bookingDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
 
-                // Booking Date Value Label Constraints
                 bookingDateValueLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
                 bookingDateValueLabel.leadingAnchor.constraint(equalTo: bookingDateLabel.trailingAnchor, constant: 5),
 
-                // Event Label Constraints
                 eventLabel.topAnchor.constraint(equalTo: bookingDateLabel.bottomAnchor, constant: 10),
                 eventLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
 
-                // Location Label Constraints
                 locationLabel.topAnchor.constraint(equalTo: eventLabel.bottomAnchor, constant: 10),
                 locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
                 

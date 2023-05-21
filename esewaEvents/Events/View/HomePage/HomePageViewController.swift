@@ -1,7 +1,6 @@
 import UIKit
-import SkeletonView
 
-class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate {
+class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEventsViewDelegate, VenueViewDelegate {
     
     // creating required instances
     var greenView = UIView()
@@ -11,8 +10,11 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
     var presenter: EventsPresenter?  // presenter for handling events
     var eventsData: EventsDataModel? // data model for events
     
-    var upcomingEventsPresenter: UpcomingEventsPresenter? // presenter for handling upcoming events
+    var upcomingEventsPresenter: UpcomingEventsPresenter?  // presenter for handling upcoming events
     var upcomingEventsData: [UpcomingEventsDataModel]?     // data model for upcoming events
+    
+    var venuePresenter: VenuesPresenter?   // presenter for handling venues
+    var venuesData: VenuesModel?           // data model for venues
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,11 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
 
         // create instance and initialize upcomingEventsPresenter with model and view and then call updateView()
         upcomingEventsPresenter = UpcomingEventsPresenter(delegate: self)
-        upcomingEventsPresenter?.updateView()        
+        upcomingEventsPresenter?.updateView()
+        
+        // create instance of EventsPresenter class and call fetch()
+        venuePresenter = VenuesPresenter(delegate: self) // create communication between presenter and HomeViewController
+        venuePresenter?.fetch()
     }
     
     private func setupViews() {
@@ -78,7 +84,7 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
         tableView.register(AdBannerTableViewCell.self, forCellReuseIdentifier: AdBannerTableViewCell.reuseIdentifier)
         tableView.register(UpcomingEventsTableViewCell.self, forCellReuseIdentifier: UpcomingEventsTableViewCell.reuseIdentifier)
         tableView.register(FeaturedEventsTableViewCell.self, forCellReuseIdentifier: FeaturedEventsTableViewCell.reuseIdentifier)
-        tableView.register(NewEventsTableViewCell.self, forCellReuseIdentifier: NewEventsTableViewCell.reuseIdentifier)
+        tableView.register(VenuesTableViewCell.self, forCellReuseIdentifier: VenuesTableViewCell.reuseIdentifier)
         tableView.register(ArtistsTableViewCell.self, forCellReuseIdentifier: ArtistsTableViewCell.reuseIdentifier)
     }
     
@@ -98,6 +104,11 @@ class HomePageViewController: UIViewController, EventViewDelegate, UpcomingEvent
     func didFetchModel(with eventList: [UpcomingEventsDataModel]) {
         upcomingEventsData = eventList // assign the fetched model to the upcomingEventsData property
         tableView.reloadData()         // reload the table view to reflect the updated data
+    }
+    
+    func didFetchModel(with model: VenuesModel?) {
+        venuesData = model
+        tableView.reloadData()
     }
 }
 
@@ -125,7 +136,7 @@ extension HomePageViewController: UITableViewDataSource {
         case 2:
             return "🔥 Featured Events"
         case 3:
-            return "📅 New Events"
+            return "📍 Explore Venues"
         case 4:
             return "🎙️ Artists"
         default:
@@ -191,7 +202,15 @@ extension HomePageViewController: UITableViewDataSource {
             
         case 3:
             // dequeue a reusable cell and assign it as instance of NewEventsTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewEventsTableViewCell.reuseIdentifier, for: indexPath) as! NewEventsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: VenuesTableViewCell.reuseIdentifier, for: indexPath) as! VenuesTableViewCell
+            
+            // check of eventsData is not nil and access the events property
+            if let model = venuesData?.embeddedVenues?.venues {
+                
+                // pass model to setupViewWithData() defined on the FeaturedEventsTableViewCell
+                cell.setupViewWithData(model: model)
+            }
+            
             return cell
             
         default:

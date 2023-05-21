@@ -6,6 +6,7 @@ class TotalBalanceView: UIView {
     var nprLabel = UILabel()
     var balanceAmountLabel = UILabel()
     var arrowImageView = UIImageView()
+    var bagImageView = UIImageView()
     
     override init(frame: CGRect = CGRect(x: 0, y: 0, width: 370, height: 70)) {
         super.init(frame: frame)
@@ -22,8 +23,7 @@ class TotalBalanceView: UIView {
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
         
-        let bagImage = UIImage(systemName: "bag.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let bagImageView = UIImageView(image: bagImage)
+        bagImageView = UIImageView(image: UIImage(systemName: "bag.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal))
         bagImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         bagImageView.contentMode = .scaleAspectFit
         bagImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,8 +43,7 @@ class TotalBalanceView: UIView {
         balanceAmountLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         balanceAmountLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let arrowImage = UIImage(systemName: "arrow.uturn.forward.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        let arrowImageView = UIImageView(image: arrowImage)
+        arrowImageView = UIImageView(image: UIImage(systemName: "arrow.uturn.forward.circle")?.withTintColor(.black, renderingMode: .alwaysOriginal))
         arrowImageView.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         arrowImageView.contentMode = .scaleAspectFit
         arrowImageView.transform = CGAffineTransform(scaleX: -1, y: 1)

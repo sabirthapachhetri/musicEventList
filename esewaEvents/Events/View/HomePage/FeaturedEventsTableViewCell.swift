@@ -1,6 +1,5 @@
 import UIKit
 import Kingfisher
-import SkeletonView
 
 class FeaturedEventsTableViewCell: UITableViewCell {
         
@@ -119,7 +118,6 @@ class FeaturedEventCell: UICollectionViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         titleLabel.textColor = .black
         titleLabel.numberOfLines = 2
-        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
 
