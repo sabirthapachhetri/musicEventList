@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class FeaturedEventsTableViewCell: UITableViewCell {
         
@@ -47,7 +48,6 @@ class FeaturedEventsTableViewCell: UITableViewCell {
         // Register cell
         collectionView.register(FeaturedEventCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
     }
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -62,14 +62,17 @@ class FeaturedEventsTableViewCell: UITableViewCell {
 extension FeaturedEventsTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return 10
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! FeaturedEventCell
         
         if let item = events?[indexPath.row] {
+            cell.hideSkeletonView()
             cell.configure(model: item)    // call func to setup the collection view cell data
+        } else {
+            cell.showSkeletonView() // Show the skeleton view
         }
         return cell
     }
@@ -102,6 +105,7 @@ class FeaturedEventCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setupSkeletonView()
     }
     
     private func setupViews() {
@@ -180,6 +184,23 @@ class FeaturedEventCell: UICollectionViewCell {
 
     }
     
+    private func setupSkeletonView() {
+        
+        contentView.isSkeletonable = true
+        contentView.skeletonCornerRadius = 40
+        contentView.showAnimatedSkeleton()
+    }
+
+    // Show the skeleton view
+    func showSkeletonView() {
+        contentView.showSkeleton()
+    }
+
+    // Hide the skeleton view
+    func hideSkeletonView() {
+        contentView.hideSkeleton()
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

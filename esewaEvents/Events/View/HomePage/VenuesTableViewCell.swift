@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class VenuesTableViewCell: UITableViewCell {
         
@@ -60,14 +61,17 @@ class VenuesTableViewCell: UITableViewCell {
 extension VenuesTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return venues?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! VenuesCell
         
         if let item = venues?[indexPath.row] {
+            cell.hideSkeletonView()
             cell.configure(model: item)    // call func to setup the collection view cell data
+        } else {
+            cell.showSkeletonView() // Show the skeleton view
         }
         return cell
     }
@@ -91,6 +95,7 @@ class VenuesCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setupSkeletonView()
     }
     
     private func setupViews() {
@@ -140,6 +145,23 @@ class VenuesCell: UICollectionViewCell {
             upcomingEventsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
 
+    }
+    
+    private func setupSkeletonView() {
+        
+        contentView.isSkeletonable = true
+        contentView.skeletonCornerRadius = 40
+        contentView.showAnimatedSkeleton()
+    }
+
+    // Show the skeleton view
+    func showSkeletonView() {
+        contentView.showSkeleton()
+    }
+
+    // Hide the skeleton view
+    func hideSkeletonView() {
+        contentView.hideSkeleton()
     }
     
     required init?(coder: NSCoder) {
