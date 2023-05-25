@@ -9,6 +9,7 @@ protocol EventsDataViewDelegate: AnyObject {
     func didFetchEventsModel(with model: EventsDataModel?)
     func didFetchVenuesModel(with model: VenuesModel?)
     func didFetchPerformersModel(with model: PerformersModel?)
+    func didFetchUpcomingModel(with eventList: [UpcomingEventsDataModel])
 }
 
 class EventsDataPresenter {
@@ -120,6 +121,15 @@ class EventsDataPresenter {
                 print(error)
             }
         }
+    }
+    
+    var upcomingEvents: [UpcomingEventsDataModel] = [UpcomingEventsDataModel(day: "Today", date: "1 June, Tue"),
+                                                     UpcomingEventsDataModel(day: "Tomorrow", date: "2 June, Wed"),
+                                                     UpcomingEventsDataModel(day: "This Weekend", date: "10 June, Fri")]
+    
+    
+    func fetchupcomingEvents() {
+        self.delegate?.didFetchUpcomingModel(with: upcomingEvents)
     }
 }
 

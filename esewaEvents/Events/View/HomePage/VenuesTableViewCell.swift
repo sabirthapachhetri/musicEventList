@@ -68,19 +68,25 @@ extension VenuesTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! VenuesCell
         
         if let item = venues?[indexPath.row] {
-            cell.hideSkeletonView()
             cell.configure(model: item)    // call func to setup the collection view cell data
-        } else {
-            cell.showSkeletonView() // Show the skeleton view
-        }
+        } 
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 200, height: 250)
     }
 }
 
 extension VenuesTableViewCell: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 250)
+        let destinationVC = TableViewCRUD()
+                        
+        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+            navigationController.pushViewController(destinationVC, animated: true)
+        }
     }
 }
 
@@ -95,7 +101,6 @@ class VenuesCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        setupSkeletonView()
     }
     
     private func setupViews() {
@@ -144,24 +149,6 @@ class VenuesCell: UICollectionViewCell {
             upcomingEventsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             upcomingEventsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
-
-    }
-    
-    private func setupSkeletonView() {
-        
-        contentView.isSkeletonable = true
-        contentView.skeletonCornerRadius = 40
-        contentView.showAnimatedSkeleton()
-    }
-
-    // Show the skeleton view
-    func showSkeletonView() {
-        contentView.showSkeleton()
-    }
-
-    // Hide the skeleton view
-    func hideSkeletonView() {
-        contentView.hideSkeleton()
     }
     
     required init?(coder: NSCoder) {

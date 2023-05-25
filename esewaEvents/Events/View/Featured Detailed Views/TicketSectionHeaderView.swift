@@ -1,10 +1,3 @@
-//
-//  TicketSectionHeaderView.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 5/4/23.
-//
-
 import UIKit
 
 class TicketSectionHeaderView: UIView {
@@ -44,7 +37,6 @@ class TicketSectionHeaderView: UIView {
         headerContainerView.addSubview(titleLabel)
         
         let priceRangeLabel = UILabel()
-//        priceRangeLabel.text = "($61.95 - $246.95)"
         let minPrice = eventData?.priceRanges?.first?.min ?? 0
         let maxPrice = eventData?.priceRanges?.first?.max ?? 0
         priceRangeLabel.text = "($\(String(format: "%.2f", minPrice)) - $\(String(format: "%.2f", maxPrice)))"

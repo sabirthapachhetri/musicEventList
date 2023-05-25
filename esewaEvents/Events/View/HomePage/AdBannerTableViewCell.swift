@@ -21,10 +21,12 @@ class AdBannerTableViewCell: UITableViewCell {
     private func setupCollectionView() {
                 
         layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
+//        layout.minimumInteritemSpacing = 10
         
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isPagingEnabled = true
         collectionView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         
         // Set the dataSource and delegate of the collectionView
@@ -66,7 +68,7 @@ extension AdBannerTableViewCell: UICollectionViewDataSource {
 extension AdBannerTableViewCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 350, height: 170)
+        return CGSize(width: 400, height: 170)
     }
 }
 

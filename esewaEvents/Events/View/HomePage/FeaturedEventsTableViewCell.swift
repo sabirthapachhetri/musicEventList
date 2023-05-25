@@ -101,6 +101,8 @@ class FeaturedEventCell: UICollectionViewCell {
     var priceLabel = UILabel()
     var shareButton = UIButton()
     var favoriteButton = UIButton()
+    
+    var isFavorite = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -143,11 +145,13 @@ class FeaturedEventCell: UICollectionViewCell {
         shareButton.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         shareButton.tintColor = .gray
         shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         contentView.addSubview(shareButton)
 
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
         favoriteButton.tintColor = .gray
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         contentView.addSubview(favoriteButton)
 
         NSLayoutConstraint.activate([
@@ -181,14 +185,44 @@ class FeaturedEventCell: UICollectionViewCell {
             favoriteButton.leadingAnchor.constraint(equalTo: shareButton.trailingAnchor, constant: -20),
             favoriteButton.bottomAnchor.constraint(equalTo: shareButton.bottomAnchor)
         ])
-
+    }
+    
+    @objc func favoriteButtonTapped() {
+        
+        isFavorite.toggle()
+        
+        if isFavorite {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favoriteButton.tintColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favoriteButton.tintColor = .gray
+        }
+    }
+    
+    @objc func shareButtonTapped() {
+        guard let window = UIApplication.shared.windows.first,
+              let rootViewController = window.rootViewController else {
+            return
+        }
+        
+        let activityViewController = UIActivityViewController(activityItems: ["Hola Amigos"], applicationActivities: nil)
+        
+        // Define the source view for the popover on iPad
+        if let popoverPresentationController = activityViewController.popoverPresentationController {
+            popoverPresentationController.sourceView = shareButton
+            popoverPresentationController.sourceRect = shareButton.bounds
+        }
+        
+        // Present the activityViewController from the nearest view controller
+        rootViewController.present(activityViewController, animated: true, completion: nil)
     }
     
     private func setupSkeletonView() {
         
         contentView.isSkeletonable = true
         contentView.skeletonCornerRadius = 40
-        contentView.showAnimatedSkeleton()
+        contentView.showAnimatedGradientSkeleton()
     }
 
     // Show the skeleton view

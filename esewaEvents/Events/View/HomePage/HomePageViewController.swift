@@ -1,37 +1,32 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController, EventsDataViewDelegate, UpcomingEventsViewDelegate {
-
+class HomePageViewController: UIViewController, EventsDataViewDelegate {
+    
     // creating required instances
     var greenView = UIView()
-    let tableView = UITableView()
+    var tableView = UITableView()
     let eventsSearchBar = UISearchController(searchResultsController: nil)
+    var searchBar = SearchBarView()
 
     var presenter: EventsDataPresenter?  // presenter for handling events
     var eventsData: EventsDataModel? // data model for events
     var venuesData: VenuesModel? // data model for venues
     var performersData: PerformersModel?  // data model for performers
-
-    var upcomingEventsPresenter: UpcomingEventsPresenter?  // presenter for handling upcoming events
-    var upcomingEventsData: [UpcomingEventsDataModel]?     // data model for upcoming events
+    var upcomingEventsData: [UpcomingEventsDataModel]?   // data model for upcoming events
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // functions call
         setupViews()
-        addSearchBar()
-
-        // create instance of EventsPresenter class and call fetch()
+        
+        // create instance of EventsPresenter class and call methods
         presenter = EventsDataPresenter(delegate: self) // create communication between presenter and HomeViewController
         presenter?.eventsFetch()
         presenter?.venuesFetch()
         presenter?.performersFetch()
-
-        // create instance and initialize upcomingEventsPresenter with model and view and then call updateView()
-        upcomingEventsPresenter = UpcomingEventsPresenter(delegate: self)
-        upcomingEventsPresenter?.updateView()
+        presenter?.fetchupcomingEvents()
 
     }
 
@@ -46,6 +41,8 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate, Upcoming
 
         // set view's background color
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
 
         // configure properties for tableView instance
         tableView.separatorStyle = .none
@@ -55,10 +52,10 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate, Upcoming
         tableView.delegate = self  // current object handles events like row selection
         tableView.dataSource = self // current object provides data to populate the table view and configure its cells
 
-
         // add subviews to main view
-        view.addSubview(tableView)
         view.addSubview(greenView)
+        view.addSubview(searchBar)
+        view.addSubview(tableView)
 
         // configure naviagation properties
         navigationItem.title = "Events"
@@ -69,13 +66,18 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate, Upcoming
             // pin greenView on top of the main screen
             greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            greenView.topAnchor.constraint(equalTo: view.topAnchor, constant: -10),
-            greenView.heightAnchor.constraint(equalToConstant: 120),
+            greenView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            greenView.heightAnchor.constraint(equalToConstant: 130),
+            
+            // pin searchBar to the main screen
+            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
 
             // pin tableView to the main screen
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
 
@@ -85,6 +87,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate, Upcoming
         tableView.register(FeaturedEventsTableViewCell.self, forCellReuseIdentifier: FeaturedEventsTableViewCell.reuseIdentifier)
         tableView.register(VenuesTableViewCell.self, forCellReuseIdentifier: VenuesTableViewCell.reuseIdentifier)
         tableView.register(PerformerListingTableViewCell.self, forCellReuseIdentifier: PerformerListingTableViewCell.reuseIdentifier)
+        tableView.register(OfferAndSupportTableViewCell.self, forCellReuseIdentifier: OfferAndSupportTableViewCell.reuseIdentifier)
     }
 
     // function to add a search bar in navigation bar
@@ -95,7 +98,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate, Upcoming
         eventsSearchBar.searchBar.placeholder = "What are you searching for?"
     }
 
-    func didFetchModel(with eventList: [UpcomingEventsDataModel]) {
+    func didFetchUpcomingModel(with eventList: [UpcomingEventsDataModel]) {
         upcomingEventsData = eventList // assign the fetched model to the upcomingEventsData property
         tableView.reloadData()         // reload the table view to reflect the updated data
     }
@@ -122,31 +125,70 @@ extension HomePageViewController: UITableViewDataSource {
 
     // function that returns total of number of sections in our table view
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
 
     // function that returns total number of rows in section of a table view's cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0, 1, 2, 3, 4:
+            return 1
+        default:
+            return 2
+        }
     }
 
-    // function to provide title for headers in section of our table view
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        
+        let titleLabel = UILabel()
+        titleLabel.textColor = UIColor.black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        headerView.addSubview(titleLabel)
+        
+        // Set the title label constraints
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
+            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
+        ])
+        
         switch section {
         case 0:
-            return ""
+            titleLabel.text = ""
         case 1:
-            return "Upcoming Events"
+            titleLabel.text = "Upcoming Events"
         case 2:
-            return "🔥 Featured Events"
+            titleLabel.text = "🔥 Featured Events"
         case 3:
-            return "📍 Explore Venues"
+            titleLabel.text = "📍 Explore Venues"
         case 4:
-            return "🎙️ Performers"
+            titleLabel.text = "🎙️ Performers"
         default:
-            return nil
+            titleLabel.text = ""
         }
-     }
+        
+        return headerView
+    }
+
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.layer.zPosition = -1 // Move the header view behind the table view cells
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return CGFloat.leastNonzeroMagnitude// Return a value close to zero to remove any space for section 0
+        case 1,2,3,4:
+            return 35
+        default:
+            return CGFloat.leastNonzeroMagnitude
+        }
+    }
 
     // function that provides a cell for a specific row in a table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -214,11 +256,28 @@ extension HomePageViewController: UITableViewDataSource {
 
             return cell
 
-        default:
+        case 4:
             // dequeue a reusable cell and assign it as instance of ArtistsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: PerformerListingTableViewCell.reuseIdentifier, for: indexPath) as! PerformerListingTableViewCell
             if let model = performersData?.embeddedPerformers?.attractions {
                 cell.setupViewWithData(model: model)
+            }
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: OfferAndSupportTableViewCell.reuseIdentifier, for: indexPath) as! OfferAndSupportTableViewCell
+            
+            if indexPath.row == 0 {
+                // Configure the cell for Cashback & Offers section
+                cell.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")
+                cell.titleLabel.text = "Cashback & Offers"
+                cell.descriptionLabel.text = "View your points, discount card, and other offers"
+            }
+            else if indexPath.row == 1 {
+                // Configure the cell for 24x7 Help & Support section
+                cell.iconImageView.image = UIImage(systemName: "message.circle")
+                cell.titleLabel.text = "24x7 Help & Support"
+                cell.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
             }
             return cell
         }

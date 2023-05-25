@@ -8,18 +8,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
     var ticketselect = TicketSelectTableViewCell()
     var eventData: EmbeddedEvents?
     var confirmationVC = ConfirmationPageViewController()
-    
-    var quantity: Int = 0
-    
-    var silverPrice: Double = 0.0
-    var goldPrice: Double = 0.0
-    
-    var silverQuantity: Int = 0
-    var goldQuantity: Int = 0
-    var subTotal: Double = 0
-        
-    var cashBack: Double = 5.0
-    var grandTotal: Double = 0
+    var confirmationData = ConfirmationModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,16 +80,20 @@ class FeaturedEventsDetailedViewController: UIViewController {
         tableView.register(ContactDetailsViewTableViewCell.self, forCellReuseIdentifier: ContactDetailsViewTableViewCell.reuseIdentifier)
         
         buyticketsView.buttonClicked = {
+            let confirmationData = ConfirmationModel(
+                quantity: self.confirmationData.quantity,
+                silverPrice: self.confirmationData.silverPrice,
+                goldPrice: self.confirmationData.goldPrice,
+                silverQuantity: self.confirmationData.silverQuantity,
+                goldQuantity: self.confirmationData.goldQuantity,
+                totalQuantity: self.confirmationData.quantity + self.confirmationData.silverQuantity + self.confirmationData.goldQuantity,
+                subTotal: self.confirmationData.silverPrice + self.confirmationData.goldPrice,
+                cashBack: self.confirmationData.cashBack,
+                grandTotal: self.confirmationData.silverPrice + self.confirmationData.goldPrice - self.confirmationData.cashBack
+            )
             let confirmationVC = ConfirmationPageViewController()
+            confirmationVC.confirmationData = confirmationData
             confirmationVC.eventData = self.eventData
-            confirmationVC.totalQuantity = self.quantity + self.silverQuantity + self.goldQuantity
-            confirmationVC.silverQuantity = self.silverQuantity
-            confirmationVC.goldQuantity = self.goldQuantity
-            confirmationVC.silverPrice = self.silverPrice
-            confirmationVC.goldPrice = self.goldPrice
-            confirmationVC.subtotal = self.silverPrice + self.goldPrice
-            confirmationVC.cashBack = self.cashBack
-            confirmationVC.grandTotal = self.silverPrice + self.goldPrice - self.cashBack
             self.navigationController?.pushViewController(confirmationVC, animated: true)
         }
     }
@@ -176,12 +169,12 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
                     cell.nameLabel.text = "Silver"
                     cell.priceLabel.text = String(format: "$%.2f", minPrice)
                     cell.priceUpdated = { price in
-                        self.silverPrice = price
-                        let subtotal = self.silverPrice + self.goldPrice
+                        self.confirmationData.silverPrice = price
+                        let subtotal = self.confirmationData.silverPrice + self.confirmationData.goldPrice
                         self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", subtotal)
                     }
                     cell.totalQuantity = { quantity in
-                        self.silverQuantity = quantity
+                        self.confirmationData.silverQuantity = quantity
                     }
                 }
             } else if indexPath.row == 1 {
@@ -189,12 +182,12 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
                     cell.nameLabel.text = "Gold"
                     cell.priceLabel.text = String(format: "$%.2f", maxPrice)
                     cell.priceUpdated = { price in
-                        self.goldPrice = price
-                        let subtotal = self.silverPrice + self.goldPrice
+                        self.confirmationData.goldPrice = price
+                        let subtotal = self.confirmationData.silverPrice + self.confirmationData.goldPrice
                         self.buyticketsView.totalPayingAmountValueLabel.text = String(format: "$%.2f", subtotal)
                     }
                     cell.totalQuantity = { quantity in
-                         self.goldQuantity = quantity
+                        self.confirmationData.goldQuantity = quantity
                      }
                 }
             }
@@ -264,3 +257,15 @@ extension FeaturedEventsDetailedViewController: UITableViewDelegate {
 
     }
 }
+
+ struct ConfirmationModel {
+     var quantity: Int = 0
+     var silverPrice: Double = 0.0
+     var goldPrice: Double = 0.0
+     var silverQuantity: Int = 0
+     var goldQuantity: Int = 0
+     var totalQuantity: Int = 0
+     var subTotal: Double = 0.0
+     var cashBack: Double = 5.0
+     var grandTotal: Double = 0
+ }

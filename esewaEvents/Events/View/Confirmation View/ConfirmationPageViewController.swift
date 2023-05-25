@@ -7,17 +7,8 @@ class ConfirmationPageViewController: UIViewController {
     var greenView = UIView()
     var totalBalanceView = TotalBalanceView()
     var tableView = UITableView()
-    
-    var totalQuantity: Int = 0
-    var silverQuantity: Int = 0
-    var goldQuantity: Int = 0
-    
-    var silverPrice: Double = 0
-    var goldPrice: Double = 0
-    var subtotal: Double = 0
-    
-    var cashBack: Double = 0
-    var grandTotal: Double = 0
+
+    var confirmationData: ConfirmationModel?
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +63,6 @@ class ConfirmationPageViewController: UIViewController {
         tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: ContactTableViewCell.reuseIdentifier)
         tableView.register(ConfirmTableViewCell.self, forCellReuseIdentifier: ConfirmTableViewCell.reuseIdentifier)
     }
-
 }
 
 extension ConfirmationPageViewController: UITableViewDataSource {
@@ -94,12 +84,16 @@ extension ConfirmationPageViewController: UITableViewDataSource {
                 cell.configure(with: eventData)
             }
             return cell
+            
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: TicketSummaryTableViewCell.reuseIdentifier, for: indexPath) as! TicketSummaryTableViewCell
 
-            cell.configure(totalQuantity: totalQuantity, silverQuantity: silverQuantity, goldQuantity: goldQuantity, silverPrice: silverPrice, goldPrice: goldPrice, subtotal: subtotal, cashback: cashBack, grandTotal: grandTotal)
+            if let confirmationData = confirmationData {
+                cell.configure(with: confirmationData)
+            }
 
             return cell
+            
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactTableViewCell.reuseIdentifier, for: indexPath) as! ContactTableViewCell
             return cell

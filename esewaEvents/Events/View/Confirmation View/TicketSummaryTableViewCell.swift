@@ -26,7 +26,6 @@ class TicketSummaryTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupViews()
     }
     
@@ -173,20 +172,21 @@ class TicketSummaryTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(totalQuantity: Int, silverQuantity: Int, goldQuantity: Int, silverPrice: Double, goldPrice: Double, subtotal: Double, cashback: Double, grandTotal: Double) {
+    func configure(with model: ConfirmationModel) {
         
-        ticketsSummaryLabel.text = "Tickets Summary (\(totalQuantity))"
+        ticketsSummaryLabel.text = "Tickets Summary (\(model.totalQuantity))"
 
-        silverTicketLabel.text = "Silver Ticket X \(silverQuantity)"
-        silverTicketPriceLabel.text = String(format: "$%.2f", silverPrice)
+        silverTicketLabel.text = "Silver Ticket X \(model.silverQuantity)"
+        silverTicketPriceLabel.text = String(format: "$%.2f", model.silverPrice)
 
-        goldTicketLabel.text = "Gold Ticket X \(goldQuantity)"
-        goldTicketPriceLabel.text = String(format: "$%.2f", goldPrice)
+        goldTicketLabel.text = "Gold Ticket X \(model.goldQuantity)"
+        goldTicketPriceLabel.text = String(format: "$%.2f", model.goldPrice)
         
-        subtotalPriceLabel.text = String(format: "$%.2f", subtotal)
+        subtotalPriceLabel.text = String(format: "$%.2f", model.subTotal)
         
-        cashbackPriceLabel.text = String(format: "$%.2f", cashback)
-        grandTotalPriceLabel.text = String(format: "$%.2f     ", grandTotal)
+        cashbackPriceLabel.text = String(format: "$%.2f", model.cashBack)
+        grandTotalPriceLabel.text = String(format: "$%.2f     ", model.grandTotal)
     }
 
 }
+

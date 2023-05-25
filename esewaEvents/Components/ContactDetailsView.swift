@@ -125,9 +125,11 @@ class ContactDetailsViewTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.selectionStyle = .none
         contentView.addSubview(customView)
         customView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             customView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             customView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -176,7 +178,7 @@ class ContactDetailsViewTableViewCell: UITableViewCell {
             customView.emailAddressTextField.leadingAnchor.constraint(equalTo: customView.contactDetailsLabel.leadingAnchor),
             customView.emailAddressTextField.trailingAnchor.constraint(equalTo: customView.contactDetailsLabel.trailingAnchor),
             customView.emailAddressTextField.heightAnchor.constraint(equalToConstant: 50),
-
+            customView.emailAddressTextField.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -20)
         ])
     }
     

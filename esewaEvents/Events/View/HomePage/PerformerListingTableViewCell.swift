@@ -74,7 +74,7 @@ class PerformerListingTableViewCell: UITableViewCell {
     extension PerformerListingTableViewCell: UICollectionViewDelegateFlowLayout {
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 100, height: 150)
+            return CGSize(width: 150, height: 150)
         }
     }
 
@@ -96,13 +96,13 @@ class PerformerListingTableViewCell: UITableViewCell {
             eventImageView.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(eventImageView)
 
-            nameLabel.font = .systemFont(ofSize: 7, weight: .bold)
-            nameLabel.textColor = .black
+            nameLabel.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+            nameLabel.numberOfLines = 2
             nameLabel.textAlignment = .center
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(nameLabel)
 
-            eventsLabel.font = .systemFont(ofSize: 7, weight: .bold)
+            eventsLabel.font = UIFont.systemFont(ofSize: 10, weight: .bold)
             eventsLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
             eventsLabel.textAlignment = .center
             eventsLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -121,7 +121,7 @@ class PerformerListingTableViewCell: UITableViewCell {
 
                 eventsLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 5),
                 eventsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                eventsLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+                eventsLabel.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
                 eventsLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             ])
         }
