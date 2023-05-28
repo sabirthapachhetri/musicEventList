@@ -2,11 +2,10 @@ import UIKit
 
 class TableViewCRUD: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    // Sample data
     var people: [(imageName: String, name: String, age: Int)] = [
-        ("Image1", "John Doe", 25),
-        ("Image2", "Jane Smith", 30),
-        ("Image3", "Michael Johnson", 42)
+        ("Image1", "Jass Ika", 25),
+        ("Image2", "Tim Ramsey", 30),
+        ("Image3", "Michael Cook", 42)
     ]
 
     let tableView = UITableView()
@@ -14,7 +13,6 @@ class TableViewCRUD: UIViewController, UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Configure table view
         tableView.dataSource = self
         tableView.delegate = self
         tableView.frame = view.bounds
@@ -23,7 +21,6 @@ class TableViewCRUD: UIViewController, UITableViewDataSource, UITableViewDelegat
                 
         navigationController?.navigationBar.tintColor = UIColor.green
 
-        // Add the "+" button to the navigation item
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
         navigationItem.rightBarButtonItem = addButton
     }

@@ -6,8 +6,8 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     // creating required instances
     var greenView = UIView()
     var tableView = UITableView()
-    let eventsSearchBar = UISearchController(searchResultsController: nil)
     var searchBar = SearchBarView()
+    var tabBarView = TabBarView()
 
     var presenter: EventsDataPresenter?  // presenter for handling events
     var eventsData: EventsDataModel? // data model for events
@@ -78,7 +78,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
         ])
 
         // register custom cell classes for use in the tableView, and allow table view to dequeue and reuse these cells
@@ -88,14 +88,6 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         tableView.register(VenuesTableViewCell.self, forCellReuseIdentifier: VenuesTableViewCell.reuseIdentifier)
         tableView.register(PerformerListingTableViewCell.self, forCellReuseIdentifier: PerformerListingTableViewCell.reuseIdentifier)
         tableView.register(OfferAndSupportTableViewCell.self, forCellReuseIdentifier: OfferAndSupportTableViewCell.reuseIdentifier)
-    }
-
-    // function to add a search bar in navigation bar
-    private func addSearchBar() {
-        navigationItem.searchController = eventsSearchBar
-        navigationItem.hidesSearchBarWhenScrolling = false
-
-        eventsSearchBar.searchBar.placeholder = "What are you searching for?"
     }
 
     func didFetchUpcomingModel(with eventList: [UpcomingEventsDataModel]) {
@@ -185,8 +177,10 @@ extension HomePageViewController: UITableViewDataSource {
             return CGFloat.leastNonzeroMagnitude// Return a value close to zero to remove any space for section 0
         case 1,2,3,4:
             return 35
-        default:
+        case 5:
             return CGFloat.leastNonzeroMagnitude
+        default:
+            return 0
         }
     }
 
@@ -264,21 +258,25 @@ extension HomePageViewController: UITableViewDataSource {
             }
             return cell
             
-        default:
+        case 5:
             let cell = tableView.dequeueReusableCell(withIdentifier: OfferAndSupportTableViewCell.reuseIdentifier, for: indexPath) as! OfferAndSupportTableViewCell
             
             if indexPath.row == 0 {
                 // Configure the cell for Cashback & Offers section
-                cell.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")
+                cell.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
                 cell.titleLabel.text = "Cashback & Offers"
                 cell.descriptionLabel.text = "View your points, discount card, and other offers"
             }
             else if indexPath.row == 1 {
                 // Configure the cell for 24x7 Help & Support section
-                cell.iconImageView.image = UIImage(systemName: "message.circle")
+                cell.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
                 cell.titleLabel.text = "24x7 Help & Support"
                 cell.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
             }
+            return cell
+            
+        default:
+            var cell = UITableViewCell()
             return cell
         }
     }

@@ -1,46 +1,77 @@
 import SwiftUI
 
 struct SwiftUIView: View {
+    @SwiftUI.State private var selectedButton: Int =  0
 
     var body: some View {
-        VStack(spacing: 10) {
-                    HStack {
-                        Image(systemName: "lasso.and.sparkles")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                        VStack(alignment: .leading) {
-                            Text("Cashback & Offers")
-                                .fontWeight(.black)
-                            Text("View your points, discount card, and other offers")
-                                .fontWeight(.medium)
-                                .foregroundColor(.gray)
-                        }
-                        .padding()
-                    }
-                    
-                    Divider()
-                    
-                    HStack {
-                        Image(systemName: "message.circle")
-                            .resizable()
-                            .frame(width: 50, height: 50)
-                            .padding(.leading, 5)
-                        VStack(alignment: .leading) {
-                            Text("24x7 Help & Support")
-                                .fontWeight(.black)
-                            Text("Get quick resolution on queries related to eSewa")
-                                .fontWeight(.medium)
-                                .foregroundColor(.gray)
-                        }
-                        .padding()
+        HStack {
+            Button(action: {
+                selectedButton = 0
+                // Action for Calendar button
+            }) {
+                HStack {
+                    Image(systemName: "calendar")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    if selectedButton == 0 {
+                        Text("Event")
+                            .font(.caption)
                     }
                 }
-        .background(Color.white)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(Color.gray, lineWidth: 0.5))
-        .padding()
+                .padding()
+                .background(Color.white)
+                .cornerRadius(80)
 
+            }
+            .padding(.leading, 50)
+            .foregroundColor(selectedButton == 0 ? .green : .black)
+
+            Spacer()
+
+            Button(action: {
+                selectedButton = 1
+                // Action for Tickets button
+            }) {
+                HStack {
+                    Image(systemName: "ticket")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    if selectedButton == 1 {
+                        Text("Tickets")
+                            .font(.caption)
+                    }
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(80)
+            }
+            .padding()
+            .foregroundColor(selectedButton == 1 ? .green : .black)
+
+            Spacer()
+
+            Button(action: {
+                selectedButton = 2
+                // Action for Offers button
+            }) {
+                HStack {
+                    Image(systemName: "gift")
+                        .resizable()
+                        .frame(width: 18, height: 18)
+                    if selectedButton == 2 {
+                        Text("Offers")
+                            .font(.caption)
+                    }
+                }
+                .padding()
+                .background(Color.white)
+                .cornerRadius(80)
+
+            }
+            .padding(.trailing, 50)
+            .foregroundColor(selectedButton == 2 ? .green : .black)
+        }
+        .background(Color.gray)
     }
 }
 
