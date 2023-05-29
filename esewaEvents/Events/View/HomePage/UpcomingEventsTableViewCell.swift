@@ -23,7 +23,7 @@ class UpcomingEventsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
         // add the collectionView to the contentView
         contentView.addSubview(collectionView)
@@ -109,7 +109,7 @@ class UpcomingEventCell: UICollectionViewCell {
     
     private func setupViews(){
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
         contentView.layer.cornerRadius = 20
 
         todayLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)

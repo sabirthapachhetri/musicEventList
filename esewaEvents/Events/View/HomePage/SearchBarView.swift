@@ -16,7 +16,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     
     private func setupViews() {
         
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
         

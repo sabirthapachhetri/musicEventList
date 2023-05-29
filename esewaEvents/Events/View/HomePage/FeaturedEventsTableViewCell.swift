@@ -20,14 +20,14 @@ class FeaturedEventsTableViewCell: UITableViewCell {
     }
     
     private func setupViews(){
-        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         self.selectionStyle = .none
         
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        collectionView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
@@ -111,7 +111,7 @@ class FeaturedEventCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
         contentView.layer.cornerRadius = 40
 
         eventImageView.clipsToBounds = true

@@ -18,7 +18,7 @@ class PerformerListingTableViewCell: UITableViewCell {
         }
 
     private func setupViews() {
-        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
 
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: false)
@@ -87,7 +87,7 @@ class PerformerListingTableViewCell: UITableViewCell {
         override init(frame: CGRect) {
             super.init(frame: frame)
 
-            contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+            contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
             contentView.layer.cornerRadius = 40
 
             eventImageView.contentMode = .scaleAspectFill

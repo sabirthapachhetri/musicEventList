@@ -19,7 +19,8 @@ class TabBarView: UIView {
     }
 
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 136/255, green: 217/255, blue: 82/255, alpha: 1.0)
+        layer.cornerRadius = 20
         
         eventButton.setImage(UIImage(systemName: "calendar")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
         eventButton.setTitle(" Event", for: .normal)

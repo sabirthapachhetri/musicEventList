@@ -46,14 +46,14 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         greenView.translatesAutoresizingMaskIntoConstraints = false
 
         // set view's background color
-        view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        view.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tabBarView.translatesAutoresizingMaskIntoConstraints = false
 
         // configure properties for tableView instance
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self  // current object handles events like row selection
@@ -95,18 +95,18 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
             searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-
+            
             // pin tableView to the main screen
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 110),
             tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: 0),
             
             // pin tabBarView to the main screen's footer
             tabBarView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
-            tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             tabBarView.heightAnchor.constraint(equalToConstant: 50)
         ])
 
@@ -161,7 +161,7 @@ extension HomePageViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        headerView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.black

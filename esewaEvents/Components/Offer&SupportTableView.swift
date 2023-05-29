@@ -16,11 +16,11 @@ class OfferAndSupportView: UIView {
     }
     
     func setupViews() {
-        self.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        self.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
         layer.cornerRadius = 15
         layer.masksToBounds = true
-        layer.backgroundColor = UIColor.white.cgColor
+        layer.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0).cgColor
         translatesAutoresizingMaskIntoConstraints = false
         
         iconImageView.contentMode = .scaleAspectFit
@@ -43,7 +43,7 @@ class OfferAndSupportView: UIView {
             bottomAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10),
             
             iconImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            iconImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             iconImageView.widthAnchor.constraint(equalToConstant: 30),
             
@@ -75,7 +75,7 @@ class OfferAndSupportContainerView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
         layer.cornerRadius = 20
         
         cashbackView.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
@@ -132,7 +132,7 @@ class OfferAndSupportTableViewCell: UITableViewCell {
     private func setupViews() {
         self.selectionStyle = .none
         contentView.addSubview(offerAndSupportView)
-        contentView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
         offerAndSupportView.translatesAutoresizingMaskIntoConstraints = false
         
