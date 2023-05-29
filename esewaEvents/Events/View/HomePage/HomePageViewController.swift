@@ -23,11 +23,10 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         
         // create instance of EventsPresenter class and call methods
         presenter = EventsDataPresenter(delegate: self) // create communication between presenter and HomeViewController
-        presenter?.eventsFetch()
-        presenter?.venuesFetch()
-        presenter?.performersFetch()
+        presenter?.fetchEvents()
+        presenter?.fetchVenues()
+        presenter?.fetchPerformers()
         presenter?.fetchupcomingEvents()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

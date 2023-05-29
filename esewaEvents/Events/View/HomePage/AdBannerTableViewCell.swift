@@ -7,7 +7,7 @@ class AdBannerTableViewCell: UITableViewCell {
 
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var layout = UICollectionViewFlowLayout()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -21,7 +21,6 @@ class AdBannerTableViewCell: UITableViewCell {
     private func setupCollectionView() {
                 
         layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = 10
         
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +40,7 @@ class AdBannerTableViewCell: UITableViewCell {
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 170)
+            collectionView.heightAnchor.constraint(equalToConstant: 170),
         ])
 
         // Register cell

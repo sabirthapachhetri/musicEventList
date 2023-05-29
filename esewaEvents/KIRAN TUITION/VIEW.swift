@@ -6,7 +6,7 @@ class AddCartItemVC: UIViewController, AddItemToCartProtocol {
     
     var presenter: AddCartItempresenter?
     var tableView = UITableView()
-    var model = [AddCartItemModel]()
+    var model: [AddCartItemModel]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,10 @@ class AddCartItemVC: UIViewController, AddItemToCartProtocol {
 
         tableView.register(AddCartItemCell.self, forCellReuseIdentifier: "AddCartItemCell")
 
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func displayItemList(model: [AddCartItemModel]) {

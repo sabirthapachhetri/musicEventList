@@ -20,44 +20,9 @@ class EventsDataPresenter {
     init(delegate: EventsDataViewDelegate?) {
         self.delegate = delegate
     }
-
-    // method called in the view Controller responsible
-    // for initiating the fetching of events
-    func eventsFetch() {
-        fetchEvents() { result in
-            switch result {
-            case .success(let model):
-                print(model)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
     
-    func venuesFetch() {
-        fetchVenues() { result in
-            switch result {
-            case .success(let model):
-                print(model)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    func performersFetch() {
-        fetchPerformers() { result in
-            switch result {
-            case .success(let model):
-                print(model)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-
     // method responsible for fetching events from api
-    func fetchEvents(completion: @escaping (Result<[EventsDataModel], Error>) -> Void) {
+    func fetchEvents() {
 
         let url = URL(string: "\(fetchEvent)?apikey=\(apiKey)")!
 
@@ -83,7 +48,7 @@ class EventsDataPresenter {
         }
     }
     
-    func fetchVenues(completion: @escaping (Result<[VenuesModel], Error>) -> Void) {
+    func fetchVenues() {
 
         let url = URL(string: "\(fetchVenue))?apikey=\(apiKey)")!
 
@@ -103,7 +68,7 @@ class EventsDataPresenter {
         }
     }
     
-    func fetchPerformers(completion: @escaping (Result<[PerformersModel], Error>) -> Void) {
+    func fetchPerformers() {
 
         let url = URL(string: "\(fetchPerformer)?apikey=\(apiKey)")!
 
