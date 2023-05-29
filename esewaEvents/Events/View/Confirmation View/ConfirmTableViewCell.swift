@@ -1,10 +1,3 @@
-//
-//  ConfirmTableViewCell.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 5/13/23.
-//
-
 import UIKit
 
 class ConfirmTableViewCell: UITableViewCell {

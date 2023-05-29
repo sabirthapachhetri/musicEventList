@@ -29,6 +29,12 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         presenter?.fetchupcomingEvents()
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarView.reset()
+    }
+
 
     private func setupViews() {
 
@@ -43,6 +49,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        tabBarView.translatesAutoresizingMaskIntoConstraints = false
 
         // configure properties for tableView instance
         tableView.separatorStyle = .none
@@ -56,13 +63,28 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         view.addSubview(greenView)
         view.addSubview(searchBar)
         view.addSubview(tableView)
+        view.addSubview(tabBarView)
 
         // configure naviagation properties
         navigationItem.title = "Events"
         navigationController?.navigationBar.barTintColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
         navigationController?.navigationBar.tintColor = .white
+        
+        tabBarView.didSelectViewController = { selectedIndex in
+            switch selectedIndex {
+            case 1:
+                let vc = TicketsViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 2:
+                let vc = TicketsViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            default:
+                break
+            }
+        }
 
         NSLayoutConstraint.activate([
+            
             // pin greenView on top of the main screen
             greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
@@ -78,7 +100,14 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
+            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: 0),
+            
+            // pin tabBarView to the main screen's footer
+            tabBarView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
+            tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tabBarView.heightAnchor.constraint(equalToConstant: 50)
         ])
 
         // register custom cell classes for use in the tableView, and allow table view to dequeue and reuse these cells
@@ -126,7 +155,7 @@ extension HomePageViewController: UITableViewDataSource {
         case 0, 1, 2, 3, 4:
             return 1
         default:
-            return 2
+            return 1
         }
     }
 
@@ -177,10 +206,8 @@ extension HomePageViewController: UITableViewDataSource {
             return CGFloat.leastNonzeroMagnitude// Return a value close to zero to remove any space for section 0
         case 1,2,3,4:
             return 35
-        case 5:
-            return CGFloat.leastNonzeroMagnitude
         default:
-            return 0
+            return CGFloat.leastNonzeroMagnitude
         }
     }
 
@@ -251,32 +278,14 @@ extension HomePageViewController: UITableViewDataSource {
             return cell
 
         case 4:
-            // dequeue a reusable cell and assign it as instance of ArtistsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: PerformerListingTableViewCell.reuseIdentifier, for: indexPath) as! PerformerListingTableViewCell
             if let model = performersData?.embeddedPerformers?.attractions {
                 cell.setupViewWithData(model: model)
             }
             return cell
             
-        case 5:
-            let cell = tableView.dequeueReusableCell(withIdentifier: OfferAndSupportTableViewCell.reuseIdentifier, for: indexPath) as! OfferAndSupportTableViewCell
-            
-            if indexPath.row == 0 {
-                // Configure the cell for Cashback & Offers section
-                cell.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
-                cell.titleLabel.text = "Cashback & Offers"
-                cell.descriptionLabel.text = "View your points, discount card, and other offers"
-            }
-            else if indexPath.row == 1 {
-                // Configure the cell for 24x7 Help & Support section
-                cell.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
-                cell.titleLabel.text = "24x7 Help & Support"
-                cell.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
-            }
-            return cell
-            
         default:
-            var cell = UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: OfferAndSupportTableViewCell.reuseIdentifier, for: indexPath) as! OfferAndSupportTableViewCell
             return cell
         }
     }
