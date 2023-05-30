@@ -150,12 +150,7 @@ extension HomePageViewController: UITableViewDataSource {
 
     // function that returns total number of rows in section of a table view's cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0, 1, 2, 3, 4:
             return 1
-        default:
-            return 1
-        }
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -170,8 +165,8 @@ extension HomePageViewController: UITableViewDataSource {
         
         // Set the title label constraints
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -16),
+            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
             titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
             titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
         ])

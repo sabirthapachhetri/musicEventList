@@ -58,7 +58,7 @@ class BottomSheetViewController: UIViewController {
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         
         view.addSubview(bottomSheetView)
-        bottomSheetView.backgroundColor = .white
+        bottomSheetView.backgroundColor = viewBackgroundColor
         bottomSheetView.addSubview(titleLabel)
         bottomSheetView.addSubview(subTitleLabel)
         bottomSheetView.addSubview(cancelButton)
