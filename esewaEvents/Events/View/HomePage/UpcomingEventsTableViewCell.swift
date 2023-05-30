@@ -2,33 +2,18 @@ import UIKit
 
 class UpcomingEventsTableViewCell: UITableViewCell {
     
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var layout = UICollectionViewFlowLayout()
+    
     private let cellReuseIdentifier = "UpcomingEventsTableViewCell" // identifier for dequeuing collectionview cell and table view cells
     static let reuseIdentifier = "UpcomingEventsTableViewCell"      // identifier for registering and dequeuing table view cell
 
     var events: [UpcomingEventsDataModel]?            // data model of upcoming events
     var itemClicked: ((UpcomingEventsDataModel)->())? // closure definition for handling item click event
 
-    // Initialize collectionView
-    let collectionView: UICollectionView = {
-    let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 10
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .yellow
-        collectionView.showsHorizontalScrollIndicator = false
-        return collectionView
-    }()
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
         
-        // add the collectionView to the contentView
-        contentView.addSubview(collectionView)
-        
-        // function call
         setupCollectionView()
     }
 
@@ -37,11 +22,21 @@ class UpcomingEventsTableViewCell: UITableViewCell {
     }
 
     private func setupCollectionView() {
+        
+        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 10
+        collectionView.setCollectionViewLayout(layout, animated: false)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         
         collectionView.delegate = self     // current object handles events like item selection
         collectionView.dataSource = self   // current object provides data to populate the collection view and configure its cells
 
+        contentView.addSubview(collectionView)
+        
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

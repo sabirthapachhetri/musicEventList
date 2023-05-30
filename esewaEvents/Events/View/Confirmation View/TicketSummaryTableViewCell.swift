@@ -2,6 +2,14 @@ import UIKit
 
 class TicketSummaryTableViewCell: UITableViewCell {
     
+    let innerHstackView1 = UIStackView()
+    let innerHstackView2 = UIStackView()
+    let innerHstackView3 = UIStackView()
+    let innerHstackView5 = UIStackView()
+    let innerHstackView6 = UIStackView()
+    let innerHstackView7 = UIStackView()
+
+    
     static let reuseIdentifier = "TicketSummaryTableViewCell"
     
     var eventData: EmbeddedEvents?
@@ -92,23 +100,12 @@ class TicketSummaryTableViewCell: UITableViewCell {
         grandTotalPriceLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         grandTotalPriceLabel.textColor = UIColor.black
         grandTotalPriceLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let innerHstackView1 = UIStackView()
-        
-        let innerHstackView2 = UIStackView()
+                
         innerHstackView2.spacing = 140
-        
-        let innerHstackView3 = UIStackView()
         innerHstackView3.spacing = 145
-        
-        let innerHstackView5 = UIStackView()
         innerHstackView5.spacing = 182
-        
-        
-        let innerHstackView6 = UIStackView()
         innerHstackView6.spacing = 178
-        
-        let innerHstackView7 = UIStackView()
+    
         innerHstackView7.spacing = 166
         innerHstackView7.backgroundColor = UIColor(red: 235/255, green: 236/255, blue: 240/255, alpha: 1.0)
         innerHstackView7.layer.cornerRadius = 10
@@ -168,12 +165,12 @@ class TicketSummaryTableViewCell: UITableViewCell {
             innerHstackView7.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
             innerHstackView7.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 20),
             innerHstackView7.widthAnchor.constraint(equalToConstant: 350),
-            innerHstackView7.heightAnchor.constraint(equalToConstant: 35)
+            innerHstackView7.heightAnchor.constraint(equalToConstant: 35),
+            
         ])
     }
     
     func configure(with model: ConfirmationModel) {
-        
         ticketsSummaryLabel.text = "Tickets Summary (\(model.totalQuantity))"
 
         silverTicketLabel.text = "Silver Ticket X \(model.silverQuantity)"
@@ -181,12 +178,11 @@ class TicketSummaryTableViewCell: UITableViewCell {
 
         goldTicketLabel.text = "Gold Ticket X \(model.goldQuantity)"
         goldTicketPriceLabel.text = String(format: "$%.2f", model.goldPrice)
-        
+
         subtotalPriceLabel.text = String(format: "$%.2f", model.subTotal)
-        
+
         cashbackPriceLabel.text = String(format: "$%.2f", model.cashBack)
         grandTotalPriceLabel.text = String(format: "$%.2f     ", model.grandTotal)
     }
-
 }
 

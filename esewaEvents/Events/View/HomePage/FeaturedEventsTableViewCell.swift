@@ -27,7 +27,7 @@ class FeaturedEventsTableViewCell: UITableViewCell {
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = backgroundColor
+        collectionView.backgroundColor = viewBackgroundColor
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self

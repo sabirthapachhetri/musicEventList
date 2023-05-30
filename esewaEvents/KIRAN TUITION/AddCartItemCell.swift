@@ -1,10 +1,3 @@
-//
-//  AddCartItemCell.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 5/7/23.
-//
-
 import UIKit
 
 class AddCartItemCell: UITableViewCell {

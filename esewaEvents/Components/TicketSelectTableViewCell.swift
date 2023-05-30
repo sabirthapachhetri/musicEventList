@@ -39,7 +39,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         priceLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        priceLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        priceLabel.textColor = esewaGreenColor
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         decrementButton.setTitle("-", for: .normal)
