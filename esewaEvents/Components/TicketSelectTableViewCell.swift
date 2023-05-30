@@ -43,7 +43,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         decrementButton.setTitle("-", for: .normal)
-        decrementButton.setTitleColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), for: .normal)
+        decrementButton.setTitleColor(esewaGreenColor, for: .normal)
         decrementButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         decrementButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -57,7 +57,7 @@ class TicketSelectTableViewCell: UITableViewCell {
         quantityLabel.translatesAutoresizingMaskIntoConstraints = false
         
         incrementButton.setTitle("+", for: .normal)
-        incrementButton.setTitleColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), for: .normal)
+        incrementButton.setTitleColor(esewaGreenColor, for: .normal)
         incrementButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
         incrementButton.translatesAutoresizingMaskIntoConstraints = false
         

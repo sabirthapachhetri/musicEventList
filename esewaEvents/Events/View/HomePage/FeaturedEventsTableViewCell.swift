@@ -20,14 +20,14 @@ class FeaturedEventsTableViewCell: UITableViewCell {
     }
     
     private func setupViews(){
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        contentView.backgroundColor = viewBackgroundColor
         self.selectionStyle = .none
         
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        collectionView.backgroundColor = backgroundColor
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
@@ -111,7 +111,7 @@ class FeaturedEventCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        contentView.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
+        contentView.backgroundColor = contentBackgroundColor
         contentView.layer.cornerRadius = 40
 
         eventImageView.clipsToBounds = true
@@ -128,7 +128,7 @@ class FeaturedEventCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
 
         dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        dateLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        dateLabel.textColor = esewaGreenColor
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dateLabel)
 
@@ -193,7 +193,7 @@ class FeaturedEventCell: UICollectionViewCell {
         
         if isFavorite {
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            favoriteButton.tintColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+            favoriteButton.tintColor = esewaGreenColor
         } else {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
             favoriteButton.tintColor = .gray

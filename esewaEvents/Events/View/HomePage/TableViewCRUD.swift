@@ -19,7 +19,7 @@ class TableViewCRUD: UIViewController, UITableViewDataSource, UITableViewDelegat
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "CustomCell")
         view.addSubview(tableView)
                 
-        navigationController?.navigationBar.tintColor = UIColor.green
+        navigationController?.navigationBar.tintColor = esewaGreenColor
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPerson))
         navigationItem.rightBarButtonItem = addButton

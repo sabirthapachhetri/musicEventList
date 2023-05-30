@@ -52,7 +52,7 @@ class BottomSheetViewController: UIViewController {
         confirmButton.setTitle("Confirm", for: .normal)
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         confirmButton.setTitleColor(.white, for: .normal)
-        confirmButton.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        confirmButton.backgroundColor = esewaGreenColor
         confirmButton.layer.cornerRadius = 14
         confirmButton.clipsToBounds = true
         confirmButton.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)

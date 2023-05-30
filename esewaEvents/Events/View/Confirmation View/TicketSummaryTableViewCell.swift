@@ -77,11 +77,11 @@ class TicketSummaryTableViewCell: UITableViewCell {
         
         cashbackLabel.text = "   Cashback"
         cashbackLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        cashbackLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        cashbackLabel.textColor = esewaGreenColor
         cashbackLabel.translatesAutoresizingMaskIntoConstraints = false
         
         cashbackPriceLabel.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        cashbackPriceLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        cashbackPriceLabel.textColor = esewaGreenColor
         cashbackPriceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         grandTotalLabel.text = "   Grand Total"

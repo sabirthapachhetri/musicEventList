@@ -18,11 +18,11 @@ class ConfirmTableViewCell: UITableViewCell {
     }
     
     func setupViews() {
-        self.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        self.backgroundColor = grayColor
         confirmButton.setTitle("CONFIRM", for: .normal)
         confirmButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         confirmButton.setTitleColor(.white, for: .normal)
-        confirmButton.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        confirmButton.backgroundColor = esewaGreenColor
         confirmButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 50, bottom: 10, right: 50)
         confirmButton.layer.cornerRadius = confirmButton.frame.size.height / 2
         confirmButton.translatesAutoresizingMaskIntoConstraints = false

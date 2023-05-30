@@ -5,7 +5,7 @@ class TicketsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = UIColor.green
+        navigationController?.navigationBar.tintColor = esewaGreenColor
         
         // Set the background color of the view to white
         view.backgroundColor = .white

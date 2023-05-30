@@ -42,7 +42,7 @@ class TicketSectionHeaderView: UIView {
         priceRangeLabel.text = "($\(String(format: "%.2f", minPrice)) - $\(String(format: "%.2f", maxPrice)))"
         priceRangeLabel.font = UIFont.boldSystemFont(ofSize: 16)
         priceRangeLabel.translatesAutoresizingMaskIntoConstraints = false
-        priceRangeLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        priceRangeLabel.textColor = esewaGreenColor
         headerContainerView.addSubview(priceRangeLabel)
                 
         NSLayoutConstraint.activate([

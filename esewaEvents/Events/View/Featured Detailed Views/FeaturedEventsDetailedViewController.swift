@@ -13,7 +13,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        view.backgroundColor = grayColor
         tableView.layer.cornerRadius = 20
         tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         tableView.dataSource = self
@@ -32,7 +32,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
         coverImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let circleView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        circleView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        circleView.backgroundColor = esewaGreenColor
         circleView.layer.cornerRadius = 25
         circleView.layer.borderWidth = 1
         circleView.layer.borderColor = UIColor.white.cgColor
@@ -198,9 +198,9 @@ extension FeaturedEventsDetailedViewController: UITableViewDataSource {
             let bottomLineView = UIView()
 
             // Set the background color of the line views to the desired color
-            leftLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
-            rightLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
-            bottomLineView.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            leftLineView.backgroundColor = fadedGrayColor
+            rightLineView.backgroundColor = fadedGrayColor
+            bottomLineView.backgroundColor = fadedGrayColor
             
             leftLineView.layer.borderWidth = 0.1
             rightLineView.layer.borderWidth = 0.1

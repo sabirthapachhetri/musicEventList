@@ -97,23 +97,23 @@ class TabBarView: UIView {
     
     func updateButtonState() {
         // Update title color and image for each button based on selectedButton
-        eventButton.setTitleColor(selectedButton == 0 ? UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0) : .black, for: .normal)
-        ticketsButton.setTitleColor(selectedButton == 1 ? UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0) : .black, for: .normal)
-        offersButton.setTitleColor(selectedButton == 2 ? UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0) : .black, for: .normal)
+        eventButton.setTitleColor(selectedButton == 0 ? esewaGreenColor : .black, for: .normal)
+        ticketsButton.setTitleColor(selectedButton == 1 ? esewaGreenColor : .black, for: .normal)
+        offersButton.setTitleColor(selectedButton == 2 ? esewaGreenColor : .black, for: .normal)
         
-        eventButton.setImage(selectedButton == 0 ? UIImage(systemName: "calendar")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal) : UIImage(systemName: "calendar")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        ticketsButton.setImage(selectedButton == 1 ? UIImage(systemName: "ticket")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal) : UIImage(systemName: "ticket")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        offersButton.setImage(selectedButton == 2 ? UIImage(systemName: "gift")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal) : UIImage(systemName: "gift")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        eventButton.setImage(selectedButton == 0 ? UIImage(systemName: "calendar")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "calendar")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        ticketsButton.setImage(selectedButton == 1 ? UIImage(systemName: "ticket")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "ticket")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        offersButton.setImage(selectedButton == 2 ? UIImage(systemName: "gift")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "gift")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
 
         // Update frame and background color for the respective button when tapped using ternary operator
         eventButton.frame = selectedButton == 0 ? CGRect(x: 0, y: 0, width: 150, height: 50) : eventButton.frame
-        eventButton.backgroundColor = selectedButton == 0 ? UIColor(red: 217/255, green: 245/255, blue: 213/255, alpha: 1.0) : nil
+        eventButton.backgroundColor = selectedButton == 0 ? tabBarButtonColor : nil
 
         ticketsButton.frame = selectedButton == 1 ? CGRect(x: 0, y: 0, width: 150, height: 50) : ticketsButton.frame
-        ticketsButton.backgroundColor = selectedButton == 1 ? UIColor(red: 217/255, green: 245/255, blue: 213/255, alpha: 1.0) : nil
+        ticketsButton.backgroundColor = selectedButton == 1 ? tabBarButtonColor : nil
 
         offersButton.frame = selectedButton == 2 ? CGRect(x: 0, y: 0, width: 150, height: 50) : offersButton.frame
-        offersButton.backgroundColor = selectedButton == 2 ? UIColor(red: 217/255, green: 245/255, blue: 213/255, alpha: 1.0) : nil
+        offersButton.backgroundColor = selectedButton == 2 ? tabBarButtonColor : nil
 
         // Update alpha for title labels of buttons based on selectedButton
         eventButton.titleLabel?.alpha = selectedButton == 0 ? 1 : 0

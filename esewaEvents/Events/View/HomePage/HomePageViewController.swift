@@ -38,21 +38,21 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     private func setupViews() {
 
         // configure properties for greenView instance
-        greenView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        greenView.backgroundColor = esewaGreenColor
         greenView.frame = CGRect(x: 0, y: 0, width: 370, height: 100)
         greenView.layer.cornerRadius = 40
         greenView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         greenView.translatesAutoresizingMaskIntoConstraints = false
 
         // set view's background color
-        view.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        view.backgroundColor = viewBackgroundColor
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tabBarView.translatesAutoresizingMaskIntoConstraints = false
 
         // configure properties for tableView instance
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        tableView.backgroundColor = viewBackgroundColor
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self  // current object handles events like row selection
@@ -66,7 +66,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
 
         // configure naviagation properties
         navigationItem.title = "Events"
-        navigationController?.navigationBar.barTintColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        navigationController?.navigationBar.barTintColor = esewaGreenColor
         navigationController?.navigationBar.tintColor = .white
         
         tabBarView.didSelectViewController = { selectedIndex in
@@ -160,7 +160,7 @@ extension HomePageViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        headerView.backgroundColor = viewBackgroundColor
         
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.black

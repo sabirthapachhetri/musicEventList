@@ -40,7 +40,7 @@ class BuyTicketsView: UIView {
         totalPayingAmountValueLabel.text = "$0.00"
         
         upButton.setImage(UIImage(systemName: "chevron.up"), for: .normal)
-        upButton.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        upButton.backgroundColor = esewaGreenColor
         upButton.imageView?.contentMode = .scaleAspectFit
         upButton.tintColor = .white
         upButton.layer.cornerRadius = 22
@@ -50,7 +50,7 @@ class BuyTicketsView: UIView {
         buyTicketsButton.setTitle("BUY TICKETS", for: .normal)
         buyTicketsButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         buyTicketsButton.setTitleColor(.white, for: .normal)
-        buyTicketsButton.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        buyTicketsButton.backgroundColor = esewaGreenColor
         buyTicketsButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
         buyTicketsButton.layer.cornerRadius = 10
         buyTicketsButton.layer.masksToBounds = true
@@ -61,9 +61,9 @@ class BuyTicketsView: UIView {
         promoCodeButton.titleLabel?.textAlignment = .center
         promoCodeButton.backgroundColor = UIColor(red: 250/255, green: 245/255, blue: 245/255, alpha: 1.0)
         promoCodeButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
-        promoCodeButton.setTitleColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), for: .normal)
+        promoCodeButton.setTitleColor(esewaGreenColor, for: .normal)
         promoCodeButton.layer.borderWidth = 1
-        promoCodeButton.layer.borderColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0).cgColor
+        promoCodeButton.layer.borderColor = esewaGreenColor.cgColor
         promoCodeButton.layer.cornerRadius = 4
         promoCodeButton.layer.masksToBounds = true
         promoCodeButton.addTarget(self, action: #selector(didTapHavePromoCodeButton), for: .touchUpInside)

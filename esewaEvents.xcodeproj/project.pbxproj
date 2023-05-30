@@ -269,11 +269,11 @@
 			children = (
 				5C2320692A10A5A300316A20 /* HomePageViewController.swift */,
 				5CAC6BF82A23407800D4F46F /* TabBarView.swift */,
-				5CAC6BFA2A236D3300D4F46F /* TicketsViewController.swift */,
 				5C7E74D829EE62690085B610 /* UpcomingEventsTableViewCell.swift */,
 				5C6095E829EFB037000CA4ED /* FeaturedEventsTableViewCell.swift */,
 				5CEB0B362A19FA8B00308F34 /* VenuesTableViewCell.swift */,
 				5CC6B6F129F1319400FEA28C /* PerformerListingTableViewCell.swift */,
+				5CAC6BFA2A236D3300D4F46F /* TicketsViewController.swift */,
 				5C1F5DCC2A1DD6A60085DE60 /* TableViewPractise */,
 				5C94782829F8178F003C214C /* BottomSheetViewController.swift */,
 				5C32135929ED4BEE00413604 /* AdBannerTableViewCell.swift */,

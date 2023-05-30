@@ -18,7 +18,7 @@ class PerformerListingTableViewCell: UITableViewCell {
         }
 
     private func setupViews() {
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        contentView.backgroundColor = viewBackgroundColor
 
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: false)
@@ -87,7 +87,7 @@ class PerformerListingTableViewCell: UITableViewCell {
         override init(frame: CGRect) {
             super.init(frame: frame)
 
-            contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+            contentView.backgroundColor = backgroundColor
             contentView.layer.cornerRadius = 40
 
             eventImageView.contentMode = .scaleAspectFill
@@ -103,7 +103,7 @@ class PerformerListingTableViewCell: UITableViewCell {
             contentView.addSubview(nameLabel)
 
             eventsLabel.font = UIFont.systemFont(ofSize: 10, weight: .bold)
-            eventsLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+            eventsLabel.textColor = esewaGreenColor
             eventsLabel.textAlignment = .center
             eventsLabel.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(eventsLabel)

@@ -18,18 +18,18 @@ class ConfirmationPageViewController: UIViewController {
 
     private func setupViews() {
 
-        greenView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        greenView.backgroundColor = esewaGreenColor
         greenView.frame = CGRect(x: 0, y: 0, width: 370, height: 130)
 
         greenView.layer.cornerRadius = 60
         greenView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         greenView.translatesAutoresizingMaskIntoConstraints = false
 
-        view.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        view.backgroundColor = grayColor
         
         totalBalanceView.translatesAutoresizingMaskIntoConstraints = false
 
-        tableView.backgroundColor = UIColor(red: 237/255.0, green: 238/255.0, blue: 242/255.0, alpha: 1)
+        tableView.backgroundColor = grayColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

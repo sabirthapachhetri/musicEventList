@@ -109,10 +109,10 @@ class UpcomingEventCell: UICollectionViewCell {
     
     private func setupViews(){
         
-        contentView.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
+        contentView.backgroundColor = contentBackgroundColor
         contentView.layer.cornerRadius = 20
 
-        todayLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        todayLabel.textColor = esewaGreenColor
         todayLabel.font = UIFont.boldSystemFont(ofSize: 18)
         todayLabel.textAlignment = .left
         todayLabel.adjustsFontSizeToFitWidth = true

@@ -16,11 +16,11 @@ class OfferAndSupportView: UIView {
     }
     
     func setupViews() {
-        self.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        self.backgroundColor = viewBackgroundColor
         
         layer.cornerRadius = 15
         layer.masksToBounds = true
-        layer.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0).cgColor
+        layer.backgroundColor = contentBackgroundColor.cgColor
         translatesAutoresizingMaskIntoConstraints = false
         
         iconImageView.contentMode = .scaleAspectFit
@@ -75,16 +75,16 @@ class OfferAndSupportContainerView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
+        backgroundColor = contentBackgroundColor
         layer.cornerRadius = 20
         
-        cashbackView.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
+        cashbackView.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
         cashbackView.titleLabel.text = "Cashback & Offers"
         cashbackView.descriptionLabel.text = "View your points, discount card, and other offers"
         cashbackView.translatesAutoresizingMaskIntoConstraints = false
 
         
-        supportView.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), renderingMode: .alwaysOriginal)
+        supportView.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
         supportView.titleLabel.text = "24x7 Help & Support"
         supportView.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
         supportView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,7 +132,7 @@ class OfferAndSupportTableViewCell: UITableViewCell {
     private func setupViews() {
         self.selectionStyle = .none
         contentView.addSubview(offerAndSupportView)
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        contentView.backgroundColor = viewBackgroundColor
         
         offerAndSupportView.translatesAutoresizingMaskIntoConstraints = false
         

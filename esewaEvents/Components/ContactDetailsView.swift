@@ -58,7 +58,7 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             contactNameTextField = UITextField(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
             contactNameTextField.placeholder = "Enter Contact Name"
             contactNameTextField.textColor = .gray
-            contactNameTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            contactNameTextField.backgroundColor = fadedGrayColor
             contactNameTextField.font = UIFont.systemFont(ofSize: 16)
             contactNameTextField.layer.cornerRadius = 20
             contactNameTextField.layer.masksToBounds = true
@@ -72,7 +72,7 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             addSubview(contactNumberLabel)
 
             contactNumberTextField.placeholder = "Enter Contact No"
-            contactNumberTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            contactNumberTextField.backgroundColor = fadedGrayColor
             contactNumberTextField.layer.cornerRadius = 20
             contactNumberTextField.translatesAutoresizingMaskIntoConstraints = false
             addSubview(contactNumberTextField)
@@ -84,7 +84,7 @@ class ContactDetailsView: UIView, UITextFieldDelegate {
             addSubview(emailAddressLabel)
 
             emailAddressTextField.placeholder = "Enter Email Address"
-            emailAddressTextField.backgroundColor = UIColor(red: 245/255.0, green: 243/255.0, blue: 242/255.0, alpha: 1)
+            emailAddressTextField.backgroundColor = fadedGrayColor
             emailAddressTextField.layer.cornerRadius = 20
             emailAddressTextField.translatesAutoresizingMaskIntoConstraints = false
             addSubview(emailAddressTextField)

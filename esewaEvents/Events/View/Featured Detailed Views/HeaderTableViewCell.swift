@@ -20,9 +20,9 @@ class HeaderTableViewCell: UITableViewCell {
     var progressBarContainer = UIView()
     var bookingClosesLabel = UILabel()
 
-    var daysCircularProgressBar = CircularProgressBarView(maxValue: 365, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Days")
-    var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Hrs")
-    var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 0, progressColor: UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0), unitString: " Min")
+    var daysCircularProgressBar = CircularProgressBarView(maxValue: 365, value: 0, progressColor: esewaGreenColor, unitString: " Days")
+    var hoursCircularProgressBar = CircularProgressBarView(maxValue: 24, value: 0, progressColor: esewaGreenColor, unitString: " Hrs")
+    var minutesCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 0, progressColor: esewaGreenColor, unitString: " Min")
     var secondCircularProgressBar = CircularProgressBarView(maxValue: 60, value: 0, progressColor: UIColor(.red), unitString: " Sec")
     
     
@@ -52,7 +52,7 @@ class HeaderTableViewCell: UITableViewCell {
             
             bookingDateValueLabel = UILabel()
             bookingDateValueLabel.font = UIFont.boldSystemFont(ofSize: 10)
-            bookingDateValueLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+            bookingDateValueLabel.textColor = esewaGreenColor
             bookingDateValueLabel.translatesAutoresizingMaskIntoConstraints = false
             
             eventLabel = UILabel()
@@ -64,7 +64,7 @@ class HeaderTableViewCell: UITableViewCell {
             locationLabel.translatesAutoresizingMaskIntoConstraints = false
 
             tradeView = UIView(frame: CGRect(x: 0, y: 0, width: 80, height: 30))
-            tradeView.backgroundColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+            tradeView.backgroundColor = esewaGreenColor
             tradeView.layer.cornerRadius = 15
             tradeView.clipsToBounds = true
             tradeView.translatesAutoresizingMaskIntoConstraints = false

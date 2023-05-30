@@ -19,14 +19,14 @@ class VenuesTableViewCell: UITableViewCell {
     }
     
     private func setupViews(){
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        contentView.backgroundColor = viewBackgroundColor
         self.selectionStyle = .none
         
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        collectionView.backgroundColor = viewBackgroundColor
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
@@ -104,7 +104,7 @@ class VenuesCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        contentView.backgroundColor = UIColor(red: 233/255, green: 237/255, blue: 230/255, alpha: 1.0)
+        contentView.backgroundColor = contentBackgroundColor
         contentView.layer.cornerRadius = 40
 
         venueImageView.layer.cornerRadius = 40
@@ -127,7 +127,7 @@ class VenuesCell: UICollectionViewCell {
         contentView.addSubview(venueLocationLabel)
         
         upcomingEventsLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        upcomingEventsLabel.textColor = UIColor(red: 48/255, green: 219/255, blue: 65/255, alpha: 1.0)
+        upcomingEventsLabel.textColor = esewaGreenColor
         upcomingEventsLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(upcomingEventsLabel)
 
