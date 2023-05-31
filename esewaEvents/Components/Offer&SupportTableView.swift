@@ -1,9 +1,9 @@
 import UIKit
 
-class OfferAndSupportView: UIView {
+class OfferAndSupportButton: UIButton {
     
     var iconImageView = UIImageView()
-    var titleLabel = UILabel()
+    var offerAndSupportTitleLabel = UILabel()
     var descriptionLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -26,15 +26,15 @@ class OfferAndSupportView: UIView {
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 14)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        offerAndSupportTitleLabel.font = UIFont.boldSystemFont(ofSize: 14)
+        offerAndSupportTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         descriptionLabel.font = UIFont.systemFont(ofSize: 10)
         descriptionLabel.textColor = .gray
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(iconImageView)
-        addSubview(titleLabel)
+        addSubview(offerAndSupportTitleLabel)
         addSubview(descriptionLabel)
         
         NSLayoutConstraint.activate([
@@ -47,11 +47,11 @@ class OfferAndSupportView: UIView {
             iconImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             iconImageView.widthAnchor.constraint(equalToConstant: 30),
             
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            offerAndSupportTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            offerAndSupportTitleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
+            offerAndSupportTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            descriptionLabel.topAnchor.constraint(equalTo: offerAndSupportTitleLabel.bottomAnchor, constant: 5),
             descriptionLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
             descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
@@ -61,8 +61,8 @@ class OfferAndSupportView: UIView {
 
 class OfferAndSupportContainerView: UIView {
     
-    var cashbackView = OfferAndSupportView()
-    var supportView = OfferAndSupportView()
+    var cashbackButton = OfferAndSupportButton()
+    var supportButton = OfferAndSupportButton()
     var dividerView = UIView()
     
     override init(frame: CGRect) {
@@ -78,39 +78,51 @@ class OfferAndSupportContainerView: UIView {
         backgroundColor = contentBackgroundColor
         layer.cornerRadius = 20
         
-        cashbackView.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
-        cashbackView.titleLabel.text = "Cashback & Offers"
-        cashbackView.descriptionLabel.text = "View your points, discount card, and other offers"
-        cashbackView.translatesAutoresizingMaskIntoConstraints = false
-
+        cashbackButton.iconImageView.image = UIImage(systemName: "lasso.and.sparkles")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
+        cashbackButton.offerAndSupportTitleLabel.text = "Cashback & Offers"
+        cashbackButton.descriptionLabel.text = "View your points, discount card, and other offers"
+        cashbackButton.translatesAutoresizingMaskIntoConstraints = false
+        cashbackButton.addTarget(self, action: #selector(cashbackButtonTapped), for: .touchUpInside)
         
-        supportView.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
-        supportView.titleLabel.text = "24x7 Help & Support"
-        supportView.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
-        supportView.translatesAutoresizingMaskIntoConstraints = false
+        supportButton.iconImageView.image = UIImage(systemName: "message.circle")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal)
+        supportButton.offerAndSupportTitleLabel.text = "24x7 Help & Support"
+        supportButton.descriptionLabel.text = "Get quick resolution on queries related to eSewa"
+        supportButton.translatesAutoresizingMaskIntoConstraints = false
+        supportButton.addTarget(self, action: #selector(supportButtonTapped), for: .touchUpInside)
         
-        addSubview(cashbackView)
-        addSubview(supportView)
+        addSubview(cashbackButton)
+        addSubview(supportButton)
                 
         dividerView.backgroundColor = .systemGray
         addSubview(dividerView)
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            cashbackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            cashbackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            cashbackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            cashbackButton.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            cashbackButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            cashbackButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            dividerView.topAnchor.constraint(equalTo: cashbackView.bottomAnchor, constant: 10),
+            dividerView.topAnchor.constraint(equalTo: cashbackButton.bottomAnchor, constant: 10),
             dividerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             dividerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             dividerView.heightAnchor.constraint(equalToConstant: 0.5),
             
-            supportView.topAnchor.constraint(equalTo: cashbackView.bottomAnchor, constant: 20),
-            supportView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            supportView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            supportView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -20)
+            supportButton.topAnchor.constraint(equalTo: cashbackButton.bottomAnchor, constant: 20),
+            supportButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            supportButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            supportButton.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -20)
         ])
+    }
+    @objc func cashbackButtonTapped() {
+        print("cashbackButtonTapped")
+    }
+    
+    @objc func supportButtonTapped() {
+        let supportViewController = GetSupportViewController()
+        supportViewController.modalPresentationStyle = .pageSheet
+        // Present the GetSupportViewController
+        UIApplication.shared.keyWindow?.rootViewController?.present(supportViewController, animated: true, completion: nil)
+        print("supportButtonTapped")
     }
 }
 

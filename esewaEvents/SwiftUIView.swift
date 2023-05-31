@@ -4,74 +4,50 @@ struct SwiftUIView: View {
     @SwiftUI.State private var selectedButton: Int =  0
 
     var body: some View {
-        HStack {
+        VStack(alignment: .center) {
+            Image("support")
+            
             Button(action: {
-                selectedButton = 0
-                // Action for Calendar button
+
             }) {
                 HStack {
-                    Image(systemName: "calendar")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                    if selectedButton == 0 {
-                        Text("Event")
-                            .font(.caption)
-                    }
+                    Text("+")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                    Text("GET SUPPORT")
+                        .foregroundColor(.white)
+                        .font(.subheadline)
+                    
                 }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(80)
-
-            }
-            .padding(.leading, 50)
-            .foregroundColor(selectedButton == 0 ? .green : .black)
-
-            Spacer()
-
-            Button(action: {
-                selectedButton = 1
-                // Action for Tickets button
-            }) {
-                HStack {
-                    Image(systemName: "ticket")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                    if selectedButton == 1 {
-                        Text("Tickets")
-                            .font(.caption)
-                    }
-                }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(80)
+                .padding(10)
+                .background(Color.green)
+                .cornerRadius(20)
             }
             .padding()
-            .foregroundColor(selectedButton == 1 ? .green : .black)
+            
+            Text("You have not reported any issue!")
+                .foregroundColor(.gray)
+            Text("Get a support if you are facing any problem.")
+                .foregroundColor(.gray)
+                .padding(.bottom, 10)
 
-            Spacer()
-
-            Button(action: {
-                selectedButton = 2
-                // Action for Offers button
-            }) {
-                HStack {
-                    Image(systemName: "gift")
-                        .resizable()
-                        .frame(width: 18, height: 18)
-                    if selectedButton == 2 {
-                        Text("Offers")
-                            .font(.caption)
-                    }
-                }
+            Divider()
+            
+            Text("We have guidance to some of out generic in ")
+                .foregroundColor(.gray)
                 .padding()
-                .background(Color.white)
-                .cornerRadius(80)
+                .padding(.bottom, -10)
+            
+            Button(action: {
 
+            }) {
+                    Text("Help and FAQ")
+                        .foregroundColor(.green)
+                        .font(.headline)
             }
-            .padding(.trailing, 50)
-            .foregroundColor(selectedButton == 2 ? .green : .black)
         }
-        .background(Color.gray)
+        .padding(.leading, 10)
+        .padding(.trailing, 10)
     }
 }
 

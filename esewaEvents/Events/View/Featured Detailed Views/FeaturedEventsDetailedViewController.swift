@@ -3,6 +3,7 @@ import Kingfisher
 
 class FeaturedEventsDetailedViewController: UIViewController {
     
+    var coverImageView = UIImageView()
     var tableView = UITableView()
     var buyticketsView = BuyTicketsView()
     var ticketselect = TicketSelectTableViewCell()
@@ -22,8 +23,6 @@ class FeaturedEventsDetailedViewController: UIViewController {
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Image View
-        let coverImageView = UIImageView()
         if let url = URL(string: eventData?.images?.first?.url ?? "") {
             coverImageView.kf.setImage(with: url)
         }

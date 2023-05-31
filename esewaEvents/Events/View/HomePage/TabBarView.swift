@@ -79,7 +79,7 @@ class TabBarView: UIView {
         updateButtonState()
 
         print("Tickets button tapped")
-        didSelectViewController?(selectedButton)
+//        didSelectViewController?(selectedButton)
     }
 
     @objc func offersButtonTapped() {
@@ -87,7 +87,7 @@ class TabBarView: UIView {
         updateButtonState()
 
         print("Offers button tapped")
-        didSelectViewController?(selectedButton)
+//        didSelectViewController?(selectedButton)
     }
     
     func reset() {
@@ -96,28 +96,33 @@ class TabBarView: UIView {
     }
     
     func updateButtonState() {
-        // Update title color and image for each button based on selectedButton
-        eventButton.setTitleColor(selectedButton == 0 ? esewaGreenColor : .black, for: .normal)
-        ticketsButton.setTitleColor(selectedButton == 1 ? esewaGreenColor : .black, for: .normal)
-        offersButton.setTitleColor(selectedButton == 2 ? esewaGreenColor : .black, for: .normal)
-        
-        eventButton.setImage(selectedButton == 0 ? UIImage(systemName: "calendar")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "calendar")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        ticketsButton.setImage(selectedButton == 1 ? UIImage(systemName: "ticket")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "ticket")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
-        offersButton.setImage(selectedButton == 2 ? UIImage(systemName: "gift")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "gift")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        UIView.transition(with: eventButton, duration: 0.3, options: .transitionFlipFromLeft, animations: {
+            // self is required because we are accessing instance properties of the class within closure
 
-        // Update frame and background color for the respective button when tapped using ternary operator
-        eventButton.frame = selectedButton == 0 ? CGRect(x: 0, y: 0, width: 150, height: 50) : eventButton.frame
-        eventButton.backgroundColor = selectedButton == 0 ? tabBarButtonColor : nil
+            // Update title color and image for each button based on selectedButton
+            self.eventButton.setTitleColor(self.selectedButton == 0 ? esewaGreenColor : .black, for: .normal)
+            self.ticketsButton.setTitleColor(self.selectedButton == 1 ? esewaGreenColor : .black, for: .normal)
+            self.offersButton.setTitleColor(self.selectedButton == 2 ? esewaGreenColor : .black, for: .normal)
 
-        ticketsButton.frame = selectedButton == 1 ? CGRect(x: 0, y: 0, width: 150, height: 50) : ticketsButton.frame
-        ticketsButton.backgroundColor = selectedButton == 1 ? tabBarButtonColor : nil
+            self.eventButton.setImage(self.selectedButton == 0 ? UIImage(systemName: "calendar")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "calendar")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+            self.ticketsButton.setImage(self.selectedButton == 1 ? UIImage(systemName: "ticket")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "ticket")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
 
-        offersButton.frame = selectedButton == 2 ? CGRect(x: 0, y: 0, width: 150, height: 50) : offersButton.frame
-        offersButton.backgroundColor = selectedButton == 2 ? tabBarButtonColor : nil
+            self.offersButton.setImage(self.selectedButton == 2 ? UIImage(systemName: "gift")?.withTintColor(esewaGreenColor, renderingMode: .alwaysOriginal) : UIImage(systemName: "gift")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
 
-        // Update alpha for title labels of buttons based on selectedButton
-        eventButton.titleLabel?.alpha = selectedButton == 0 ? 1 : 0
-        ticketsButton.titleLabel?.alpha = selectedButton == 1 ? 1 : 0
-        offersButton.titleLabel?.alpha = selectedButton == 2 ? 1 : 0
+            // Update frame and background color for the respective button when tapped using ternary operator
+            self.eventButton.frame = self.selectedButton == 0 ? CGRect(x: 0, y: 0, width: 150, height: 50) : self.eventButton.frame
+            self.eventButton.backgroundColor = self.selectedButton == 0 ? tabBarButtonColor : nil
+
+            self.ticketsButton.frame = self.selectedButton == 1 ? CGRect(x: 0, y: 0, width: 150, height: 50) : self.ticketsButton.frame
+            self.ticketsButton.backgroundColor = self.selectedButton == 1 ? tabBarButtonColor : nil
+
+            self.offersButton.frame = self.selectedButton == 2 ? CGRect(x: 0, y: 0, width: 150, height: 50) : self.offersButton.frame
+            self.offersButton.backgroundColor = self.selectedButton == 2 ? tabBarButtonColor : nil
+
+            // Update alpha for title labels of buttons based on selectedButton
+            self.eventButton.titleLabel?.alpha = self.selectedButton == 0 ? 1 : 0
+            self.ticketsButton.titleLabel?.alpha = self.selectedButton == 1 ? 1 : 0
+            self.offersButton.titleLabel?.alpha = self.selectedButton == 2 ? 1 : 0
+        }, completion: nil)
     }
 }
