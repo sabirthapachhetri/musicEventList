@@ -97,6 +97,7 @@ class RedeemCodeViewController: UIViewController, UITextFieldDelegate {
             cancelImage.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
+    
     // dismiss the keyboard when "return" key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -108,6 +109,6 @@ class RedeemCodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func applyButtonTapped() {
-
+        
     }
 }

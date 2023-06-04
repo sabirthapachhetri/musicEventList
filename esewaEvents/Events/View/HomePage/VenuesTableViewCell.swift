@@ -87,11 +87,6 @@ extension VenuesTableViewCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-        let destinationVC = TableViewCRUD()
-                        
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-            navigationController.pushViewController(destinationVC, animated: true)
-        }
     }
 }
 

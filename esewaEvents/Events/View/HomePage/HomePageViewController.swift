@@ -10,6 +10,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     var tabBarView = TabBarView()
 
     var presenter: EventsDataPresenter?  // presenter for handling events
+    
     var eventsData: EventsDataModel? // data model for events
     var venuesData: VenuesModel? // data model for venues
     var performersData: PerformersModel?  // data model for performers
@@ -34,7 +35,6 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         tabBarView.reset()
     }
 
-
     private func setupViews() {
 
         // configure properties for greenView instance
@@ -55,7 +55,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         tableView.backgroundColor = viewBackgroundColor
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self  // current object handles events like row selection
+        tableView.delegate = self   // current object handles events like row selection
         tableView.dataSource = self // current object provides data to populate the table view and configure its cells
 
         // add subviews to main view
@@ -197,7 +197,6 @@ extension HomePageViewController: UITableViewDataSource {
         
         return headerView
     }
-
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.layer.zPosition = -1 // Move the header view behind the table view cells
@@ -269,7 +268,7 @@ extension HomePageViewController: UITableViewDataSource {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             return cell
-
+            
         case 3:
             // dequeue a reusable cell and assign it as instance of NewEventsTableViewCell for use in the table view
             let cell = tableView.dequeueReusableCell(withIdentifier: VenuesTableViewCell.reuseIdentifier, for: indexPath) as! VenuesTableViewCell

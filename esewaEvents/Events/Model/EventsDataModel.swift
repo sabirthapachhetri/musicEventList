@@ -44,8 +44,7 @@ struct EmbeddedEvents {
         
         self.embedded = InnerEmbedded(json: json["_embedded"])
         
-        self.sales = Sales(json: json["sales"])
-        
+        self.sales = Sales(json: json["sales"])        
     }
 }
 

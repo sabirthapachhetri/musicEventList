@@ -2,7 +2,9 @@ import UIKit
 
 class TicketSectionHeaderView: UIView {
 
-    let headerContainerView = UIView()
+    var headerContainerView = UIView()
+    var titleLabel = UILabel()
+    var priceRangeLabel = UILabel()
     
     var eventData: EmbeddedEvents?
     
@@ -30,13 +32,11 @@ class TicketSectionHeaderView: UIView {
         
         
         // create the titleLabel and add it to the headerContainerView
-        let titleLabel = UILabel()
         titleLabel.text = "Phase Fest"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         headerContainerView.addSubview(titleLabel)
         
-        let priceRangeLabel = UILabel()
         let minPrice = eventData?.priceRanges?.first?.min ?? 0
         let maxPrice = eventData?.priceRanges?.first?.max ?? 0
         priceRangeLabel.text = "($\(String(format: "%.2f", minPrice)) - $\(String(format: "%.2f", maxPrice)))"

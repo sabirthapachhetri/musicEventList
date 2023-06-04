@@ -4,7 +4,7 @@ class BuyTicketsView: UIView {
     
     var eventData: EmbeddedEvents?
     
-    var buttonClicked: (() -> Void)?
+    var buttonClicked: (() -> ())?
     
     var containerView = UIView()
     var totalPayingAmountLabel = UILabel()
