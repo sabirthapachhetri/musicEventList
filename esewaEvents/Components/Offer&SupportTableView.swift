@@ -115,14 +115,18 @@ class OfferAndSupportContainerView: UIView {
     }
     @objc func cashbackButtonTapped() {
         print("cashbackButtonTapped")
+        let vc = RedeemCodeViewController()
+        vc.modalPresentationStyle = .pageSheet
+        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+        
     }
     
     @objc func supportButtonTapped() {
         let supportViewController = GetSupportViewController()
         supportViewController.modalPresentationStyle = .pageSheet
-        // Present the GetSupportViewController
+        supportViewController.preferredContentSize = CGSize(width: 400, height: 200)
+
         UIApplication.shared.keyWindow?.rootViewController?.present(supportViewController, animated: true, completion: nil)
-        print("supportButtonTapped")
     }
 }
 

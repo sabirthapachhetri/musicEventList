@@ -18,7 +18,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // functions call
+        // setup function call
         setupViews()
         
         // create instance of EventsPresenter class and call methods
@@ -68,6 +68,11 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         navigationItem.title = "Events"
         navigationController?.navigationBar.barTintColor = esewaGreenColor
         navigationController?.navigationBar.tintColor = .white
+        
+        // Add the bell button to the navigation bar
+        let bellButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(bellButtonTapped))
+        bellButton.tintColor = .black
+        navigationItem.rightBarButtonItem = bellButton
         
         tabBarView.didSelectViewController = { selectedIndex in
             switch selectedIndex {
@@ -136,6 +141,10 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     func didFetchPerformersModel(with model: PerformersModel?) {
         performersData = model
         tableView.reloadData()
+    }
+    
+    @objc private func bellButtonTapped() {
+        print("Tapped")
     }
 }
 

@@ -1,11 +1,5 @@
-//
-//  AppDelegate.swift
-//  esewaEvents
-//
-//  Created by Sabir's MacBook on 4/11/23.
-//
-
 import UIKit
+import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

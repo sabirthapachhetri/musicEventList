@@ -23,6 +23,8 @@ class VenuesTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         
         layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -36,7 +38,7 @@ class VenuesTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -68,8 +70,11 @@ extension VenuesTableViewCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! VenuesCell
         
         if let item = venues?[indexPath.row] {
+            cell.hideSkeleton()
             cell.configure(model: item)    // call func to setup the collection view cell data
-        } 
+        } else {
+            cell.showSkeleton()
+        }
         return cell
     }
     
@@ -101,6 +106,7 @@ class VenuesCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        setSkeleton()
     }
     
     private func setupViews() {
@@ -149,6 +155,23 @@ class VenuesCell: UICollectionViewCell {
             upcomingEventsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             upcomingEventsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
+    }
+    
+    private func setSkeleton() {
+        
+        contentView.isSkeletonable = true
+        contentView.skeletonCornerRadius = 40
+        contentView.showAnimatedGradientSkeleton()
+    }
+
+    // Show the skeleton view
+    func showSkeleton() {
+        contentView.showSkeleton()
+    }
+
+    // Hide the skeleton view
+    func hideSkeleton() {
+        contentView.hideSkeleton()
     }
     
     required init?(coder: NSCoder) {

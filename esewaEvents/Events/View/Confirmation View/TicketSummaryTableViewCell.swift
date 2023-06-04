@@ -9,7 +9,6 @@ class TicketSummaryTableViewCell: UITableViewCell {
     let innerHstackView6 = UIStackView()
     let innerHstackView7 = UIStackView()
 
-    
     static let reuseIdentifier = "TicketSummaryTableViewCell"
     
     var eventData: EmbeddedEvents?
@@ -182,6 +181,7 @@ class TicketSummaryTableViewCell: UITableViewCell {
         subtotalPriceLabel.text = String(format: "$%.2f", model.subTotal)
 
         cashbackPriceLabel.text = String(format: "$%.2f", model.cashBack)
+        
         grandTotalPriceLabel.text = String(format: "$%.2f     ", model.grandTotal)
     }
 }

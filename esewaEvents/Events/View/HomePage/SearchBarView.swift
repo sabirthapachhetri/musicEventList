@@ -4,7 +4,7 @@ class SearchBarView: UIView, UITextFieldDelegate {
     
     var searchTextField = UITextField()
     var magnifyingGlassImageView = UIImageView()
-    
+        
     init() {
         super.init(frame: .zero)
         setupViews()

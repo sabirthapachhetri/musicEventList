@@ -9,17 +9,13 @@ class CircularProgressBarView: MBCircularProgressBarView {
     var customUnitString: String
     
     init(maxValue: CGFloat, value: CGFloat, progressColor: UIColor, unitString: String) {
+        
         self.customMaxValue = maxValue
         self.customValue = value
         self.customProgressColor = progressColor
         self.customUnitString = unitString
         
         super.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-        
-        self.maxValue = maxValue
-        self.value = value
-        self.progressColor = progressColor
-        self.unitString = unitString
         
         self.emptyLineStrokeColor = .systemGray
         self.layer.borderWidth = 0
@@ -30,6 +26,7 @@ class CircularProgressBarView: MBCircularProgressBarView {
         self.unitString = unitString
         self.valueFontSize = 16
         self.unitFontSize = 8
+        self.progressColor = progressColor
         self.fontColor = UIColor.black
         self.backgroundColor = UIColor.white
         

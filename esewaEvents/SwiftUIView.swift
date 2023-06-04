@@ -1,53 +1,45 @@
 import SwiftUI
 
 struct SwiftUIView: View {
-    @SwiftUI.State private var selectedButton: Int =  0
-
+    @SwiftUI.State var promoCode: String = ""
+    
     var body: some View {
-        VStack(alignment: .center) {
-            Image("support")
+        VStack(alignment: .leading) {
+            
+            Text("Redeem Code")
+                .font(.system(size: 24, weight: .semibold))
+                .padding(.bottom)
+            
+            Text("Please enter the coupon that you have recieved upon completion of milestone to claim your reward.")
+                .font(.system(size: 16))
+                .foregroundColor(.gray)
+                .padding(.bottom)
+            
+            TextField("Enter your promo code", text: $promoCode)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+                .padding(.bottom, 30)
             
             Button(action: {
 
             }) {
                 HStack {
-                    Text("+")
+                    Spacer()
+                    Text("Apply")
                         .foregroundColor(.white)
                         .font(.headline)
-                    Text("GET SUPPORT")
-                        .foregroundColor(.white)
-                        .font(.subheadline)
-                    
+                    Spacer()
                 }
-                .padding(10)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.green)
                 .cornerRadius(20)
             }
-            .padding()
-            
-            Text("You have not reported any issue!")
-                .foregroundColor(.gray)
-            Text("Get a support if you are facing any problem.")
-                .foregroundColor(.gray)
-                .padding(.bottom, 10)
-
-            Divider()
-            
-            Text("We have guidance to some of out generic in ")
-                .foregroundColor(.gray)
-                .padding()
-                .padding(.bottom, -10)
-            
-            Button(action: {
-
-            }) {
-                    Text("Help and FAQ")
-                        .foregroundColor(.green)
-                        .font(.headline)
-            }
         }
-        .padding(.leading, 10)
-        .padding(.trailing, 10)
+        .padding()
+        .frame(width: .infinity, height: 370)
+        .cornerRadius(20)
     }
 }
 

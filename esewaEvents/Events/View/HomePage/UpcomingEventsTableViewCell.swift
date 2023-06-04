@@ -23,10 +23,11 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 
     private func setupCollectionView() {
         
-        contentView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        contentView.backgroundColor = viewBackgroundColor
         
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20) 
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -38,7 +39,7 @@ class UpcomingEventsTableViewCell: UITableViewCell {
         contentView.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -126,6 +127,7 @@ class UpcomingEventCell: UICollectionViewCell {
         contentView.addSubview(dateLabel)
 
         NSLayoutConstraint.activate([
+            
             todayLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             todayLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             todayLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
