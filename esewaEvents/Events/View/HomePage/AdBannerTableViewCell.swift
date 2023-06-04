@@ -21,12 +21,12 @@ class AdBannerTableViewCell: UITableViewCell {
     private func setupCollectionView() {
 
         layout.scrollDirection = .horizontal
-
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isPagingEnabled = true
-        collectionView.backgroundColor = UIColor(red: 207/255.0, green: 227/255.0, blue: 193/255.0, alpha: 1)
+        collectionView.isPagingEnabled = false
+        collectionView.backgroundColor = viewBackgroundColor
 
         // Set the dataSource and delegate of the collectionView
         collectionView.dataSource = self
@@ -52,7 +52,7 @@ class AdBannerTableViewCell: UITableViewCell {
 extension AdBannerTableViewCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -88,7 +88,7 @@ class EventCell: UICollectionViewCell {
         contentView.addSubview(bannerImageView)
 
         NSLayoutConstraint.activate([
-            bannerImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            bannerImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             bannerImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bannerImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             bannerImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),

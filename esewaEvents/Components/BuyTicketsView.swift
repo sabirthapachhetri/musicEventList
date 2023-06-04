@@ -104,7 +104,7 @@ class BuyTicketsView: UIView {
             buyTicketsButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor, constant: 120),
             buyTicketsButton.widthAnchor.constraint(equalToConstant: 160),
             
-            promoCodeButton.topAnchor.constraint(equalTo: totalPayingAmountValueLabel.bottomAnchor, constant: 15),
+            promoCodeButton.topAnchor.constraint(equalTo: totalPayingAmountValueLabel.bottomAnchor, constant: 45),
             promoCodeButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
         ])
     }

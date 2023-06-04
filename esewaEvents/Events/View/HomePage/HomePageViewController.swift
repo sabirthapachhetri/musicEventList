@@ -89,30 +89,26 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
 
         NSLayoutConstraint.activate([
             
-            // pin greenView on top of the main screen
-            greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            greenView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            greenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -100),
             greenView.heightAnchor.constraint(equalToConstant: 130),
             
-            // pin searchBar to the main screen
-            searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
+            searchBar.topAnchor.constraint(equalTo: greenView.bottomAnchor, constant: -25),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             
-            // pin tableView to the main screen
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 110),
-            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: -10),
             
-            // pin tabBarView to the main screen's footer
-            tabBarView.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
             tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             tabBarView.heightAnchor.constraint(equalToConstant: 50)
         ])
+
 
         // register custom cell classes for use in the tableView, and allow table view to dequeue and reuse these cells
         tableView.register(AdBannerTableViewCell.self, forCellReuseIdentifier: AdBannerTableViewCell.reuseIdentifier)
@@ -124,8 +120,8 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
     }
 
     func didFetchUpcomingModel(with eventList: [UpcomingEventsDataModel]) {
-        upcomingEventsData = eventList // assign the fetched model to the upcomingEventsData property
-        tableView.reloadData()         // reload the table view to reflect the updated data
+        upcomingEventsData = eventList  // assign the fetched model to the upcomingEventsData property
+        tableView.reloadData()          // reload the table view to reflect the updated data
     }
 
     func didFetchEventsModel(with model: EventsDataModel?) {

@@ -43,17 +43,17 @@ class ConfirmationPageViewController: UIViewController {
         NSLayoutConstraint.activate([
             greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            greenView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            greenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -100),
             greenView.heightAnchor.constraint(equalToConstant: 130),
             
             totalBalanceView.heightAnchor.constraint(equalToConstant: 70),
-            totalBalanceView.topAnchor.constraint(equalTo: view.topAnchor, constant: 55),
+            totalBalanceView.topAnchor.constraint(equalTo: greenView.bottomAnchor, constant: -25),
             totalBalanceView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             totalBalanceView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
+            tableView.topAnchor.constraint(equalTo: totalBalanceView.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
         ])

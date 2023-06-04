@@ -163,7 +163,7 @@ class TicketSummaryTableViewCell: UITableViewCell {
             innerHstackView7.topAnchor.constraint(equalTo: container.topAnchor, constant: 210),
             innerHstackView7.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
             innerHstackView7.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 20),
-            innerHstackView7.widthAnchor.constraint(equalToConstant: 350),
+            innerHstackView7.widthAnchor.constraint(equalToConstant: 340),
             innerHstackView7.heightAnchor.constraint(equalToConstant: 35),
             
         ])

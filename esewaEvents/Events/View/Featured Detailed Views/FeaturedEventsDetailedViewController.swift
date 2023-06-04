@@ -60,7 +60,7 @@ class FeaturedEventsDetailedViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
             
             circleView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: -8),
             circleView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 4),
