@@ -40,8 +40,8 @@ class ConfirmTableViewCell: UITableViewCell {
     @objc func confirmButtonAction() {
         let confirmationAlert = UIAlertController(title: "Confirmation", message: "Are you sure you want to proceed with the purchase?", preferredStyle: .alert)
         
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { [weak self] (_) in
-            self?.showSuccessAlert()
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in 
+            self.showSuccessAlert()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

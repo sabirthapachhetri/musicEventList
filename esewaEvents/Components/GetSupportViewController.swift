@@ -9,7 +9,6 @@ class GetSupportViewController: UIViewController {
     var divider = UIView()
     var guidanceLabel = UILabel()
     var helpButton = UIButton(type: .system)
-
     
     override func viewDidLoad() {
         super.viewDidLoad()

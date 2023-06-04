@@ -24,7 +24,7 @@ class RedeemCodeViewController: UIViewController, UITextFieldDelegate {
         redeemCodeBottomSheetView.backgroundColor = viewBackgroundColor
         redeemCodeBottomSheetView.translatesAutoresizingMaskIntoConstraints = false
         redeemCodeBottomSheetView.layer.cornerRadius = 20
-
+        
         titleLabel.text = "Redeem Code"
         titleLabel.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -123,6 +123,11 @@ class BuyTicketsView: UIView {
         }
     }
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let convertedPoint = convert(point, to: containerView)
+        return containerView.point(inside: convertedPoint, with: event)
+    }
+    
     @objc func didTapUpButton() {
         if isViewUp {
             // move the BuyTicketsView back to the original position
@@ -148,6 +153,5 @@ class BuyTicketsView: UIView {
     
     @objc func didTapHavePromoCodeButton() {
         print("HOLA")
-        promoCodeButton.layer.borderColor = UIColor.red.cgColor
     }
 }

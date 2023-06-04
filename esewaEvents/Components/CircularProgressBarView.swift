@@ -17,6 +17,11 @@ class CircularProgressBarView: MBCircularProgressBarView {
         
         super.init(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
         
+        self.progressColor = progressColor
+        self.maxValue = maxValue
+        self.value = value
+        self.unitString = unitString
+        
         self.emptyLineStrokeColor = .systemGray
         self.layer.borderWidth = 0
         self.progressLineWidth = 5
