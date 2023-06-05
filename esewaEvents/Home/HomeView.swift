@@ -1,14 +1,25 @@
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeView : UIView {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupViews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        initViews()
     }
     
-    private func setupViews() { }
-
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initViews()
+    }
+    
+    private func initViews () {
+        addViews()
+    }
+    
+    private func addViews () {
+        
+    }
+    
 }
+
 

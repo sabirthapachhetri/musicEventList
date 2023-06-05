@@ -101,11 +101,11 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: -10),
+            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: 5),
             
             tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
             tabBarView.heightAnchor.constraint(equalToConstant: 50)
         ])
 
