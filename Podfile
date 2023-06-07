@@ -12,4 +12,7 @@ pod 'Kingfisher', '~> 7.0'
 pod 'MBCircularProgressBar', '~> 0.3'
 pod 'IQKeyboardManagerSwift'
 pod 'SkeletonView'
+pod 'Firebase/Analytics'
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
 end
