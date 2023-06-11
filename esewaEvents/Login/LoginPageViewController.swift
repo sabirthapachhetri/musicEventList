@@ -1,7 +1,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 
-class LoginPageViewController: UIViewController, UITextFieldDelegate {
+class LoginPageViewController: UIViewController, UITextFieldDelegate, UserLoginViewDelegate {
     
     var emailTextField = UITextField()
     var passwordTextField = UITextField()
@@ -13,16 +13,19 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
     var signInLabel = UILabel()
     var emailLabel = UILabel()
     var passwordLabel = UILabel()
+    
+    var presenter: LoginPresenter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         navigationItem.title = "Login"
         
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
         setupViews()
-
+        
+        presenter = LoginPresenter(delegate: self, viewController: self)
     }
     
     private func setupViews() {
@@ -131,6 +134,15 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
+    func didRegister() {
+        print("Registered Succesfully")
+    }
+    
+    func didLogin() {
+        let homeVC = HomePageViewController()
+        self.navigationController?.pushViewController(homeVC, animated: true)
+    }
+    
     // dismiss the keyboard when "return" key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -138,36 +150,17 @@ class LoginPageViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func loginAction() {
-        let loginManager = FirebaseAuthManager()
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
-        loginManager.signIn(email: email, pass: password) { [weak self] (success) in
-            guard let self = self else { return }
-            var message: String = ""
-            if success {
-                message = "User was successfully logged in."
-                
-                let homeVC = HomePageViewController()
-                self.navigationController?.pushViewController(homeVC, animated: true)
-            } else {
-                message = "There was an error."
-            }
-            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        }
+        
+        presenter?.login(email: email, password: password)
     }
     
     @objc private func registerButtonTapped() {
-        print("Hey")
         
         let register = RegistrationViewController()
         register.modalPresentationStyle = .pageSheet
         register.preferredContentSize = CGSize(width: 400, height: 200)
 
         present(register, animated: true, completion: nil)
-    }
-    
-    @objc private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
     }
 }

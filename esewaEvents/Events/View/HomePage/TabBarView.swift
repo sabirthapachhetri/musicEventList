@@ -79,7 +79,7 @@ class TabBarView: UIView {
         updateButtonState()
 
         print("Tickets button tapped")
-//        didSelectViewController?(selectedButton)
+        didSelectViewController?(selectedButton)
     }
 
     @objc func offersButtonTapped() {

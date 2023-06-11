@@ -2,7 +2,7 @@ import UIKit
 import IQKeyboardManagerSwift
 import FirebaseAuth
 
-class RegistrationViewController: UIViewController, UITextFieldDelegate {
+class RegistrationViewController: UIViewController, UITextFieldDelegate, UserLoginViewDelegate {
     
     var emailTextField = UITextField()
     var passwordTextField = UITextField()
@@ -12,16 +12,17 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     var signInLabel = UILabel()
     var emailLabel = UILabel()
     var passwordLabel = UILabel()
+    
+    var presenter: LoginPresenter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        navigationItem.title = "Registration"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
-        
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 10
         setupViews()
+        
+        presenter = LoginPresenter(delegate: self, viewController: self)
     }
     
     private func setupViews() {
@@ -119,21 +120,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func didRegister() {
+        print("Registered Succesfully")
+    }
+    
+    func didLogin() {
+        print("Logged In Succesfully")
+    }
+    
     @objc private func registerAction() {
-        let signUpManager = FirebaseAuthManager()
-            if let email = emailTextField.text, let password = passwordTextField.text {
-                signUpManager.createUser(email: email, password: password) {[weak self] (success) in
-                    guard let `self` = self else { return }
-                    var message: String = ""
-                    if (success) {
-                        message = "User was sucessfully created."
-                    } else {
-                        message = "There was an error."
-                    }
-                    let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        presenter?.register(email: email, password: password)
     }
 }

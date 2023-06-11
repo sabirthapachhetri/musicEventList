@@ -15,4 +15,6 @@ pod 'SkeletonView'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
+pod 'Firebase/Database'
+pod 'CryptoSwift', '~> 1.7.1'
 end

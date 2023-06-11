@@ -30,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:287019698127:ios:b4b0dbdc61986aabb734ba</string>
+	<key>DATABASE_URL</key>
+	<string>https://musiceventslist-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

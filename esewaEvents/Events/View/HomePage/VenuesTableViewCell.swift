@@ -10,6 +10,8 @@ class VenuesTableViewCell: UITableViewCell {
     
     var venues: [VenuesData]?
     
+    var navigationController: UINavigationController?
+    
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     var layout = UICollectionViewFlowLayout()
     

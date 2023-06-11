@@ -77,7 +77,7 @@ class HomePageViewController: UIViewController, EventsDataViewDelegate {
         tabBarView.didSelectViewController = { selectedIndex in
             switch selectedIndex {
             case 1:
-                let vc = TicketsViewController()
+                let vc = TableViewCRUD()
                 self.navigationController?.pushViewController(vc, animated: true)
             case 2:
                 let vc = TicketsViewController()
