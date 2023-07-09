@@ -1,7 +1,11 @@
 import Foundation
 import SwiftyJSON
 
-struct EventsDataModel {
+protocol DataModel {
+    init(json: JSON)
+}
+
+struct EventsDataModel: DataModel {
     var embedded: Embedded?
     
     init(json: JSON) {
@@ -10,16 +14,16 @@ struct EventsDataModel {
 }
 
 struct Embedded {
-    var events: [EmbeddedEvents]?
+    var events: [Events]?
 
     init(json: JSON) {
         self.events = json["events"].arrayValue.map { // for array
-            EmbeddedEvents(json: $0)
+            Events(json: $0)
         }
     }
 }
 
-struct EmbeddedEvents {
+struct Events {
     var name: String?
     var images: [EventsImages]?
     var dates: Dates?

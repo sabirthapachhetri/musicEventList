@@ -1,296 +1,99 @@
-
 import UIKit
+import Kingfisher
 
-class HomePageViewController: UIViewController, EventsDataViewDelegate {
+class HomePageViewController: BaseViewController, DataPresenterDelegate {
     
-    // creating required instances
-    var greenView = UIView()
     var tableView = UITableView()
-    var searchBar = SearchBarView()
-    var tabBarView = TabBarView()
-
-    var presenter: EventsDataPresenter?  // presenter for handling events
     
-    var eventsData: EventsDataModel? // data model for events
-    var venuesData: VenuesModel? // data model for venues
-    var performersData: PerformersModel?  // data model for performers
-    var upcomingEventsData: [UpcomingEventsDataModel]?   // data model for upcoming events
-
+    var presenter: EventsDataPresenter?
+    var eventsData: EventsDataModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // setup function call
         setupViews()
-        
-        // create instance of EventsPresenter class and call methods
-        presenter = EventsDataPresenter(delegate: self) // create communication between presenter and HomeViewController
+        initializePresenter()
+    }
+}
+
+// MARK: - Initialization and View Setup
+
+extension HomePageViewController {
+    
+    private func initializePresenter() {
+        presenter = EventsDataPresenter(delegate: self)
         presenter?.fetchEvents()
-        presenter?.fetchVenues()
-        presenter?.fetchPerformers()
-        presenter?.fetchupcomingEvents()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarView.reset()
-    }
-
     private func setupViews() {
-
-        // configure properties for greenView instance
-        greenView.backgroundColor = esewaGreenColor
-        greenView.frame = CGRect(x: 0, y: 0, width: 370, height: 100)
-        greenView.layer.cornerRadius = 40
-        greenView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        greenView.translatesAutoresizingMaskIntoConstraints = false
-
-        // set view's background color
-        view.backgroundColor = viewBackgroundColor
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        tabBarView.translatesAutoresizingMaskIntoConstraints = false
-
-        // configure properties for tableView instance
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = viewBackgroundColor
-        tableView.showsVerticalScrollIndicator = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.delegate = self   // current object handles events like row selection
-        tableView.dataSource = self // current object provides data to populate the table view and configure its cells
-
-        // add subviews to main view
-        view.addSubview(greenView)
-        view.addSubview(searchBar)
+        configureTableView(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
-        view.addSubview(tabBarView)
-
-        // configure naviagation properties
-        navigationItem.title = "Events"
-        navigationController?.navigationBar.barTintColor = esewaGreenColor
-        navigationController?.navigationBar.tintColor = .white
+        configureNavigationBar(withTitle: "Events")
         
-        // Add the bell button to the navigation bar
-        let bellButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: self, action: #selector(bellButtonTapped))
-        bellButton.tintColor = .black
-        navigationItem.rightBarButtonItem = bellButton
-        
-        tabBarView.didSelectViewController = { selectedIndex in
-            switch selectedIndex {
-            case 1:
-                let vc = TableViewCRUD()
-                self.navigationController?.pushViewController(vc, animated: true)
-            case 2:
-                let vc = TicketsViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            default:
-                break
-            }
-        }
-
         NSLayoutConstraint.activate([
-            
-            greenView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            greenView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            greenView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -100),
-            greenView.heightAnchor.constraint(equalToConstant: 130),
-            
-            searchBar.topAnchor.constraint(equalTo: greenView.bottomAnchor, constant: -25),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: tabBarView.topAnchor, constant: 5),
-            
-            tabBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            tabBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            tabBarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
-            tabBarView.heightAnchor.constraint(equalToConstant: 50)
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-
-
-        // register custom cell classes for use in the tableView, and allow table view to dequeue and reuse these cells
-        tableView.register(AdBannerTableViewCell.self, forCellReuseIdentifier: AdBannerTableViewCell.reuseIdentifier)
-        tableView.register(UpcomingEventsTableViewCell.self, forCellReuseIdentifier: UpcomingEventsTableViewCell.reuseIdentifier)
-        tableView.register(FeaturedEventsTableViewCell.self, forCellReuseIdentifier: FeaturedEventsTableViewCell.reuseIdentifier)
-        tableView.register(VenuesTableViewCell.self, forCellReuseIdentifier: VenuesTableViewCell.reuseIdentifier)
-        tableView.register(PerformerListingTableViewCell.self, forCellReuseIdentifier: PerformerListingTableViewCell.reuseIdentifier)
-        tableView.register(OfferAndSupportTableViewCell.self, forCellReuseIdentifier: OfferAndSupportTableViewCell.reuseIdentifier)
-    }
-
-    func didFetchUpcomingModel(with eventList: [UpcomingEventsDataModel]) {
-        upcomingEventsData = eventList  // assign the fetched model to the upcomingEventsData property
-        tableView.reloadData()          // reload the table view to reflect the updated data
-    }
-
-    func didFetchEventsModel(with model: EventsDataModel?) {
-        eventsData = model     // assign the fetched model to eventsData property
-        tableView.reloadData() // reload the table view to reflect the updated data
-    }
-
-    func didFetchVenuesModel(with model: VenuesModel?) {
-        venuesData = model
-        tableView.reloadData()
-    }
-
-    func didFetchPerformersModel(with model: PerformersModel?) {
-        performersData = model
-        tableView.reloadData()
-    }
-    
-    @objc private func bellButtonTapped() {
-        print("Tapped")
+        
+        tableView.register(FeaturedEventCell.self, forCellReuseIdentifier: FeaturedEventCell.reuseIdentifier)
     }
 }
 
-// extension of HomePageViewController that conforms to UITableViewDataSource
-// that provides data to populate and configure its cells
-extension HomePageViewController: UITableViewDataSource {
+// MARK: - DataPresenterDelegate
 
-    // function that returns total of number of sections in our table view
+extension HomePageViewController {
+    
+    func didFetchDataModel<T>(with model: T?) where T: DataModel {
+        if let eventsModel = model as? EventsDataModel {
+            self.eventsData = eventsModel
+            tableView.reloadData()
+        }
+    }
+    
+    func loginSuccess() {
+        let alertController = UIAlertController(title: "Success", message: "Login successful", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func loginFailure(error: Error) {
+        let alertController = UIAlertController(title: "Failure", message: "Login failed", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UITableViewDataSource and UITableViewDelegate
+
+extension HomePageViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 1
     }
-
-    // function that returns total number of rows in section of a table view's cell
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = viewBackgroundColor
-        
-        let titleLabel = UILabel()
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerView.addSubview(titleLabel)
-        
-        // Set the title label constraints
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
-            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 8),
-            titleLabel.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8)
-        ])
-        
-        switch section {
-        case 0:
-            titleLabel.text = ""
-        case 1:
-            titleLabel.text = "Upcoming Events"
-        case 2:
-            titleLabel.text = "🔥 Featured Events"
-        case 3:
-            titleLabel.text = "📍 Explore Venues"
-        case 4:
-            titleLabel.text = "🎙️ Performers"
-        default:
-            titleLabel.text = ""
-        }
-        
-        return headerView
+        return eventsData?.embedded?.events?.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.layer.zPosition = -1 // Move the header view behind the table view cells
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return CGFloat.leastNonzeroMagnitude// Return a value close to zero to remove any space for section 0
-        case 1,2,3,4:
-            return 35
-        default:
-            return CGFloat.leastNonzeroMagnitude
-        }
-    }
-
-    // function that provides a cell for a specific row in a table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-
-        case 0:
-            // dequeue a reusable cell and assign it as instance of AdBannerTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: AdBannerTableViewCell.reuseIdentifier, for: indexPath) as! AdBannerTableViewCell
-            return cell
-
-        case 1:
-            // dequeue a reusable cell and assign it as instance of UpcomingEventsTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: UpcomingEventsTableViewCell.reuseIdentifier, for: indexPath) as! UpcomingEventsTableViewCell
-
-            // check if upcomingEventsData array is not nil
-            if let model = upcomingEventsData {
-
-                // pass model to setupViewWithData() defined on the UpcomingEventsTableViewCell
-                cell.setupViewWithData(model: model)
-            }
-
-            // closure implementation when the item is clicked in UpcomingEventsTableViewCell
-            cell.itemClicked = { item in
-
-                // create instance of BottomSheetViewController, assign clicked item to events property
-                // and configure properties for vc instance
-                let vc = BottomSheetViewController()
-                vc.events = item
-                vc.modalPresentationStyle = .pageSheet
-                vc.preferredContentSize.height = 50
-                self.present(vc, animated: true)
-            }
-
-            return cell
-
-        case 2:
-            // dequeue a reusable cell and assign it as instance of FeaturedEventsTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: FeaturedEventsTableViewCell.reuseIdentifier, for: indexPath) as! FeaturedEventsTableViewCell
-
-            // check of eventsData is not nil and access the events property
-            if let model = eventsData?.embedded?.events {
-
-                // pass model to setupViewWithData() defined on the FeaturedEventsTableViewCell
-                cell.setupViewWithData(model: model)
-            }
-
-            // call itemClicked closure when item is clicked in the cell
-            cell.itemClicked = { item in
-
-                // create instance of FeaturedEventsDetailedViewController
-                // and assign clicked item to eventData property
-                let vc = FeaturedEventsDetailedViewController()
-                vc.eventData = item
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            return cell
-            
-        case 3:
-            // dequeue a reusable cell and assign it as instance of NewEventsTableViewCell for use in the table view
-            let cell = tableView.dequeueReusableCell(withIdentifier: VenuesTableViewCell.reuseIdentifier, for: indexPath) as! VenuesTableViewCell
-
-            if let model = venuesData?.embeddedVenues?.venues {
-                cell.setupViewWithData(model: model)
-            }
-
-            return cell
-
-        case 4:
-            let cell = tableView.dequeueReusableCell(withIdentifier: PerformerListingTableViewCell.reuseIdentifier, for: indexPath) as! PerformerListingTableViewCell
-            if let model = performersData?.embeddedPerformers?.attractions {
-                cell.setupViewWithData(model: model)
-            }
-            return cell
-            
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: OfferAndSupportTableViewCell.reuseIdentifier, for: indexPath) as! OfferAndSupportTableViewCell
-            return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FeaturedEventCell.reuseIdentifier, for: indexPath) as! FeaturedEventCell
+        
+        if let item = eventsData?.embedded?.events?[indexPath.row] {
+            cell.configure(with: item)
         }
+        
+        return cell
     }
-}
-
-extension HomePageViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if let item = eventsData?.embedded?.events?[indexPath.row] {
+            let viewController = FeaturedEventsDetailedViewController()
+            viewController.eventData = item
+            pushToViewController(viewController)
+        }
     }
 }
